@@ -2,6 +2,7 @@ name: dart_kiota
 description: "Kiota abstractions for Dart."
 version: 0.0.1
 homepage:
+publish_to: 'none'
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -10,6 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  std_uri_template:
+    git:
+      url: git@github.com:ricardoboss/std-uritemplate.git
+      ref: languages/dart
+      path: dart/
 
 dev_dependencies:
   flutter_test:
