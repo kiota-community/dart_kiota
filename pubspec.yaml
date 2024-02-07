@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  std_uri_template:
+  std_uritemplate:
     git:
       url: git@github.com:ricardoboss/std-uritemplate.git
       ref: languages/dart
@@ -22,6 +22,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  mockito: ^5.4.4
+  build_runner: ^2.4.8
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

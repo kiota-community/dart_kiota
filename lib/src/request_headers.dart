@@ -1,9 +1,9 @@
 part of dart_kiota;
 
 class RequestHeaders implements Map<String, String> {
-  final Map<String, String> _headers = const {};
+  final Map<String, String> _headers = {};
 
-  const RequestHeaders();
+  RequestHeaders();
 
   @override
   String? operator [](Object? key) => _headers[key];
@@ -15,7 +15,8 @@ class RequestHeaders implements Map<String, String> {
   void addAll(Map<String, String> other) => _headers.addAll(other);
 
   @override
-  void addEntries(Iterable<MapEntry<String, String>> newEntries) => _headers.addEntries(newEntries);
+  void addEntries(Iterable<MapEntry<String, String>> newEntries) =>
+      _headers.addEntries(newEntries);
 
   @override
   Map<RK, RV> cast<RK, RV>() => _headers.cast<RK, RV>();
@@ -33,7 +34,8 @@ class RequestHeaders implements Map<String, String> {
   Iterable<MapEntry<String, String>> get entries => _headers.entries;
 
   @override
-  void forEach(void Function(String key, String value) action) => _headers.forEach(action);
+  void forEach(void Function(String key, String value) action) =>
+      _headers.forEach(action);
 
   @override
   bool get isEmpty => _headers.isEmpty;
@@ -48,22 +50,29 @@ class RequestHeaders implements Map<String, String> {
   int get length => _headers.length;
 
   @override
-  Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> Function(String key, String value) convert) => _headers.map(convert);
+  Map<K2, V2> map<K2, V2>(
+          MapEntry<K2, V2> Function(String key, String value) convert) =>
+      _headers.map(convert);
 
   @override
-  String putIfAbsent(String key, String Function() ifAbsent) => _headers.putIfAbsent(key, ifAbsent);
+  String putIfAbsent(String key, String Function() ifAbsent) =>
+      _headers.putIfAbsent(key, ifAbsent);
 
   @override
   String? remove(Object? key) => _headers.remove(key);
 
   @override
-  void removeWhere(bool Function(String key, String value) test) => _headers.removeWhere(test);
+  void removeWhere(bool Function(String key, String value) test) =>
+      _headers.removeWhere(test);
 
   @override
-  String update(String key, String Function(String value) update, {String Function()? ifAbsent}) => _headers.update(key, update, ifAbsent: ifAbsent);
+  String update(String key, String Function(String value) update,
+          {String Function()? ifAbsent}) =>
+      _headers.update(key, update, ifAbsent: ifAbsent);
 
   @override
-  void updateAll(String Function(String key, String value) update) => _headers.updateAll(update);
+  void updateAll(String Function(String key, String value) update) =>
+      _headers.updateAll(update);
 
   @override
   Iterable<String> get values => _headers.values;

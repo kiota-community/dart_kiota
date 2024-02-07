@@ -1,8 +1,8 @@
 library dart_kiota;
 
 import 'dart:collection';
-import 'dart:typed_data';
-import 'package:std_uri_template/std_uri_template.dart';
+
+import 'package:std_uritemplate/std_uritemplate.dart';
 
 part 'src/method.dart';
 part 'src/request_headers.dart';
