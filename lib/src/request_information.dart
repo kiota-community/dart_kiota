@@ -40,7 +40,7 @@ class RequestInformation {
   RequestHeaders get headers => _headers;
 
   /// The request body.
-  Stream<int> content = const Stream.empty();
+  Stream<int> content = const Stream<int>.empty();
 
   final Map<String, RequestOption> _requestOptions = {};
 
