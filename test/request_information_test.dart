@@ -1,6 +1,6 @@
 import 'package:dart_kiota/dart_kiota.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
+import 'package:test/test.dart';
 
 import 'request_information_test.mocks.dart';
 
