@@ -101,16 +101,16 @@ extension RequestInformationExtensions on RequestInformation {
     final writer = _getSerializationWriter(requestAdapter, contentType, item);
 
     switch (item) {
-      case final String string:
-        writer.writeStringValue(null, string);
-      case final bool bool:
-        writer.writeBoolValue(null, value: bool);
-      case final int int:
-        writer.writeIntValue(null, int);
-      case final double double:
-        writer.writeDoubleValue(null, double);
-      case final DateTime dateTime:
-        writer.writeDateTimeValue(null, dateTime);
+      case final String s:
+        writer.writeStringValue(null, s);
+      case final bool b:
+        writer.writeBoolValue(null, value: b);
+      case final int i:
+        writer.writeIntValue(null, i);
+      case final double d:
+        writer.writeDoubleValue(null, d);
+      case final DateTime t:
+        writer.writeDateTimeValue(null, t);
       case null:
         writer.writeNullValue(null);
       default:
