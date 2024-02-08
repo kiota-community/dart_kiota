@@ -62,11 +62,11 @@ class RequestInformation {
       return _rawUri!;
     }
 
-    if (urlTemplate == null) {
+    final url = urlTemplate;
+    if (url == null) {
       throw ArgumentError('urlTemplate');
     }
 
-    final url = urlTemplate!;
     if (url.contains('{+baseurl}') && !pathParameters.containsKey('baseurl')) {
       throw ArgumentError(
         'pathParameters must contain a value for "baseurl" for the url to be built.',
