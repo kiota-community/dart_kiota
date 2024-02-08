@@ -1,4 +1,4 @@
-part of '../../dart_kiota.dart';
+part of '../../kiota_abstractions.dart';
 
 abstract class SerializationWriter {
   /// Writes the specified string value to the stream with an optional given

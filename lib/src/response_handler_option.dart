@@ -1,4 +1,4 @@
-part of '../dart_kiota.dart';
+part of '../kiota_abstractions.dart';
 
 /// Defines the [RequestOption] for holding a [ResponseHandler].
 class ResponseHandlerOption implements RequestOption {

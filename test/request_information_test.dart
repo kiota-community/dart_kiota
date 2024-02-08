@@ -2,7 +2,7 @@
 
 import 'dart:typed_data';
 
-import 'package:dart_kiota/dart_kiota.dart';
+import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:mockito/annotations.dart';
 import 'package:test/test.dart';
 

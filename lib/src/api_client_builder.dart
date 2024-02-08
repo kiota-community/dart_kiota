@@ -1,4 +1,4 @@
-part of '../dart_kiota.dart';
+part of '../kiota_abstractions.dart';
 
 /// Provides a builder for creating an ApiClient and register the default
 /// serializers/deserializers.

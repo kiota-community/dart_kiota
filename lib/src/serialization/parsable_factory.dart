@@ -1,4 +1,4 @@
-part of '../../dart_kiota.dart';
+part of '../../kiota_abstractions.dart';
 
 /// Defines the factory for creating parsable objects. The [node] used to get
 /// the discriminator value from the payload.

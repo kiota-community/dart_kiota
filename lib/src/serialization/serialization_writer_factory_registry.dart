@@ -1,4 +1,4 @@
-part of '../../dart_kiota.dart';
+part of '../../kiota_abstractions.dart';
 
 /// This factory holds a list of all the registered factories for the various
 /// types of nodes.

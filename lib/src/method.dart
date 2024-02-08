@@ -1,4 +1,4 @@
-part of '../dart_kiota.dart';
+part of '../kiota_abstractions.dart';
 
 /// Represents the HTTP method used by a request.
 enum Method {

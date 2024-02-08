@@ -1,4 +1,4 @@
-part of '../../dart_kiota.dart';
+part of '../../kiota_abstractions.dart';
 
 /// Interface for a deserialization node in a parse tree. This interface
 /// provides an abstraction layer over serialization formats, libraries and

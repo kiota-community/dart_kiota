@@ -1,4 +1,4 @@
-library dart_kiota;
+library kiota_abstractions;
 
 import 'dart:async';
 import 'dart:collection';

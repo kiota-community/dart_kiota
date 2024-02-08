@@ -1,4 +1,4 @@
-part of '../dart_kiota.dart';
+part of '../kiota_abstractions.dart';
 
 /// Represents a multipart body for a request or a response
 class MultipartBody implements Parsable {

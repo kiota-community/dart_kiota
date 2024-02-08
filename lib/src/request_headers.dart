@@ -1,4 +1,4 @@
-part of '../dart_kiota.dart';
+part of '../kiota_abstractions.dart';
 
 class RequestHeaders implements Map<String, String> {
   RequestHeaders();

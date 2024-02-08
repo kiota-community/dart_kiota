@@ -1,4 +1,4 @@
-part of '../../dart_kiota.dart';
+part of '../../kiota_abstractions.dart';
 
 /// Extension methods for the [Map] class.
 extension<K, V> on Map<K, V> {

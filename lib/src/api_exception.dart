@@ -1,4 +1,4 @@
-part of '../dart_kiota.dart';
+part of '../kiota_abstractions.dart';
 
 /// Parent type for exceptions thrown by the client when receiving failed
 /// responses to its requests.

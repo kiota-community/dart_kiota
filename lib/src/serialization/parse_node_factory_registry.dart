@@ -1,4 +1,4 @@
-part of '../../dart_kiota.dart';
+part of '../../kiota_abstractions.dart';
 
 /// A regex that matches any sequence of characters that are not a forward slash
 /// followed by a plus sign.

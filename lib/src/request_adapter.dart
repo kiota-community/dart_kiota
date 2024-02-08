@@ -1,4 +1,4 @@
-part of '../dart_kiota.dart';
+part of '../kiota_abstractions.dart';
 
 /// Service responsible for translating abstract [RequestInformation] into
 /// concrete native HTTP requests.

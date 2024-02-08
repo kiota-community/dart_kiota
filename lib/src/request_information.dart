@@ -1,4 +1,4 @@
-part of '../dart_kiota.dart';
+part of '../kiota_abstractions.dart';
 
 /// This class represents an abstract HTTP request.
 class RequestInformation {

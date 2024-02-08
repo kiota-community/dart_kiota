@@ -1,4 +1,4 @@
-part of '../dart_kiota.dart';
+part of '../kiota_abstractions.dart';
 
 // ignore: one_member_abstracts
 abstract class ResponseHandler {

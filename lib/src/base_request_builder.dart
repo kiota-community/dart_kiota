@@ -1,4 +1,4 @@
-part of '../dart_kiota.dart';
+part of '../kiota_abstractions.dart';
 
 /// Base class for all request builders.
 abstract class BaseRequestBuilder {
