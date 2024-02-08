@@ -1,6 +1,6 @@
 name: kiota_abstractions
 description: "Kiota abstractions for Dart."
-version: 0.0.1
+version: 0.0.1-dev.1
 homepage: https://github.com/ricardoboss/dart_kiota_abstractions
 publish_to: 'none'
 
