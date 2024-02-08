@@ -1,3 +1,9 @@
+/// Every project generated via [Kiota](https://github.com/microsoft/kiota)
+/// needs an abstractions library to provide the necessary interfaces and
+/// abstractions to interact with the generated code.
+///
+/// This library is not meant to be used directly, but rather to be used as a
+/// dependency in the generated code.
 library kiota_abstractions;
 
 import 'dart:async';

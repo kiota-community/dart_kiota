@@ -1,5 +1,6 @@
 part of '../../kiota_abstractions.dart';
 
+/// Defines the contract for serialization of objects to a [Uint8List].
 abstract class SerializationWriter {
   /// Writes the specified string value to the stream with an optional given
   /// [key].

@@ -1,5 +1,6 @@
 part of '../../kiota_abstractions.dart';
 
+/// Adds extension methods to the [RequestInformation] class.
 extension RequestInformationExtensions on RequestInformation {
   static const contentTypeHeader = 'Content-Type';
 
