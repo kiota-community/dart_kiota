@@ -22,7 +22,8 @@ extension RequestInformationExtensions on RequestInformation {
     addRequestOption(option);
   }
 
-  /// Sets the content of the request including the content type header.
+  /// Sets the content of the request to the provided stream by converting it to
+  /// a list of bytes first.
   Future<void> setStreamContent(
     Stream<int> content, [
     String contentType = 'application/octet-stream',
@@ -34,6 +35,8 @@ extension RequestInformationExtensions on RequestInformation {
     headers.tryAdd(contentTypeHeader, contentType);
   }
 
+  /// Sets the content of the request to the provided collection of parsable
+  /// objects.
   void setContentFromParsableCollection<T extends Parsable>(
     RequestAdapter requestAdapter,
     String contentType,
@@ -47,6 +50,7 @@ extension RequestInformationExtensions on RequestInformation {
     content = writer.getSerializedContent();
   }
 
+  /// Sets the content of the request to the provided parsable object.
   void setContentFromParsable<T extends Parsable>(
     RequestAdapter requestAdapter,
     String contentType,
@@ -80,6 +84,8 @@ extension RequestInformationExtensions on RequestInformation {
         .getSerializationWriter(contentType);
   }
 
+  /// Sets the content of the request to the provided collection of scalar
+  /// values.
   void setContentFromScalarCollection<T>(
     RequestAdapter requestAdapter,
     String contentType,
@@ -93,6 +99,7 @@ extension RequestInformationExtensions on RequestInformation {
     content = writer.getSerializedContent();
   }
 
+  /// Sets the content of the request to the provided scalar value.
   void setContentFromScalar<T>(
     RequestAdapter requestAdapter,
     String contentType,
