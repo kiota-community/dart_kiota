@@ -33,7 +33,11 @@ From the comment at: https://github.com/microsoft/kiota/issues/2199#issuecomment
 - [x] Parse node interface
 - [x] Request adapter interface
 
-Things other abstractions have, but this doesn't:
+Things other abstractions have, but this one doesn't:
 
 - [ ] Backing stores
 - [ ] Authentication
+- [ ] JSON serialization/deserialization
+- [ ] Form data serialization/deserialization
+
+These could be added in the future or by other packages.
