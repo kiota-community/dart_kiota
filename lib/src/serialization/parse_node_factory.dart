@@ -5,6 +5,6 @@ abstract class ParseNodeFactory {
   /// Returns the content type this factory's parse nodes can deserialize.
   String get validContentType;
 
-  /// Create a parse node from the given stream and content type.
-  ParseNode getRootParseNode(String contentType, Stream<int> content);
+  /// Create a parse node from the given bytes and content type.
+  ParseNode getRootParseNode(String contentType, Uint8List content);
 }

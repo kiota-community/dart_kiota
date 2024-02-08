@@ -26,7 +26,7 @@ class ParseNodeFactoryRegistry implements ParseNodeFactory {
       );
 
   @override
-  ParseNode getRootParseNode(String contentType, Stream<int> content) {
+  ParseNode getRootParseNode(String contentType, Uint8List content) {
     if (contentType.isEmpty) {
       throw ArgumentError('The content type cannot be empty.');
     }
