@@ -40,7 +40,7 @@ abstract class ParseNode {
   T? getObjectValue<T extends Parsable>(ParsableFactory<T> factory);
 
   /// Gets the byte array value of the node.
-  Uint8List getByteArrayValue();
+  Uint8List? getByteArrayValue();
 
   /// Callback called before the node is deserialized.
   void Function(Parsable)? onBeforeAssignFieldValues;
