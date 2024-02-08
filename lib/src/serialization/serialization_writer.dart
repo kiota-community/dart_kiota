@@ -67,11 +67,11 @@ abstract class SerializationWriter {
   Stream<int> getSerializedContent();
 
   /// Callback called before the serialization process starts.
-  Parsable Function()? onBeforeObjectSerialization;
+  void Function(Parsable)? onBeforeObjectSerialization;
 
   /// Callback called after the serialization process ends.
-  Parsable Function()? onAfterObjectSerialization;
+  void Function(Parsable)? onAfterObjectSerialization;
 
   /// Callback called right after the serialization process starts.
-  Parsable Function(SerializationWriter)? onStartObjectSerialization;
+  void Function(Parsable, SerializationWriter)? onStartObjectSerialization;
 }
