@@ -29,7 +29,7 @@ from the package authors, and more.
 
 From the comment at: https://github.com/microsoft/kiota/issues/2199#issuecomment-1772865549
 
-- [ ] Request information class
-- [ ] Serialization writer interface
-- [ ] Parse node interface
-- [ ] Request adapter interface
+- [x] Request information class
+- [x] Serialization writer interface
+- [x] Parse node interface
+- [x] Request adapter interface
