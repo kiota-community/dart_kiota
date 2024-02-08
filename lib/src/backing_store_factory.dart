@@ -1,4 +1,3 @@
-part of dart_kiota;
+part of '../dart_kiota.dart';
 
-abstract class BackingStoreFactory {
-}
+abstract class BackingStoreFactory {}

@@ -1,4 +1,4 @@
-part of dart_kiota;
+part of '../../dart_kiota.dart';
 
 /// Interface for a deserialization node in a parse tree. This interface
 /// provides an abstraction layer over serialization formats, libraries and
@@ -29,7 +29,9 @@ abstract class ParseNode {
   Iterable<T> getCollectionOfEnumValues<T extends Enum>();
 
   /// Gets the collection of model object values of the node.
-  Iterable<T> getCollectionOfObjectValues<T extends Parsable>(ParsableFactory<T> factory);
+  Iterable<T> getCollectionOfObjectValues<T extends Parsable>(
+    ParsableFactory<T> factory,
+  );
 
   /// Gets the enum value of the node.
   T? getEnumValue<T extends Enum>();

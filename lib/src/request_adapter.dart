@@ -1,4 +1,4 @@
-part of dart_kiota;
+part of '../dart_kiota.dart';
 
 /// Service responsible for translating abstract [RequestInformation] into
 /// concrete native HTTP requests.
@@ -36,7 +36,6 @@ abstract class RequestAdapter {
   /// Executes the HTTP request specified by the given [RequestInformation] and
   /// returns the deserialized primitive response model.
   ///
-  /// The [factory] is used to deserialize the response model.
   /// The error factories [errorMapping] is used in case of a failed request.
   Future<ModelType?> sendPrimitive<ModelType>(
     RequestInformation requestInfo, [

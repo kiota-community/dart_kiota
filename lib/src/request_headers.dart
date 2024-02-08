@@ -1,9 +1,9 @@
-part of dart_kiota;
+part of '../dart_kiota.dart';
 
 class RequestHeaders implements Map<String, String> {
-  final Map<String, String> _headers = {};
-
   RequestHeaders();
+
+  final Map<String, String> _headers = {};
 
   @override
   String? operator [](Object? key) => _headers[key];
@@ -51,7 +51,8 @@ class RequestHeaders implements Map<String, String> {
 
   @override
   Map<K2, V2> map<K2, V2>(
-          MapEntry<K2, V2> Function(String key, String value) convert) =>
+    MapEntry<K2, V2> Function(String key, String value) convert,
+  ) =>
       _headers.map(convert);
 
   @override
@@ -66,8 +67,11 @@ class RequestHeaders implements Map<String, String> {
       _headers.removeWhere(test);
 
   @override
-  String update(String key, String Function(String value) update,
-          {String Function()? ifAbsent}) =>
+  String update(
+    String key,
+    String Function(String value) update, {
+    String Function()? ifAbsent,
+  }) =>
       _headers.update(key, update, ifAbsent: ifAbsent);
 
   @override

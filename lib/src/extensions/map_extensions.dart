@@ -1,12 +1,12 @@
-part of dart_kiota;
+part of '../../dart_kiota.dart';
 
 /// Extension methods for the [Map] class.
-extension <K, V> on Map<K, V> {
+extension<K, V> on Map<K, V> {
   /// Adds a new key-value pair to the map if the key does not exist.
   ///
   /// Returns `true` if the key was added, `false` otherwise.
   bool tryAdd(K key, V value) {
-    if (this.containsKey(key)) {
+    if (containsKey(key)) {
       return false;
     }
 

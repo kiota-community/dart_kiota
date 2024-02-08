@@ -1,6 +1,6 @@
-part of dart_kiota;
+part of '../dart_kiota.dart';
 
-/// Provides a builder for creating an [ApiClient] and register the default
+/// Provides a builder for creating an ApiClient and register the default
 /// serializers/deserializers.
 class ApiClientBuilder {
   const ApiClientBuilder._();

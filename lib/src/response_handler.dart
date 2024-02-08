@@ -1,5 +1,6 @@
-part of dart_kiota;
+part of '../dart_kiota.dart';
 
+// ignore: one_member_abstracts
 abstract class ResponseHandler {
   /// Callback method that is invoked when a response is received.
   /// The [response] is the native response object.

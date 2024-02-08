@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'package:dart_kiota/dart_kiota.dart';
 import 'package:mockito/annotations.dart';
 import 'package:test/test.dart';
@@ -12,11 +14,11 @@ void main() {
     final blank = RequestInformation();
     expect(blank.httpMethod, null);
     expect(blank.urlTemplate, null);
-    expect(blank.pathParameters, {});
-    expect(blank.queryParameters, {});
+    expect(blank.pathParameters, <String, dynamic>{});
+    expect(blank.queryParameters, <String, dynamic>{});
     expect(blank.headers, RequestHeaders());
     expect(blank.content, const Stream<int>.empty());
-    expect(blank.requestOptions, []);
+    expect(blank.requestOptions, <RequestOption>[]);
 
     expect(() => blank.uri, throwsArgumentError);
   });
@@ -40,8 +42,7 @@ void main() {
     // Arrange
     final testRequest = RequestInformation(
       httpMethod: Method.get,
-    );
-    testRequest.uri = Uri.parse('http://localhost');
+    )..uri = Uri.parse('http://localhost');
 
     final testRequestOption = MockRequestOption();
     expect(testRequest.requestOptions.isEmpty, isTrue);
@@ -54,7 +55,7 @@ void main() {
     expect(testRequest.requestOptions.first, equals(testRequestOption));
 
     // Act by removing the option
-    testRequest.removeRequestOptions(testRequestOption);
+    testRequest.removeRequestOptions([testRequestOption]);
     expect(testRequest.requestOptions.isEmpty, isTrue);
   });
 
@@ -63,7 +64,7 @@ void main() {
     final requestInfo = RequestInformation(
       httpMethod: Method.get,
       urlTemplate:
-          'http://localhost/getDirectRoutingCalls(fromDateTime=\'{fromDateTime}\',toDateTime=\'{toDateTime}\')',
+          "http://localhost/getDirectRoutingCalls(fromDateTime='{fromDateTime}',toDateTime='{toDateTime}')",
     );
 
     // Act
@@ -74,10 +75,14 @@ void main() {
     requestInfo.pathParameters['toDateTime'] = toDateTime;
 
     // Assert
-    expect(requestInfo.uri.toString(),
-        contains('fromDateTime=\'2022-08-01T00%3A00%3A00.000\''));
-    expect(requestInfo.uri.toString(),
-        contains('toDateTime=\'2022-08-02T00%3A00%3A00.000\''));
+    expect(
+      requestInfo.uri.toString(),
+      contains("fromDateTime='2022-08-01T00%3A00%3A00.000'"),
+    );
+    expect(
+      requestInfo.uri.toString(),
+      contains("toDateTime='2022-08-02T00%3A00%3A00.000'"),
+    );
   });
 
   test('Sets path parameters of boolean type', () {
@@ -116,17 +121,16 @@ void main() {
     final requestInfo = RequestInformation(
       httpMethod: Method.get,
       urlTemplate: '{+baseurl}/users{?%24count}',
-    );
-
-    // Act
-    requestInfo.pathParameters = <String, Object>{
-      'baseurl': proxyUrl,
-      '%24count': true,
-    };
+    )..pathParameters = <String, Object>{
+        'baseurl': proxyUrl,
+        '%24count': true,
+      };
 
     // Assert we can build URLs based on a proxy-based base URL
-    expect(requestInfo.uri.toString(),
-        'https://proxy.apisandbox.msdn.microsoft.com/svc?url=https://graph.microsoft.com/beta/users?%24count=true');
+    expect(
+      requestInfo.uri.toString(),
+      'https://proxy.apisandbox.msdn.microsoft.com/svc?url=https://graph.microsoft.com/beta/users?%24count=true',
+    );
   });
 
   test('Get URI resolves parameters case-sensitive', () {
@@ -142,8 +146,10 @@ void main() {
     testRequest.queryParameters['IsCaseSensitive'] = false;
 
     // Assert
-    expect(testRequest.uri.toString(),
-        'http://localhost/UriTemplate/ParameterMapping?IsCaseSensitive=false');
+    expect(
+      testRequest.uri.toString(),
+      'http://localhost/UriTemplate/ParameterMapping?IsCaseSensitive=false',
+    );
   });
 
   test('Sets enum value in path parameters', () {

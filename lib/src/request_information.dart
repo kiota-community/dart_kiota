@@ -1,21 +1,8 @@
-part of dart_kiota;
+part of '../dart_kiota.dart';
 
 /// This class represents an abstract HTTP request.
 class RequestInformation {
-  static const rawUrlKey = "request-raw-url";
-
-  /// The URL template for the current request.
-  String? urlTemplate;
-
-  /// The path parameters to use for the URL template when generating the URI.
-  Map<String, dynamic> pathParameters;
-
-  /// The HTTP [Method] of the request.
-  Method? httpMethod;
-
-  /// The query parameters to use for the URL when generating the URI.
-  Map<String, dynamic> queryParameters;
-
+  /// Creates a new instance of [RequestInformation].
   RequestInformation({
     this.httpMethod,
     this.urlTemplate,
@@ -33,6 +20,20 @@ class RequestInformation {
     }
   }
 
+  static const rawUrlKey = 'request-raw-url';
+
+  /// The URL template for the current request.
+  String? urlTemplate;
+
+  /// The path parameters to use for the URL template when generating the URI.
+  Map<String, dynamic> pathParameters;
+
+  /// The HTTP [Method] of the request.
+  Method? httpMethod;
+
+  /// The query parameters to use for the URL when generating the URI.
+  Map<String, dynamic> queryParameters;
+
   final RequestHeaders _headers = RequestHeaders();
 
   /// The request headers.
@@ -48,6 +49,7 @@ class RequestInformation {
 
   Uri? _rawUri;
 
+  /// The URI of the request.
   Uri get uri {
     if (_rawUri != null) {
       return _rawUri!;
@@ -61,13 +63,14 @@ class RequestInformation {
     }
 
     if (urlTemplate == null) {
-      throw ArgumentError("urlTemplate");
+      throw ArgumentError('urlTemplate');
     }
 
-    var url = urlTemplate!;
-    if (url.contains("{+baseurl}") && !pathParameters.containsKey("baseurl")) {
+    final url = urlTemplate!;
+    if (url.contains('{+baseurl}') && !pathParameters.containsKey('baseurl')) {
       throw ArgumentError(
-          "pathParameters must contain a value for \"baseurl\" for the url to be built.");
+        'pathParameters must contain a value for "baseurl" for the url to be built.',
+      );
     }
 
     final substitutions = <String, dynamic>{};
@@ -86,6 +89,7 @@ class RequestInformation {
     return Uri.parse(StdUriTemplate.expand(url, substitutions));
   }
 
+  /// Sets the URI of the request.
   set uri(Uri value) {
     queryParameters.clear();
     pathParameters.clear();
@@ -106,24 +110,29 @@ class RequestInformation {
     }
 
     if (value is List) {
-      return value.map((e) => _getSanitizedValue(e)).toList(growable: false);
+      return value.map(_getSanitizedValue).toList(growable: false);
     }
 
     if (value is Map) {
       return value.map(
-          (k, v) => MapEntry(_getSanitizedValue(k), _getSanitizedValue(v)));
+        (k, v) => MapEntry(_getSanitizedValue(k), _getSanitizedValue(v)),
+      );
     }
 
     return value;
   }
 
-  void addRequestOptions(List<RequestOption> list) {
-    for (final option in list) {
-      _requestOptions[option.runtimeType.toString()] = option;
+  /// Adds a collection of request options to the request.
+  void addRequestOptions(Iterable<RequestOption> options) {
+    for (final option in options) {
+      _requestOptions.addOrReplace(option.runtimeType.toString(), option);
     }
   }
 
-  void removeRequestOptions(RequestOption testRequestOption) {
-    _requestOptions.remove(testRequestOption.runtimeType.toString());
+  /// Removes a collection of request options from the request.
+  void removeRequestOptions(Iterable<RequestOption> options) {
+    for (final option in options) {
+      _requestOptions.remove(option.runtimeType.toString());
+    }
   }
 }

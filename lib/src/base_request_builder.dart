@@ -1,7 +1,13 @@
-part of dart_kiota;
+part of '../dart_kiota.dart';
 
 /// Base class for all request builders.
 abstract class BaseRequestBuilder {
+  BaseRequestBuilder(
+    this.requestAdapter,
+    this.urlTemplate,
+    this.pathParameters,
+  );
+
   /// The path parameters of the request.
   Map<String, dynamic> pathParameters;
 
@@ -10,6 +16,4 @@ abstract class BaseRequestBuilder {
 
   /// Url template to use to build the URL for the current request builder.
   String urlTemplate;
-
-  BaseRequestBuilder(this.requestAdapter, this.urlTemplate, this.pathParameters);
 }

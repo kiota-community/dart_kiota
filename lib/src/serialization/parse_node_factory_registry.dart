@@ -1,4 +1,4 @@
-part of dart_kiota;
+part of '../../dart_kiota.dart';
 
 /// A regex that matches any sequence of characters that are not a forward slash
 /// followed by a plus sign.
@@ -10,7 +10,8 @@ RegExp contentTypeVendorCleanupRegex = RegExp(r'[^/]+\+');
 /// This factory holds a list of all the registered factories for the various
 /// types of nodes.
 class ParseNodeFactoryRegistry implements ParseNodeFactory {
-  static final ParseNodeFactoryRegistry _defaultInstance = ParseNodeFactoryRegistry();
+  static final ParseNodeFactoryRegistry _defaultInstance =
+      ParseNodeFactoryRegistry();
 
   /// Default singleton instance of the registry to be used when registering
   /// new factories that should be available by default.
@@ -20,24 +21,32 @@ class ParseNodeFactoryRegistry implements ParseNodeFactory {
   Map<String, ParseNodeFactory> contentTypeAssociatedFactories = {};
 
   @override
-  String get validContentType => throw UnsupportedError("The registry supports multiple content types. Get the registered factory instead.");
+  String get validContentType => throw UnsupportedError(
+        'The registry supports multiple content types. Get the registered factory instead.',
+      );
 
   @override
   ParseNode getRootParseNode(String contentType, Stream<int> content) {
     if (contentType.isEmpty) {
-      throw ArgumentError("The content type cannot be empty.");
+      throw ArgumentError('The content type cannot be empty.');
     }
 
-    final vendorSpecificContentType = contentType.split(';').where((element) => element.isNotEmpty).first;
+    final vendorSpecificContentType =
+        contentType.split(';').where((element) => element.isNotEmpty).first;
     if (contentTypeAssociatedFactories.containsKey(vendorSpecificContentType)) {
-      return contentTypeAssociatedFactories[vendorSpecificContentType]!.getRootParseNode(contentType, content);
+      return contentTypeAssociatedFactories[vendorSpecificContentType]!
+          .getRootParseNode(contentType, content);
     }
 
-    final cleanedContentType = vendorSpecificContentType.replaceAll(contentTypeVendorCleanupRegex, '');
-    if(contentTypeAssociatedFactories.containsKey(cleanedContentType)) {
-      return contentTypeAssociatedFactories[cleanedContentType]!.getRootParseNode(contentType, content);
+    final cleanedContentType =
+        vendorSpecificContentType.replaceAll(contentTypeVendorCleanupRegex, '');
+    if (contentTypeAssociatedFactories.containsKey(cleanedContentType)) {
+      return contentTypeAssociatedFactories[cleanedContentType]!
+          .getRootParseNode(contentType, content);
     }
 
-    throw UnsupportedError("Content type ${cleanedContentType} does not have a factory registered to be parsed");
+    throw UnsupportedError(
+      'Content type $cleanedContentType does not have a factory registered to be parsed',
+    );
   }
 }

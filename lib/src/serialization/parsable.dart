@@ -1,4 +1,4 @@
-part of dart_kiota;
+part of '../../dart_kiota.dart';
 
 /// Defines a serializable model object
 abstract class Parsable {

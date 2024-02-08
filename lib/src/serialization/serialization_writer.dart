@@ -1,4 +1,4 @@
-part of dart_kiota;
+part of '../../dart_kiota.dart';
 
 abstract class SerializationWriter {
   /// Writes the specified string value to the stream with an optional given
@@ -7,7 +7,7 @@ abstract class SerializationWriter {
 
   /// Writes the specified int value to the stream with an optional given
   /// [key].
-  void writeBoolValue(String? key, bool? value);
+  void writeBoolValue(String? key, {bool? value});
 
   /// Writes the specified int value to the stream with an optional given
   /// [key].

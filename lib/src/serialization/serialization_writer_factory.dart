@@ -1,4 +1,4 @@
-part of dart_kiota;
+part of '../../dart_kiota.dart';
 
 /// Defines the contract for a factory that creates [SerializationWriter]
 /// instances.
@@ -7,5 +7,5 @@ abstract class SerializationWriterFactory {
   String get validContentType;
 
   /// Creates a new [SerializationWriter] for the given content type.
-  SerializationWriter getSerializationWriter(final String contentType);
+  SerializationWriter getSerializationWriter(String contentType);
 }

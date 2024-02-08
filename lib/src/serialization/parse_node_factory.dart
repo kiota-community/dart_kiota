@@ -1,4 +1,4 @@
-part of dart_kiota;
+part of '../../dart_kiota.dart';
 
 /// Defines the contract for a factory that creates parse nodes.
 abstract class ParseNodeFactory {
