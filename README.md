@@ -41,3 +41,11 @@ Things other abstractions have, but this one doesn't:
 - [ ] Form data serialization/deserialization
 
 These could be added in the future or by other packages.
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+This project is not affiliated with nor endorsed by Microsoft Corporation.
