@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_redundant_argument_values
 
+import 'dart:typed_data';
+
 import 'package:dart_kiota/dart_kiota.dart';
 import 'package:mockito/annotations.dart';
 import 'package:test/test.dart';
@@ -17,7 +19,10 @@ void main() {
     expect(blank.pathParameters, <String, dynamic>{});
     expect(blank.queryParameters, <String, dynamic>{});
     expect(blank.headers, RequestHeaders());
-    expect(blank.content, const Stream<int>.empty());
+    expect(
+      blank.content,
+      isA<Uint8List>().having((content) => content.length, 'length', equals(0)),
+    );
     expect(blank.requestOptions, <RequestOption>[]);
 
     expect(() => blank.uri, throwsArgumentError);

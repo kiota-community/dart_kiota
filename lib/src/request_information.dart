@@ -40,7 +40,7 @@ class RequestInformation {
   RequestHeaders get headers => _headers;
 
   /// The request body.
-  Stream<int> content = const Stream<int>.empty();
+  Uint8List content = Uint8List(0);
 
   final Map<String, RequestOption> _requestOptions = {};
 
@@ -134,5 +134,15 @@ class RequestInformation {
     for (final option in options) {
       _requestOptions.remove(option.runtimeType.toString());
     }
+  }
+
+  /// Gets a [RequestOption] of the specified type [T] from the request.
+  T? getRequestOption<T>() {
+    final option = _requestOptions[T.toString()];
+    if (option != null) {
+      return option as T;
+    }
+
+    return null;
   }
 }

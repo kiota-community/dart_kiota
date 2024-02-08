@@ -64,7 +64,7 @@ abstract class SerializationWriter {
   void writeAdditionalData(Map<String, dynamic> value);
 
   /// Gets the value of the serialized content.
-  Stream<int> getSerializedContent();
+  Uint8List getSerializedContent();
 
   /// Callback called before the serialization process starts.
   void Function(Parsable)? onBeforeObjectSerialization;
