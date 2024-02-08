@@ -3,10 +3,6 @@ part of '../dart_kiota.dart';
 /// Service responsible for translating abstract [RequestInformation] into
 /// concrete native HTTP requests.
 abstract class RequestAdapter {
-  /// Enables the backing store proxies for the [SerializationWriter]s and
-  /// [ParseNode]s in use.
-  void enableBackingStore(BackingStoreFactory backingStoreFactory);
-
   /// Gets the [SerializationWriterFactory] currently in use for the HTTP core
   /// service.
   SerializationWriterFactory get serializationWriterFactory;
