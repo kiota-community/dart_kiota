@@ -115,7 +115,8 @@ extension RequestInformationExtensions on RequestInformation {
         writer.writeNullValue(null);
       default:
         throw UnsupportedError(
-            'Unsupported scalar value type: ${item.runtimeType}');
+          'Unsupported scalar value type: ${item.runtimeType}',
+        );
     }
 
     headers.tryAdd(contentTypeHeader, contentType);

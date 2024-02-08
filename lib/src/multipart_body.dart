@@ -72,7 +72,8 @@ class MultipartBody implements Parsable {
     final writerFactory = requestAdapter?.serializationWriterFactory;
     if (writerFactory == null) {
       throw StateError(
-          'RequestAdapter and SerializationWriterFactory must not be null');
+        'RequestAdapter and SerializationWriterFactory must not be null',
+      );
     }
 
     if (_parts.isEmpty) {
@@ -117,7 +118,8 @@ class MultipartBody implements Parsable {
         writer.writeByteArrayValue(null, Uint8List.fromList(content));
       } else {
         throw UnsupportedError(
-            'Unsupported type ${partValue.runtimeType} for part $partKey');
+          'Unsupported type ${partValue.runtimeType} for part $partKey',
+        );
       }
     }
 
