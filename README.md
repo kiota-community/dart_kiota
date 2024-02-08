@@ -33,3 +33,8 @@ From the comment at: https://github.com/microsoft/kiota/issues/2199#issuecomment
 - [x] Serialization writer interface
 - [x] Parse node interface
 - [x] Request adapter interface
+
+Things other abstractions have, but this doesn't:
+
+- [ ] Backing stores
+- [ ] Authentication
