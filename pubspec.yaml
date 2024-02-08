@@ -10,7 +10,7 @@ environment:
 dependencies:
   std_uritemplate:
     git:
-      url: git@github.com:ricardoboss/std-uritemplate.git
+      url: https://github.com/ricardoboss/std-uritemplate.git
       ref: languages/dart
       path: dart/
 
