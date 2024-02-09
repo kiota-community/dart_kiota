@@ -12,6 +12,7 @@ import 'dart:typed_data';
 
 import 'package:kiota_abstractions/src/case_insensitive_map.dart';
 import 'package:std_uritemplate/std_uritemplate.dart';
+import 'package:uuid/uuid.dart';
 
 part 'src/api_client_builder.dart';
 part 'src/base_request_builder.dart';

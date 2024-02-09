@@ -19,6 +19,9 @@ abstract class ParseNode {
   /// Gets the double value of the node.
   double? getDoubleValue();
 
+  /// Gets the [UuidValue] value of the node.
+  UuidValue? getGuidValue();
+
   /// Gets the [DateTime] value of the node.
   DateTime? getDateTimeValue();
 

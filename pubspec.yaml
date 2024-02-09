@@ -15,6 +15,7 @@ environment:
 
 dependencies:
   std_uritemplate: ^0.0.52
+  uuid: ^4.3.3
 
 dev_dependencies:
   strict: ^2.0.0
