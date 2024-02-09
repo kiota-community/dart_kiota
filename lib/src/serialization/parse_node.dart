@@ -22,6 +22,12 @@ abstract class ParseNode {
   /// Gets the [DateTime] value of the node.
   DateTime? getDateTimeValue();
 
+  /// Gets the [DateOnly] value of the node.
+  DateOnly? getDateValue();
+
+  /// Gets the [TimeOnly] value of the node.
+  TimeOnly? getTimeOfDayValue();
+
   /// Gets the collection of primitive values of the node.
   Iterable<T> getCollectionOfPrimitiveValues<T>();
 
