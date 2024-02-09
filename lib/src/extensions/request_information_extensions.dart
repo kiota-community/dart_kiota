@@ -16,6 +16,11 @@ extension RequestInformationExtensions on RequestInformation {
     headers.addAll(headers);
   }
 
+  /// Vanity method to add query parameters to the request.
+  void addQueryParameters(Map<String, dynamic> parameters) {
+    queryParameters.addAll(parameters);
+  }
+
   /// Adds a [ResponseHandler] as a [RequestOption] for the request.
   void setResponseHandler(ResponseHandler handler) {
     final option = ResponseHandlerOption()..responseHandler = handler;
@@ -130,5 +135,19 @@ extension RequestInformationExtensions on RequestInformation {
     headers.tryAdd(contentTypeHeader, contentType);
 
     content = writer.getSerializedContent();
+  }
+
+  void configure<T>(void Function(RequestConfiguration)? configurator) {
+    if (configurator == null) {
+      return;
+    }
+
+    final config = RequestConfiguration();
+
+    configurator(config);
+
+    addQueryParameters(config.queryParameters);
+    addHeaders(config.headers);
+    addRequestOptions(config.options);
   }
 }

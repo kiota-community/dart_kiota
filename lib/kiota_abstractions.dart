@@ -20,6 +20,7 @@ part 'src/extensions/request_information_extensions.dart';
 part 'src/http_method.dart';
 part 'src/multipart_body.dart';
 part 'src/request_adapter.dart';
+part 'src/request_configuration.dart';
 part 'src/http_headers.dart';
 part 'src/request_information.dart';
 part 'src/request_option.dart';
