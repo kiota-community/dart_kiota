@@ -28,8 +28,8 @@ class RequestInformation {
   /// The path parameters to use for the URL template when generating the URI.
   Map<String, dynamic> pathParameters;
 
-  /// The HTTP [Method] of the request.
-  Method? httpMethod;
+  /// The HTTP [HttpMethod] of the request.
+  HttpMethod? httpMethod;
 
   /// The query parameters to use for the URL when generating the URI.
   Map<String, dynamic> queryParameters;

@@ -30,7 +30,7 @@ void main() {
 
   test('SetUriExtractsQueryParameters', () {
     final example = RequestInformation(
-      httpMethod: Method.get,
+      httpMethod: HttpMethod.get,
       urlTemplate: 'http://localhost/{path}/me?foo={foo}',
     );
 
@@ -46,7 +46,7 @@ void main() {
   test('Adds and removes request options', () {
     // Arrange
     final testRequest = RequestInformation(
-      httpMethod: Method.get,
+      httpMethod: HttpMethod.get,
     )..uri = Uri.parse('http://localhost');
 
     final testRequestOption = MockRequestOption();
@@ -67,7 +67,7 @@ void main() {
   test('Sets path parameters of DateTime type', () {
     // Arrange as the request builders would
     final requestInfo = RequestInformation(
-      httpMethod: Method.get,
+      httpMethod: HttpMethod.get,
       urlTemplate:
           "http://localhost/getDirectRoutingCalls(fromDateTime='{fromDateTime}',toDateTime='{toDateTime}')",
     );
@@ -93,7 +93,7 @@ void main() {
   test('Sets path parameters of boolean type', () {
     // Arrange as the request builders would
     final requestInfo = RequestInformation(
-      httpMethod: Method.get,
+      httpMethod: HttpMethod.get,
       urlTemplate: 'http://localhost/users{?%24count}',
     );
 
@@ -107,7 +107,7 @@ void main() {
   test('Builds URL on provided base URL', () {
     // Arrange as the request builders would
     final requestInfo = RequestInformation(
-      httpMethod: Method.get,
+      httpMethod: HttpMethod.get,
       urlTemplate: '{+baseurl}/users{?%24count}',
     );
 
@@ -124,7 +124,7 @@ void main() {
 
     // Arrange as the request builders would
     final requestInfo = RequestInformation(
-      httpMethod: Method.get,
+      httpMethod: HttpMethod.get,
       urlTemplate: '{+baseurl}/users{?%24count}',
     )..pathParameters = <String, Object>{
         'baseurl': proxyUrl,
@@ -141,7 +141,7 @@ void main() {
   test('Get URI resolves parameters case-sensitive', () {
     // Arrange
     final testRequest = RequestInformation(
-      httpMethod: Method.get,
+      httpMethod: HttpMethod.get,
       urlTemplate:
           'http://localhost/{URITemplate}/ParameterMapping?IsCaseSensitive={IsCaseSensitive}',
     );
@@ -160,7 +160,7 @@ void main() {
   test('Sets enum value in path parameters', () {
     // Arrange
     final testRequest = RequestInformation(
-      httpMethod: Method.get,
+      httpMethod: HttpMethod.get,
       urlTemplate: 'http://localhost/{dataset}',
     );
 
@@ -174,7 +174,7 @@ void main() {
   test('Sets multiple enum values in path parameters', () {
     // Arrange
     final testRequest = RequestInformation(
-      httpMethod: Method.get,
+      httpMethod: HttpMethod.get,
       urlTemplate: 'http://localhost/{dataset}',
     );
 

@@ -17,7 +17,7 @@ part 'src/api_client_builder.dart';
 part 'src/base_request_builder.dart';
 part 'src/extensions/map_extensions.dart';
 part 'src/extensions/request_information_extensions.dart';
-part 'src/method.dart';
+part 'src/http_method.dart';
 part 'src/multipart_body.dart';
 part 'src/request_adapter.dart';
 part 'src/request_headers.dart';

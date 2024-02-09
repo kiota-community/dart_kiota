@@ -1,7 +1,7 @@
 part of '../kiota_abstractions.dart';
 
 /// Represents the HTTP method used by a request.
-enum Method {
+enum HttpMethod {
   /// The GET method requests a representation of the specified resource. Requests using GET should only retrieve data.
   get,
 
