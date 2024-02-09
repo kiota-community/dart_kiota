@@ -37,6 +37,7 @@ Things other abstractions have, but this one doesn't:
 
 - [ ] Backing stores
 - [ ] Authentication
+- [ ] Text serialization/deserialization
 - [ ] JSON serialization/deserialization
 - [ ] Form data serialization/deserialization
 
