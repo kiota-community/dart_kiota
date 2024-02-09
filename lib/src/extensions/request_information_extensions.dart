@@ -12,7 +12,7 @@ extension RequestInformationExtensions on RequestInformation {
       removeRequestOptions([option]);
 
   /// Vanity method to add headers to the request.
-  void addHeaders(RequestHeaders headers) {
+  void addHeaders(HttpHeaders headers) {
     headers.addAll(headers);
   }
 

@@ -18,7 +18,7 @@ void main() {
     expect(blank.urlTemplate, null);
     expect(blank.pathParameters, <String, dynamic>{});
     expect(blank.queryParameters, <String, dynamic>{});
-    expect(blank.headers, RequestHeaders());
+    expect(blank.headers, HttpHeaders());
     expect(
       blank.content,
       isA<Uint8List>().having((content) => content.length, 'length', equals(0)),

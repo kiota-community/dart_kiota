@@ -34,10 +34,10 @@ class RequestInformation {
   /// The query parameters to use for the URL when generating the URI.
   Map<String, dynamic> queryParameters;
 
-  final RequestHeaders _headers = RequestHeaders();
+  final HttpHeaders _headers = HttpHeaders();
 
   /// The request headers.
-  RequestHeaders get headers => _headers;
+  HttpHeaders get headers => _headers;
 
   /// The request body.
   Uint8List content = Uint8List(0);

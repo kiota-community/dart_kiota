@@ -3,9 +3,9 @@ part of '../kiota_abstractions.dart';
 /// Represents the headers of a request.
 ///
 /// Internally, this class uses a [Map] to store the headers.
-class RequestHeaders implements Map<String, String> {
-  /// Creates a new instance of [RequestHeaders].
-  RequestHeaders();
+class HttpHeaders implements Map<String, String> {
+  /// Creates a new instance of [HttpHeaders].
+  HttpHeaders();
 
   final Map<String, String> _headers = {};
 
