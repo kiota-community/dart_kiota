@@ -6,9 +6,9 @@ part of '../kiota_abstractions.dart';
 /// It is used to represent time only values in a serialization format agnostic
 /// way.
 abstract class TimeOnly {
-  /// Extracts the time part of a [DateTime] and creates a new [TimeOnlyImpl].
+  /// Extracts the time part of a [DateTime] and creates a new [_TimeOnlyImpl].
   factory TimeOnly.fromDateTime(DateTime dateTime) {
-    return TimeOnlyImpl(
+    return _TimeOnlyImpl(
       hours: dateTime.hour,
       minutes: dateTime.minute,
       seconds: dateTime.second,
@@ -17,21 +17,21 @@ abstract class TimeOnly {
   }
 
   /// This factory uses the [DateTime.parse] method to create a new
-  /// [TimeOnlyImpl] instance from a string.
+  /// [_TimeOnlyImpl] instance from a string.
   factory TimeOnly.fromDateTimeString(String dateTimeString) {
     final dateTime = DateTime.parse(dateTimeString);
 
     return TimeOnly.fromDateTime(dateTime);
   }
 
-  /// Constructs a new [TimeOnlyImpl] instance from the provided components.
+  /// Constructs a new [_TimeOnlyImpl] instance from the provided components.
   factory TimeOnly.fromComponents(
     int hours,
     int minutes, [
     int seconds = 0,
     int milliseconds = 0,
   ]) {
-    return TimeOnlyImpl(
+    return _TimeOnlyImpl(
       hours: hours,
       minutes: minutes,
       seconds: seconds,
@@ -50,4 +50,25 @@ abstract class TimeOnly {
 
   /// Gets the milliseconds of the time.
   int get milliseconds;
+}
+
+class _TimeOnlyImpl implements TimeOnly {
+  _TimeOnlyImpl({
+    required this.hours,
+    required this.minutes,
+    required this.seconds,
+    required this.milliseconds,
+  });
+
+  @override
+  final int hours;
+
+  @override
+  final int minutes;
+
+  @override
+  final int seconds;
+
+  @override
+  final int milliseconds;
 }
