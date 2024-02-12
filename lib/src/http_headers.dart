@@ -5,15 +5,21 @@ part of '../kiota_abstractions.dart';
 /// Internally, the keys are stored in lower case, but the original case is
 /// preserved when iterating over the headers.
 /// This effectively makes the keys case-insensitive.
-class HttpHeaders implements Map<String, String> {
+class HttpHeaders implements Map<String, Set<String>> {
   /// Creates a new instance of [HttpHeaders].
   HttpHeaders();
 
-  final Map<String, String> _headers = {};
+  static const List<String> singleValueHeaders = [
+    'content-type',
+    'content-encoding',
+    'content-length',
+  ];
+
+  final Map<String, Set<String>> _headers = {};
   final Map<String, String> _originalNames = {};
 
   @override
-  String? operator [](Object? key) {
+  Set<String>? operator [](Object? key) {
     if (key is String) {
       return _headers[key.toLowerCase()];
     }
@@ -22,20 +28,32 @@ class HttpHeaders implements Map<String, String> {
   }
 
   @override
-  void operator []=(String key, String value) {
-    _headers[key.toLowerCase()] = value;
-    _originalNames[key.toLowerCase()] = key;
+  void operator []=(String key, Set<String> value) {
+    final lowerCaseKey = key.toLowerCase();
+
+    _originalNames[lowerCaseKey] = key;
+
+    if (singleValueHeaders.contains(lowerCaseKey)) {
+      _headers[lowerCaseKey] = {value.first};
+    } else {
+      _headers[lowerCaseKey] = value;
+    }
+  }
+
+  /// Sets the value of the header with the given [key] to [value].
+  void put(String key, String value) {
+    this[key] = {value};
   }
 
   @override
-  void addAll(Map<String, String> other) {
+  void addAll(Map<String, Set<String>> other) {
     other.forEach((key, value) {
       this[key] = value;
     });
   }
 
   @override
-  void addEntries(Iterable<MapEntry<String, String>> newEntries) {
+  void addEntries(Iterable<MapEntry<String, Set<String>>> newEntries) {
     newEntries.forEach((entry) {
       this[entry.key] = entry.value;
     });
@@ -63,14 +81,14 @@ class HttpHeaders implements Map<String, String> {
   bool containsValue(Object? value) => _headers.containsValue(value);
 
   @override
-  Iterable<MapEntry<String, String>> get entries {
+  Iterable<MapEntry<String, Set<String>>> get entries {
     return _headers.entries.map((entry) {
       return MapEntry(_originalNames[entry.key]!, entry.value);
     });
   }
 
   @override
-  void forEach(void Function(String key, String value) action) {
+  void forEach(void Function(String key, Set<String> value) action) {
     _headers.forEach((key, value) {
       action(_originalNames[key]!, value);
     });
@@ -90,7 +108,7 @@ class HttpHeaders implements Map<String, String> {
 
   @override
   Map<K2, V2> map<K2, V2>(
-    MapEntry<K2, V2> Function(String key, String value) convert,
+    MapEntry<K2, V2> Function(String key, Set<String> value) convert,
   ) {
     final result = <K2, V2>{};
 
@@ -103,12 +121,12 @@ class HttpHeaders implements Map<String, String> {
   }
 
   @override
-  String putIfAbsent(String key, String Function() ifAbsent) {
+  Set<String> putIfAbsent(String key, Set<String> Function() ifAbsent) {
     return _headers.putIfAbsent(key.toLowerCase(), ifAbsent);
   }
 
   @override
-  String? remove(Object? key) {
+  Set<String>? remove(Object? key) {
     if (key is String) {
       _originalNames.remove(key.toLowerCase());
       return _headers.remove(key.toLowerCase());
@@ -118,7 +136,7 @@ class HttpHeaders implements Map<String, String> {
   }
 
   @override
-  void removeWhere(bool Function(String key, String value) test) {
+  void removeWhere(bool Function(String key, Set<String> value) test) {
     final keys = _headers.keys.toList();
 
     for (final key in keys) {
@@ -130,16 +148,16 @@ class HttpHeaders implements Map<String, String> {
   }
 
   @override
-  String update(
+  Set<String> update(
     String key,
-    String Function(String value) update, {
-    String Function()? ifAbsent,
+    Set<String> Function(Set<String> value) update, {
+    Set<String> Function()? ifAbsent,
   }) {
     return _headers.update(key.toLowerCase(), update, ifAbsent: ifAbsent);
   }
 
   @override
-  void updateAll(String Function(String key, String value) update) {
+  void updateAll(Set<String> Function(String key, Set<String> value) update) {
     final keys = _headers.keys.toList();
 
     for (final key in keys) {
@@ -148,5 +166,5 @@ class HttpHeaders implements Map<String, String> {
   }
 
   @override
-  Iterable<String> get values => _headers.values;
+  Iterable<Set<String>> get values => _headers.values;
 }

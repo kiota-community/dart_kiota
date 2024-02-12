@@ -12,7 +12,7 @@ class ApiClientBuilder {
 
     SerializationWriterFactoryRegistry
         .defaultInstance.contentTypeAssociatedFactories
-        .tryAdd(factory.validContentType, factory);
+        .putIfAbsent(factory.validContentType, () => factory);
   }
 
   static void registerDefaultDeserializer<T extends ParseNodeFactory>(
@@ -21,6 +21,6 @@ class ApiClientBuilder {
     final factory = factoryCreator();
 
     ParseNodeFactoryRegistry.defaultInstance.contentTypeAssociatedFactories
-        .tryAdd(factory.validContentType, factory);
+        .putIfAbsent(factory.validContentType, () => factory);
   }
 }

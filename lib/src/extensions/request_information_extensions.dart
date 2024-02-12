@@ -38,7 +38,7 @@ extension RequestInformationExtensions on RequestInformation {
 
     this.content = Uint8List.fromList(bytes);
 
-    headers.tryAdd(contentTypeHeader, contentType);
+    headers.putIfAbsent(contentTypeHeader, () => {contentType});
   }
 
   /// Sets the content of the request to the provided collection of parsable
@@ -51,7 +51,7 @@ extension RequestInformationExtensions on RequestInformation {
     final writer = _getSerializationWriter(requestAdapter, contentType, items)
       ..writeCollectionOfObjectValues(null, items);
 
-    headers.tryAdd(contentTypeHeader, contentType);
+    headers.putIfAbsent(contentTypeHeader, () => {contentType});
 
     content = writer.getSerializedContent();
   }
@@ -72,7 +72,7 @@ extension RequestInformationExtensions on RequestInformation {
 
     writer.writeObjectValue(null, item);
 
-    headers.tryAdd(contentTypeHeader, writtenContentType);
+    headers.putIfAbsent(contentTypeHeader, () => {writtenContentType});
 
     content = writer.getSerializedContent();
   }
@@ -100,7 +100,7 @@ extension RequestInformationExtensions on RequestInformation {
     final writer = _getSerializationWriter(requestAdapter, contentType, items)
       ..writeCollectionOfPrimitiveValues(null, items);
 
-    headers.tryAdd(contentTypeHeader, contentType);
+    headers.putIfAbsent(contentTypeHeader, () => {contentType});
 
     content = writer.getSerializedContent();
   }
@@ -132,7 +132,7 @@ extension RequestInformationExtensions on RequestInformation {
         );
     }
 
-    headers.tryAdd(contentTypeHeader, contentType);
+    headers.putIfAbsent(contentTypeHeader, () => {contentType});
 
     content = writer.getSerializedContent();
   }
