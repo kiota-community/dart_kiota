@@ -41,3 +41,4 @@ part 'src/serialization/parse_node_proxy_factory.dart';
 part 'src/serialization/serialization_writer.dart';
 part 'src/serialization/serialization_writer_factory.dart';
 part 'src/serialization/serialization_writer_factory_registry.dart';
+part 'src/serialization/serialization_writer_proxy_factory.dart';

@@ -68,10 +68,10 @@ abstract class SerializationWriter {
   Uint8List getSerializedContent();
 
   /// Callback called before the serialization process starts.
-  void Function(Parsable)? onBeforeObjectSerialization;
+  ParsableHook? onBeforeObjectSerialization;
 
   /// Callback called after the serialization process ends.
-  void Function(Parsable)? onAfterObjectSerialization;
+  ParsableHook? onAfterObjectSerialization;
 
   /// Callback called right after the serialization process starts.
   void Function(Parsable, SerializationWriter)? onStartObjectSerialization;
