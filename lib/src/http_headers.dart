@@ -40,7 +40,8 @@ class HttpHeaders implements Map<String, Set<String>> {
     }
   }
 
-  /// Sets the value of the header with the given [key] to [value].
+  /// Sets the value of the header with the given [key] to a Set containing only
+  /// [value].
   void put(String key, String value) {
     this[key] = {value};
   }
