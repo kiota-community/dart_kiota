@@ -49,3 +49,8 @@ part 'src/serialization/serialization_writer_factory.dart';
 part 'src/serialization/serialization_writer_factory_registry.dart';
 part 'src/time_only.dart';
 part 'src/serialization/serialization_writer_proxy_factory.dart';
+part 'src/store/backed_model.dart';
+part 'src/store/backing_store.dart';
+part 'src/store/backing_store_factory.dart';
+part 'src/store/backing_store_subscription_callback.dart';
+part 'src/store/in_memory_backing_store.dart';
