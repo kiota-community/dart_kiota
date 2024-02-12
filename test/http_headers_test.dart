@@ -40,8 +40,12 @@ void main() {
       final headers = HttpHeaders();
 
       headers['Content-Type'] = {'application/json', 'application/xml'};
+      headers['Content-Encoding'] = {'gzip', 'deflate'};
+      headers['Content-Length'] = {'100', '200'};
 
       expect(headers['Content-Type'], {'application/json'});
+      expect(headers['Content-Encoding'], {'gzip'});
+      expect(headers['Content-Length'], {'100'});
     });
   });
 }
