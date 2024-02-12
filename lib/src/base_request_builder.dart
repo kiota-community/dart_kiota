@@ -20,27 +20,7 @@ abstract class BaseRequestBuilder<T extends BaseRequestBuilder<T>> {
   /// Clones the current request builder.
   T clone();
 
-  /// Clones the current request builder using [clone] and applies the provided
-  /// parameters.
-  T copyWith({
-    RequestAdapter? requestAdapter,
-    String? urlTemplate,
-    Map<String, dynamic>? pathParameters,
-  }) {
-    final clone = this.clone();
-
-    if (requestAdapter != null) {
-      clone.requestAdapter = requestAdapter;
-    }
-
-    if (urlTemplate != null) {
-      clone.urlTemplate = urlTemplate;
-    }
-
-    if (pathParameters != null) {
-      clone.pathParameters = pathParameters;
-    }
-
-    return clone;
-  }
+  /// Clones the current request builder using [clone] and sets the given
+  /// [template] as the url template.
+  T withUrl(String template) => this.clone()..urlTemplate = template;
 }
