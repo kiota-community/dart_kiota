@@ -7,14 +7,8 @@ class RequestInformation {
     this.httpMethod,
     this.urlTemplate,
     Map<String, dynamic>? pathParameters,
-  })  : queryParameters = LinkedHashMap(
-          equals: (a, b) => a.toUpperCase() == b.toUpperCase(),
-          hashCode: (a) => a.toUpperCase().hashCode,
-        ),
-        pathParameters = LinkedHashMap(
-          equals: (a, b) => a.toUpperCase() == b.toUpperCase(),
-          hashCode: (a) => a.toUpperCase().hashCode,
-        ) {
+  })  : queryParameters = CaseInsensitiveMap(),
+        pathParameters = CaseInsensitiveMap() {
     if (pathParameters != null) {
       this.pathParameters.addAll(pathParameters);
     }
@@ -26,13 +20,13 @@ class RequestInformation {
   String? urlTemplate;
 
   /// The path parameters to use for the URL template when generating the URI.
-  Map<String, dynamic> pathParameters;
+  PathParameters pathParameters;
 
   /// The HTTP [HttpMethod] of the request.
   HttpMethod? httpMethod;
 
   /// The query parameters to use for the URL when generating the URI.
-  Map<String, dynamic> queryParameters;
+  QueryParameters queryParameters;
 
   final HttpHeaders _headers = HttpHeaders();
 
