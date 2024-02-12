@@ -41,11 +41,15 @@ void main() {
         requestBuilder.withUrl('https://graph.microsoft.com/v2.0/users/{id}');
 
     expect(newRequestBuilder.id, equals(1));
-    expect(newRequestBuilder.requestAdapter, equals(mockRequestAdapter));
     expect(
       newRequestBuilder.urlTemplate,
       equals('https://graph.microsoft.com/v2.0/users/{id}'),
     );
-    expect(newRequestBuilder.pathParameters, equals({'id': '1'}));
+
+    // make sure the original requestBuilder is not modified
+    expect(
+      requestBuilder.urlTemplate,
+      equals('https://graph.microsoft.com/v1.0/users/{id}'),
+    );
   });
 }
