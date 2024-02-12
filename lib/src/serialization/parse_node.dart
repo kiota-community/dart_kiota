@@ -55,8 +55,8 @@ abstract class ParseNode {
   Uint8List? getByteArrayValue();
 
   /// Callback called before the node is deserialized.
-  void Function(Parsable)? onBeforeAssignFieldValues;
+  ParsableHook? onBeforeAssignFieldValues;
 
   /// Callback called after the node is deserialized.
-  void Function(Parsable)? onAfterAssignFieldValues;
+  ParsableHook? onAfterAssignFieldValues;
 }
