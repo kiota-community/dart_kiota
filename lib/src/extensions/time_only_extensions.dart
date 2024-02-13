@@ -30,4 +30,9 @@ extension TimeOnlyExtensions on TimeOnly {
       milliseconds,
     );
   }
+
+  /// Converts the [TimeOnly] to a string in the format `HH:mm:ss.SSS`.
+  String toRfc3339String() {
+    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}.${milliseconds.toString().padLeft(3, '0')}';
+  }
 }

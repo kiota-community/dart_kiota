@@ -17,4 +17,9 @@ extension DateOnlyExtensions on DateOnly {
       time.milliseconds,
     );
   }
+
+  /// Converts the [DateOnly] to a string in the format `yyyy-MM-dd`.
+  String toRfc3339String() {
+    return '${year.toString().padLeft(4, '0')}-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}';
+  }
 }
