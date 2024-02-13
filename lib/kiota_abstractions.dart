@@ -31,6 +31,7 @@ part 'src/request_information.dart';
 part 'src/request_option.dart';
 part 'src/response_handler.dart';
 part 'src/response_handler_option.dart';
+part 'src/serialization/additional_data_holder.dart';
 part 'src/serialization/parsable.dart';
 part 'src/serialization/parsable_factory.dart';
 part 'src/serialization/parsable_hook.dart';
