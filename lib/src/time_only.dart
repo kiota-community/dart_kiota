@@ -19,7 +19,7 @@ abstract class TimeOnly {
   /// This factory uses the [DateTime.parse] method to create a new
   /// [_TimeOnlyImpl] instance from a string.
   factory TimeOnly.fromDateTimeString(String dateTimeString) {
-    final dateTime = DateTime.parse(dateTimeString);
+    final dateTime = DateTime.parse('2024-01-01 $dateTimeString');
 
     return TimeOnly.fromDateTime(dateTime);
   }

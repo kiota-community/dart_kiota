@@ -31,8 +31,16 @@ extension TimeOnlyExtensions on TimeOnly {
     );
   }
 
-  /// Converts the [TimeOnly] to a string in the format `HH:mm:ss.SSS`.
+  /// Converts the [TimeOnly] to a string in the format `HH:mm:ss` or
+  /// `HH:mm:ss.SSS` if milliseconds are present.
   String toRfc3339String() {
-    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}.${milliseconds.toString().padLeft(3, '0')}';
+    final String fractionString;
+    if (milliseconds > 0) {
+      fractionString = '.${milliseconds.toString().padLeft(3, '0')}';
+    } else {
+      fractionString = '';
+    }
+
+    return '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}$fractionString';
   }
 }
