@@ -6,7 +6,8 @@ part of '../kiota_abstractions.dart';
 /// It is used to represent time only values in a serialization format agnostic
 /// way.
 abstract class TimeOnly {
-  /// Extracts the time part of a [DateTime] and creates a new [_TimeOnlyImpl].
+  /// Extracts the time part of a [DateTime] and creates an object implementing
+  /// [TimeOnly].
   factory TimeOnly.fromDateTime(DateTime dateTime) {
     return _TimeOnlyImpl(
       hours: dateTime.hour,
@@ -16,15 +17,15 @@ abstract class TimeOnly {
     );
   }
 
-  /// This factory uses the [DateTime.parse] method to create a new
-  /// [_TimeOnlyImpl] instance from a string.
+  /// This factory uses the [DateTime.parse] method to create an object
+  /// implementing [TimeOnly].
   factory TimeOnly.fromDateTimeString(String dateTimeString) {
     final dateTime = DateTime.parse('2024-01-01 $dateTimeString');
 
     return TimeOnly.fromDateTime(dateTime);
   }
 
-  /// Constructs a new [_TimeOnlyImpl] instance from the provided components.
+  /// Constructs an object implementing [TimeOnly] from the provided components.
   factory TimeOnly.fromComponents(
     int hours,
     int minutes, [

@@ -8,7 +8,8 @@ part of '../kiota_abstractions.dart';
 ///
 /// It can only be used to represent a date in the Gregorian calendar.
 abstract class DateOnly {
-  /// Extracts the date part of a [DateTime] and creates a new [_DateOnlyImpl].
+  /// Extracts the date part of a [DateTime] and creates an object implementing
+  /// [DateOnly].
   factory DateOnly.fromDateTime(DateTime dateTime) {
     return _DateOnlyImpl(
       day: dateTime.day,
@@ -17,15 +18,15 @@ abstract class DateOnly {
     );
   }
 
-  /// This factory uses the [DateTime.parse] method to create a new
-  /// [_DateOnlyImpl] instance from a string.
+  /// This factory uses the [DateTime.parse] method to create an object
+  /// implementing [DateOnly].
   factory DateOnly.fromDateTimeString(String dateTimeString) {
     final date = DateTime.parse(dateTimeString);
 
     return DateOnly.fromDateTime(date);
   }
 
-  /// Creates a new [_DateOnlyImpl] instance from the provided components.
+  /// Creates an object implementing [DateOnly] from the provided components.
   factory DateOnly.fromComponents(
     int year, [
     int month = 1,
