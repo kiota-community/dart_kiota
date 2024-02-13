@@ -2,8 +2,6 @@ import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:mockito/annotations.dart';
 import 'package:test/test.dart';
 
-import 'in_memory_backing_store_test.mocks.dart';
-
 @GenerateMocks([BackedModel])
 void main() {
   group('InMemoryBackingStore', () {
