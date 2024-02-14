@@ -1,6 +1,7 @@
 part of '../../kiota_abstractions.dart';
 
-extension BaseRequestBuilderExtensions<T extends BaseRequestBuilder<T>> on BaseRequestBuilder<T> {
+extension BaseRequestBuilderExtensions<T extends BaseRequestBuilder<T>>
+    on BaseRequestBuilder<T> {
   /// Clones the current request builder using [clone] and sets the given
   /// [rawUrl] as the url to use.
   ///
