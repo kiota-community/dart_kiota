@@ -18,6 +18,16 @@ void main() {
       );
     });
 
+    test('round trip', () {
+      final fromString = TimeOnly.fromDateTimeString('12:34:56.789');
+      final toString = fromString.toRfc3339String();
+      expect(toString, '12:34:56.789');
+
+      final roundTrip = TimeOnly.fromDateTimeString(toString);
+      final roundTripString = roundTrip.toRfc3339String();
+      expect(roundTripString, '12:34:56.789');
+    });
+
     test('fromDateTime', () {
       final dateTime = DateTime(2021, 1, 1, 12, 34, 56);
       expect(

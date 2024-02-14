@@ -12,6 +12,16 @@ void main() {
       );
     });
 
+    test('round trip', () {
+      final fromString = DateOnly.fromDateTimeString('2021-01-01');
+      final toString = fromString.toRfc3339String();
+      expect(toString, '2021-01-01');
+
+      final roundTrip = DateOnly.fromDateTimeString(toString);
+      final roundTripString = roundTrip.toRfc3339String();
+      expect(roundTripString, '2021-01-01');
+    });
+
     test('fromDateTime', () {
       final dateTime = DateTime(2024, 2, 3, 12, 34, 56);
       expect(
