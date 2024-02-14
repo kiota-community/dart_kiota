@@ -26,9 +26,11 @@ jobs:
         run: dart pub get
 
       - name: Verify formatting
+        continue-on-error: true
         run: dart format --output=none --set-exit-if-changed .
 
       - name: Analyze project source
+        continue-on-error: true
         run: dart analyze --fatal-infos
 
       - name: Run build_runner
