@@ -20,14 +20,14 @@ class SampleRequestBuilder extends BaseRequestBuilder<SampleRequestBuilder> {
       id,
       requestAdapter,
       urlTemplate,
-      pathParameters,
+      {...pathParameters},
     );
   }
 }
 
 @GenerateMocks([RequestAdapter])
 void main() {
-  test('BaseRequestBuilder.copyWith', () {
+  test('BaseRequestBuilder.withUrl', () {
     final mockRequestAdapter = MockRequestAdapter();
 
     final requestBuilder = SampleRequestBuilder(
@@ -38,18 +38,21 @@ void main() {
     );
 
     final newRequestBuilder =
-        requestBuilder.withUrl('https://graph.microsoft.com/v2.0/users/{id}');
+        requestBuilder.withUrl('https://graph.microsoft.com/v2.0/users/123');
 
     expect(newRequestBuilder.id, equals(1));
     expect(
-      newRequestBuilder.urlTemplate,
-      equals('https://graph.microsoft.com/v2.0/users/{id}'),
+      newRequestBuilder.pathParameters,
+      equals({
+        'id': '1',
+        'request-raw-url': 'https://graph.microsoft.com/v2.0/users/123',
+      }),
     );
 
     // make sure the original requestBuilder is not modified
     expect(
-      requestBuilder.urlTemplate,
-      equals('https://graph.microsoft.com/v1.0/users/{id}'),
+      requestBuilder.pathParameters,
+      equals({'id': '1'}),
     );
   });
 }

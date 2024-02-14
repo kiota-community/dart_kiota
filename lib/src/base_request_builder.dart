@@ -19,8 +19,4 @@ abstract class BaseRequestBuilder<T extends BaseRequestBuilder<T>> {
 
   /// Clones the current request builder.
   T clone();
-
-  /// Clones the current request builder using [clone] and sets the given
-  /// [template] as the url template.
-  T withUrl(String template) => this.clone()..urlTemplate = template;
 }
