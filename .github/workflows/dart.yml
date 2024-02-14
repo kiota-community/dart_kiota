@@ -23,21 +23,16 @@ jobs:
           key: ${{ runner.os }}-pub
 
       - name: Install dependencies
-        id: dependencies
         run: dart pub get
 
       - name: Verify formatting
         run: dart format --output=none --set-exit-if-changed .
 
       - name: Analyze project source
-        if: steps.dependencies.outcome == 'success'
         run: dart analyze --fatal-infos
 
       - name: Run build_runner
-        if: steps.dependencies.outcome == 'success'
-        id: build_runner
         run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Run tests
-        if: steps.build_runner.outcome == 'success'
         run: dart test
