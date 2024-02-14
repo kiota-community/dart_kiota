@@ -19,8 +19,20 @@ abstract class ParseNode {
   /// Gets the double value of the node.
   double? getDoubleValue();
 
+  /// Gets the [UuidValue] value of the node.
+  UuidValue? getGuidValue();
+
   /// Gets the [DateTime] value of the node.
   DateTime? getDateTimeValue();
+
+  /// Gets the [DateOnly] value of the node.
+  DateOnly? getDateOnlyValue();
+
+  /// Gets the [TimeOnly] value of the node.
+  TimeOnly? getTimeOnlyValue();
+
+  /// Gets the [Duration] value of the node.
+  Duration? getDurationValue();
 
   /// Gets the collection of primitive values of the node.
   Iterable<T> getCollectionOfPrimitiveValues<T>();
