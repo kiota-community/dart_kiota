@@ -18,6 +18,7 @@ part 'src/api_client_builder.dart';
 part 'src/base_request_builder.dart';
 part 'src/date_only.dart';
 part 'src/error_mappings.dart';
+part 'src/extensions/base_request_builder_extensions.dart';
 part 'src/extensions/date_only_extensions.dart';
 part 'src/extensions/map_extensions.dart';
 part 'src/extensions/request_information_extensions.dart';

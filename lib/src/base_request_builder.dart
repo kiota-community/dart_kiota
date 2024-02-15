@@ -1,7 +1,7 @@
 part of '../kiota_abstractions.dart';
 
 /// Base class for all request builders.
-abstract class BaseRequestBuilder {
+abstract class BaseRequestBuilder<T extends BaseRequestBuilder<T>> {
   BaseRequestBuilder(
     this.requestAdapter,
     this.urlTemplate,
@@ -16,4 +16,7 @@ abstract class BaseRequestBuilder {
 
   /// Url template to use to build the URL for the current request builder.
   String urlTemplate;
+
+  /// Clones the current request builder.
+  T clone();
 }
