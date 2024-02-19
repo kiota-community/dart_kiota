@@ -125,7 +125,6 @@ class InMemoryBackingStore implements BackingStore {
     (bool, Object?)? oldValue;
     if (_store.containsKey(key)) {
       oldValue = _store[key];
-      _store[key] = valueToAdd;
     } else if (value is BackedModel) {
       value.backingStore?.subscribe(
         (dataKey, previousValue, newValue) {
@@ -136,9 +135,9 @@ class InMemoryBackingStore implements BackingStore {
         },
         key,
       );
-    } else {
-      _store[key] = valueToAdd;
     }
+
+    _store[key] = valueToAdd;
 
     if (value is Iterable<Object?>) {
       value.whereType<BackedModel>().forEach((model) {

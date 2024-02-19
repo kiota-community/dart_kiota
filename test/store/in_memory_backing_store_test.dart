@@ -1,6 +1,9 @@
 import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
+import 'in_memory_backing_store_test.mocks.dart';
 
 @GenerateMocks([BackedModel])
 void main() {
@@ -68,6 +71,52 @@ void main() {
 
       expect(store.iterate(), hasLength(1));
       expect(store.get<String>('key'), 'value2');
+    });
+
+    test('propagates initialization completed to backed models', () {
+      final aModel = MockBackedModel();
+      final aStore = InMemoryBackingStore();
+
+      when(aModel.backingStore).thenReturn(aStore);
+
+      final bStore = InMemoryBackingStore();
+
+      expect(aStore.initializationCompleted, isTrue);
+      expect(bStore.initializationCompleted, isTrue);
+
+      bStore
+        ..set('aModel', aModel)
+        ..initializationCompleted = false;
+
+      expect(aStore.initializationCompleted, isFalse);
+      expect(bStore.initializationCompleted, isFalse);
+
+      bStore.initializationCompleted = true;
+
+      expect(aStore.initializationCompleted, isTrue);
+      expect(bStore.initializationCompleted, isTrue);
+
+      final cModel = MockBackedModel();
+      final cStore = InMemoryBackingStore();
+      when(cModel.backingStore).thenReturn(cStore);
+
+      bStore.set('cModel', cModel);
+    });
+
+    test('returns only changed values', ()
+    {
+      final store = InMemoryBackingStore()
+        ..set('name', 'Peter')
+        ..set('email', 'peter@neverland.com')
+        ..returnOnlyChangedValues = true;
+
+      final changedEntries = store.iterate().toList();
+      expect(changedEntries, hasLength(0));
+
+      store.set('name', 'Wendy');
+
+      final changedEntries2 = store.iterate().toList();
+      expect(changedEntries2, hasLength(1));
     });
   });
 }
