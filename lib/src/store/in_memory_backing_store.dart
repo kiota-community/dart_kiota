@@ -21,13 +21,13 @@ class InMemoryBackingStore implements BackingStore {
         obj.backingStore?.initializationCompleted = value;
       }
 
-      ensureCollectionPropertyIsConsistent(key, obj);
+      _ensureCollectionPropertyIsConsistent(key, obj);
 
       _store[key] = (!value, obj);
     }
   }
 
-  void ensureCollectionPropertyIsConsistent(String key, Object? value) {
+  void _ensureCollectionPropertyIsConsistent(String key, Object? value) {
     // check if we put in a collection annotated with the size
     if (value is (Iterable<Object?>, int)) {
       value.$1.whereType<BackedModel>().forEach((model) {
@@ -72,7 +72,7 @@ class InMemoryBackingStore implements BackingStore {
     final changed = tuple.$1;
     var obj = tuple.$2;
 
-    ensureCollectionPropertyIsConsistent(key, obj);
+    _ensureCollectionPropertyIsConsistent(key, obj);
 
     if (obj is (Iterable<Object?>, int)) {
       obj = obj.$1;
@@ -89,7 +89,7 @@ class InMemoryBackingStore implements BackingStore {
       final obj = tuple.$2;
 
       if (returnOnlyChangedValues) {
-        ensureCollectionPropertyIsConsistent(key, obj);
+        _ensureCollectionPropertyIsConsistent(key, obj);
       }
 
       if (changed || !returnOnlyChangedValues) {
