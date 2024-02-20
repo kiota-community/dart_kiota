@@ -103,20 +103,25 @@ void main() {
       bStore.set('cModel', cModel);
     });
 
-    test('returns only changed values', ()
+    test('subscriptions get notified', ()
     {
-      final store = InMemoryBackingStore()
-        ..set('name', 'Peter')
-        ..set('email', 'peter@neverland.com')
-        ..returnOnlyChangedValues = true;
+      final store = InMemoryBackingStore();
 
-      final changedEntries = store.iterate().toList();
-      expect(changedEntries, hasLength(0));
+      String? key;
+      Object? oldValue;
+      Object? newValue;
+      final subscriptionId = store.subscribe((k, a, b) {
+        key = k;
+        oldValue = a;
+        newValue = b;
+      });
 
-      store.set('name', 'Wendy');
+      store.set('name', 'Peter');
 
-      final changedEntries2 = store.iterate().toList();
-      expect(changedEntries2, hasLength(1));
+      expect(key, 'name');
+      expect(oldValue, null);
+      expect(newValue, 'Peter');
+      expect(subscriptionId, isNotNull);
     });
   });
 }
