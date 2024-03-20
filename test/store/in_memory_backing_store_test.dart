@@ -103,8 +103,7 @@ void main() {
       bStore.set('cModel', cModel);
     });
 
-    test('subscriptions get notified', ()
-    {
+    test('subscriptions get notified', () {
       final store = InMemoryBackingStore();
 
       String? key;

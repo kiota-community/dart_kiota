@@ -22,7 +22,11 @@ void main() {
     });
 
     test('Only keeps a unique list of hosts', () {
-      final validator = AllowedHostsValidator(['example.com', 'example.com', 'EXAMPLE.COM']);
+      final validator = AllowedHostsValidator([
+        'example.com',
+        'example.com',
+        'EXAMPLE.COM',
+      ]);
 
       expect(validator.allowedHosts, equals(['example.com']));
     });
