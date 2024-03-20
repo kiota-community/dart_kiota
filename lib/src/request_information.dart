@@ -99,6 +99,18 @@ class RequestInformation {
       return value.toIso8601String();
     }
 
+    if (value is UuidValue) {
+      return value.toFormattedString();
+    }
+
+    if (value is TimeOnly) {
+      return value.toRfc3339String();
+    }
+
+    if (value is DateOnly) {
+      return value.toRfc3339String();
+    }
+
     if (value is Enum) {
       return value.name;
     }
