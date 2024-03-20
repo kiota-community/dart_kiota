@@ -1,15 +1,19 @@
 part of '../../kiota_abstractions.dart';
 
+HashSet<String> _createCaseInsensitiveHashSet() {
+  return HashSet(
+    equals: (a, b) => a.toUpperCase() == b.toUpperCase(),
+    hashCode: (o) => o.toUpperCase().hashCode,
+  );
+}
+
 /// Validator for handling allowed hosts for authentication.
 class AllowedHostsValidator {
   /// Initializes a new instance of the [AllowedHostsValidator] class.
   AllowedHostsValidator([Iterable<String>? validHosts]) {
     validHosts ??= <String>[];
     _validateHosts(validHosts);
-    _allowedHosts = HashSet(
-      equals: (a, b) => a.toUpperCase() == b.toUpperCase(),
-      hashCode: (o) => o.toUpperCase().hashCode,
-    )..addAll(validHosts);
+    _allowedHosts = _createCaseInsensitiveHashSet()..addAll(validHosts);
   }
 
   late final Set<String> _allowedHosts;
@@ -20,10 +24,7 @@ class AllowedHostsValidator {
   /// Sets the allowed hosts.
   set allowedHosts(Iterable<String> value) {
     _validateHosts(value);
-    _allowedHosts = HashSet(
-      equals: (a, b) => a.toUpperCase() == b.toUpperCase(),
-      hashCode: (o) => o.toUpperCase().hashCode,
-    )..addAll(value);
+    _allowedHosts = _createCaseInsensitiveHashSet()..addAll(value);
   }
 
   /// Validates that the given [uri] is valid.
@@ -32,10 +33,11 @@ class AllowedHostsValidator {
   }
 
   static void _validateHosts(Iterable<String> hostsToValidate) {
-    if (hostsToValidate
-        .map((e) => e.toLowerCase())
-        .any((x) => x.startsWith('http://') || x.startsWith('https://'))) {
-      throw ArgumentError('Host should not contain http or https prefix');
+    for (final host in hostsToValidate) {
+      final normalized = host.toLowerCase();
+      if (normalized.startsWith('http://') || normalized.startsWith('https://')) {
+        throw ArgumentError.value(host, null, 'Host should not contain http or https prefix');
+      }
     }
   }
 }
