@@ -33,12 +33,12 @@ From the comment at: https://github.com/microsoft/kiota/issues/2199#issuecomment
 - [x] Parse node interface
 - [x] Request adapter interface
 
-WIP:
+#### Abstractions
 
-- [ ] Backing stores https://github.com/ricardoboss/dart_kiota_abstractions/pull/10
-- [ ] Authentication https://github.com/ricardoboss/dart_kiota_abstractions/pull/12
+- [x] Backing stores https://github.com/ricardoboss/dart_kiota_abstractions/pull/10
+- [x] Authentication https://github.com/ricardoboss/dart_kiota_abstractions/pull/12
 
-Things other abstractions have, but this one doesn't:
+#### Implementations
 
 - [ ] Text serialization/deserialization
 - [ ] JSON serialization/deserialization
