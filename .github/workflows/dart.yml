@@ -10,7 +10,7 @@ jobs:
   test:
     strategy:
       matrix:
-        package: ['abstractions']
+        package: ['abstractions', 'http_client']
 
     name: Analyze, format, and test (${{ matrix.package }})
     runs-on: ubuntu-latest

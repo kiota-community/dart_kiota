@@ -1,0 +1,14 @@
+name: kiota_http_client
+description: "Kiota http client for Dart"
+version: 0.0.1-pre.1
+homepage: https://github.com/ricardoboss/dart_kiota_abstractions/tree/main/packages/http_client
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  kiota_abstractions:
+    path: ../abstractions
+  http: ^1.2.1
+  http_parser: ^4.0.2
