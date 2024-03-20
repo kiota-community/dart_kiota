@@ -8,7 +8,11 @@ on:
 
 jobs:
   test:
-    name: Analyze, format, and test
+    strategy:
+      matrix:
+        package: ['abstractions']
+
+    name: Analyze, format, and test (${{ matrix.package }})
     runs-on: ubuntu-latest
 
     steps:
@@ -24,17 +28,22 @@ jobs:
 
       - name: Install dependencies
         run: dart pub get
+        working-directory: packages/${{ matrix.package }}
 
       - name: Verify formatting
         continue-on-error: true
         run: dart format --output=none --set-exit-if-changed .
+        working-directory: packages/${{ matrix.package }}
 
       - name: Analyze project source
         continue-on-error: true
         run: dart analyze --fatal-infos
+        working-directory: packages/${{ matrix.package }}
 
       - name: Run build_runner
         run: dart run build_runner build --delete-conflicting-outputs
+        working-directory: packages/${{ matrix.package }}
 
       - name: Run tests
         run: dart test
+        working-directory: packages/${{ matrix.package }}
