@@ -12,3 +12,5 @@ dependencies:
     path: ../abstractions
   http: ^1.2.1
   http_parser: ^4.0.2
+dev_dependencies:
+  test: ^1.25.2
