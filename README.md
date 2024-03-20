@@ -1,26 +1,6 @@
-The Kiota abstractions library for Dart defines the basic constructs Kiota projects need once
-a client has been generated from an OpenAPI definition.
+# `dart_kiota`
 
-A [Kiota](https://github.com/microsoft/kiota) generated project will need a reference to the
-abstraction package to build and run.
-
-## Usage
-
-Install the package in the generated project:
-
-> For now, you can add the git repository as a dependency in your `pubspec.yaml` file:
->
-> ```yaml
-> dependencies:
->   kiota_abstractions:
->     git:
->       url: https://github.com/ricardoboss/dart_kiota_abstractions.git
->       ref: main
-> ```
-
-```bash
-dart pub add kiota_abstractions
-```
+This is the Dart implementation of the Kiota library.
 
 ## Development
 
@@ -35,20 +15,20 @@ From the comment at: https://github.com/microsoft/kiota/issues/2199#issuecomment
 
 #### Abstractions
 
-- [x] Backing stores https://github.com/ricardoboss/dart_kiota_abstractions/pull/10
-- [x] Authentication https://github.com/ricardoboss/dart_kiota_abstractions/pull/12
+- [x] Backing store abstractions https://github.com/ricardoboss/dart_kiota_abstractions/pull/10
+- [x] Authentication abstractions https://github.com/ricardoboss/dart_kiota_abstractions/pull/12
 
 #### Implementations
 
 - [ ] Text serialization/deserialization
 - [ ] JSON serialization/deserialization
 - [ ] Form data serialization/deserialization
-
-These could be added in the future or by other packages.
+- [ ] Muli-part serialization/deserialization
+- [ ] Dart HTTP request adapter
 
 ### License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](../../LICENSE) file for details.
 
 ---
 
