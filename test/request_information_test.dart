@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:mockito/annotations.dart';
 import 'package:test/test.dart';
+import 'package:uuid/uuid.dart';
 
 import 'request_information_test.mocks.dart';
 
@@ -89,6 +90,51 @@ void main() {
       expect(
         requestInfo.uri.toString(),
         contains("toDateTime='2022-08-02T00%3A00%3A00.000'"),
+      );
+    });
+
+    test('Sets path parameters of DateOnly type', () {
+      final requestInfo = RequestInformation(
+        httpMethod: HttpMethod.get,
+        urlTemplate: 'http://localhost/{date}',
+      );
+
+      // Act
+      final date = DateOnly.fromComponents(2024, 3, 20);
+      requestInfo.pathParameters['date'] = date;
+
+      // Assert
+      expect(requestInfo.uri.toString(), endsWith('2024-03-20'));
+    });
+
+    test('Sets path parameters of TimeOnly type', () {
+      final requestInfo = RequestInformation(
+        httpMethod: HttpMethod.get,
+        urlTemplate: 'http://localhost/{time}',
+      );
+
+      // Act
+      final time = TimeOnly.fromComponents(12, 34, 56);
+      requestInfo.pathParameters['time'] = time;
+
+      // Assert
+      expect(requestInfo.uri.toString(), endsWith('12%3A34%3A56'));
+    });
+
+    test('Sets path parameters of UuidValue type', () {
+      final requestInfo = RequestInformation(
+        httpMethod: HttpMethod.get,
+        urlTemplate: 'http://localhost/{uuid}',
+      );
+
+      // Act
+      final uuid = UuidValue.fromString('01234567-89ab-cdef-0123-456789abcdef');
+      requestInfo.pathParameters['uuid'] = uuid;
+
+      // Assert
+      expect(
+        requestInfo.uri.toString(),
+        endsWith('01234567-89ab-cdef-0123-456789abcdef'),
       );
     });
 
