@@ -35,8 +35,13 @@ class AllowedHostsValidator {
   static void _validateHosts(Iterable<String> hostsToValidate) {
     for (final host in hostsToValidate) {
       final normalized = host.toLowerCase();
-      if (normalized.startsWith('http://') || normalized.startsWith('https://')) {
-        throw ArgumentError.value(host, null, 'Host should not contain http or https prefix');
+      if (normalized.startsWith('http://') ||
+          normalized.startsWith('https://')) {
+        throw ArgumentError.value(
+          host,
+          null,
+          'Host should not contain http or https prefix',
+        );
       }
     }
   }
