@@ -13,7 +13,7 @@ jobs:
       matrix:
         package: ['abstractions', 'http_client']
 
-    name: '${{ matrix.package }}: Analyze, format, and test'
+    name: '${{ matrix.package }}: Analyze & Test'
     runs-on: ubuntu-latest
 
     steps:
