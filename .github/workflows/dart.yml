@@ -9,10 +9,11 @@ on:
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         package: ['abstractions', 'http_client']
 
-    name: Analyze, format, and test (${{ matrix.package }})
+    name: '${{ matrix.package }}: Analyze, format, and test'
     runs-on: ubuntu-latest
 
     steps:
