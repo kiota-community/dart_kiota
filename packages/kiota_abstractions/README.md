@@ -14,9 +14,9 @@ Install the package in the generated project:
 > dependencies:
 >   kiota_abstractions:
 >     git:
->       url: https://github.com/ricardoboss/dart_kiota_abstractions.git
+>       url: https://github.com/ricardoboss/dart_kiota.git
 >       ref: main
->       path: packages/abstractions
+>       path: packages/kiota_abstractions
 > ```
 
 ```bash

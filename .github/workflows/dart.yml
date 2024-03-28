@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package: ['abstractions', 'http_client']
+        package: ['kiota_abstractions', 'kiota_http']
 
     name: '${{ matrix.package }}: Analyze & Test'
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
         working-directory: packages/${{ matrix.package }}
 
       - name: Run build_runner
-        if: contains(fromJson('[ "abstractions" ]'), matrix.package)
+        if: contains(fromJson('[ "kiota_abstractions" ]'), matrix.package)
         run: dart run build_runner build --delete-conflicting-outputs
         working-directory: packages/${{ matrix.package }}
 
