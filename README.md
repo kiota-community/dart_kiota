@@ -20,11 +20,7 @@ From the comment at: https://github.com/microsoft/kiota/issues/2199#issuecomment
 
 #### Implementations
 
-- [ ] Text serialization/deserialization
-- [ ] JSON serialization/deserialization
-- [ ] Form data serialization/deserialization
-- [ ] Muli-part serialization/deserialization
-- [ ] Dart HTTP request adapter
+See https://github.com/ricardoboss/dart_kiota/issues/18
 
 ### License
 
