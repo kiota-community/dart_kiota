@@ -1,3 +1,5 @@
+part of '../kiota_abstractions.dart';
+
 /// Stores key-value pairs with case-insensitive keys.
 ///
 /// Internally uses two maps to store the data. The first map stores the

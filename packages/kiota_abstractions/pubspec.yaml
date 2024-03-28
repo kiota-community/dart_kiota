@@ -1,7 +1,7 @@
 name: kiota_abstractions
-description: "Kiota abstractions for Dart."
-version: 0.0.1-dev.1
-homepage: https://github.com/ricardoboss/dart_kiota_abstractions
+description: "Kiota abstractions for Dart"
+version: 0.0.1-pre.1
+homepage: https://github.com/ricardoboss/dart_kiota_abstractions/tree/main/packages/kiota_abstractions
 publish_to: 'none'
 
 topics:
@@ -14,11 +14,11 @@ environment:
   sdk: '>=3.2.6 <4.0.0'
 
 dependencies:
-  std_uritemplate: ^0.0.52
+  std_uritemplate: ^0.0.55
   uuid: ^4.3.3
 
 dev_dependencies:
   strict: ^2.0.0
-  test: ^1.25.0
+  test: ^1.25.2
   mockito: ^5.4.4
   build_runner: ^2.4.8
