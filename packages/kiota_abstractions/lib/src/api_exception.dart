@@ -23,4 +23,17 @@ class ApiException implements Exception {
   String toString() {
     return 'ApiException{statusCode: $statusCode, message: $message, headers: $responseHeaders}';
   }
+
+  /// Creates a new instance of [ApiException] with the given parameters.
+  ApiException copyWith({
+    int? statusCode,
+    String? message,
+    Map<String, List<String>>? responseHeaders,
+  }) {
+    return ApiException(
+      statusCode: statusCode ?? this.statusCode,
+      message: message ?? this.message,
+      responseHeaders: responseHeaders ?? this.responseHeaders,
+    );
+  }
 }
