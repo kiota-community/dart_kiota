@@ -7,3 +7,4 @@ import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:uuid/uuid.dart';
 
 part 'src/http_client_request_adapter.dart';
+part 'src/kiota_client_factory.dart';
