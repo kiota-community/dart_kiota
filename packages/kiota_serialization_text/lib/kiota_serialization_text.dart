@@ -13,3 +13,4 @@ import 'package:uuid/uuid_value.dart';
 part 'src/text_parse_node.dart';
 part 'src/text_parse_node_factory.dart';
 part 'src/text_serialization_writer.dart';
+part 'src/text_serialization_writer_factory.dart';
