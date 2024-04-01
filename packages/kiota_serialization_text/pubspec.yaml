@@ -1,0 +1,16 @@
+name: kiota_serialization_text
+description: "Kiota text serialization for Dart"
+version: 0.0.1-pre.1
+homepage: https://github.com/ricardoboss/dart_kiota/tree/main/packages/kiota_serialization_text
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  kiota_abstractions:
+    path: ../kiota_abstractions
+
+dev_dependencies:
+  strict: ^2.0.0
+  test: ^1.25.2
