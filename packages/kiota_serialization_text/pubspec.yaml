@@ -10,6 +10,7 @@ environment:
 dependencies:
   kiota_abstractions:
     path: ../kiota_abstractions
+  uuid: ^4.3.3
 
 dev_dependencies:
   strict: ^2.0.0
