@@ -11,3 +11,4 @@ import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:uuid/uuid_value.dart';
 
 part 'src/text_parse_node.dart';
+part 'src/text_parse_node_factory.dart';
