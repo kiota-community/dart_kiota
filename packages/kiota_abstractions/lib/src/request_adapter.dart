@@ -61,4 +61,8 @@ abstract class RequestAdapter {
   /// the implementing adapter.
   /// [T] is the type of the native request.
   Future<T?> convertToNativeRequest<T>(RequestInformation requestInfo);
+
+  /// Enables the backing store proxies for the [SerializationWriter]s and
+  /// [ParseNode]s in use using the given [backingStoreFactory].
+  void enableBackingStore(BackingStoreFactory backingStoreFactory);
 }

@@ -286,4 +286,9 @@ class HttpClientRequestAdapter implements RequestAdapter {
 
   @override
   SerializationWriterFactory get serializationWriterFactory => _sWriterFactory;
+
+  @override
+  void enableBackingStore(BackingStoreFactory backingStoreFactory) {
+    throw UnimplementedError('Backing stores not implemented.');
+  }
 }
