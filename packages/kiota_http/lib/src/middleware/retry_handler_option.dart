@@ -18,11 +18,11 @@ class RetryHandlerOption implements RequestOption {
   /// The [shouldRetry] function can be used to customize the retry logic.
   /// The [retryStatusCodes] are the status codes that will trigger a retry.
   /// The default status codes are 408, 429, 500, 502, 503, and 504.
-  RetryHandlerOption({
+  const RetryHandlerOption({
     this.maxRetries = 3,
     this.retryDelay = const Duration(seconds: 3),
     this.retriesTimeLimit = const Duration(seconds: 60),
-    ShouldRetryHandler? shouldRetry,
+    this.shouldRetry = _defaultShouldRetry,
     this.retryStatusCodes = const {
       408, // Request Timeout
       429, // Too Many Requests
@@ -40,10 +40,9 @@ class RetryHandlerOption implements RequestOption {
           'maxRetries must be less than 10',
         ),
         assert(
-          retryDelay.inSeconds >= 0,
+          retryDelay >= Duration.zero,
           'retryDelay must be greater than or equal to 0',
-        ),
-        shouldRetry = shouldRetry ?? _defaultShouldRetry;
+        );
 
   /// The maximum number of retries.
   final int maxRetries;
@@ -65,6 +64,6 @@ class RetryHandlerOption implements RequestOption {
     int retryCount,
     http.StreamedResponse response,
   ) {
-    return true;
+    return false;
   }
 }

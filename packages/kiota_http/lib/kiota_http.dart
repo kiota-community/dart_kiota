@@ -12,5 +12,7 @@ import 'package:uuid/uuid.dart';
 
 part 'src/http_client_request_adapter.dart';
 part 'src/kiota_client_factory.dart';
+part 'src/middleware/redirect_handler.dart';
+part 'src/middleware/redirect_handler_option.dart';
 part 'src/middleware/retry_handler_option.dart';
 part 'src/middleware/retry_handler.dart';
