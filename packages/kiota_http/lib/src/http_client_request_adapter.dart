@@ -34,7 +34,8 @@ class HttpClientRequestAdapter implements RequestAdapter {
   Future<http.BaseRequest> _getMessageFromInfo(
     RequestInformation requestInfo,
   ) async {
-    final request = http.Request(requestInfo.httpMethod!.name, requestInfo.uri);
+    final request =
+        http.Request(requestInfo.httpMethod!.value, requestInfo.uri);
 
     // TODO(ricardoboss): implement the rest of the method
 
