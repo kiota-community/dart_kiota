@@ -39,7 +39,9 @@ class HttpClientRequestAdapter implements RequestAdapter {
       requestInfo.uri,
     );
 
-    // TODO(ricardoboss): implement the rest of the method
+    if (requestInfo.content case final Uint8List content) {
+      request.bodyBytes = content;
+    }
 
     return request;
   }
