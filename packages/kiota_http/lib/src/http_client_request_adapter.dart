@@ -39,6 +39,17 @@ class HttpClientRequestAdapter implements RequestAdapter {
       requestInfo.uri,
     );
 
+    if (requestInfo.headers.isNotEmpty) {
+      final flattenedHeaders = requestInfo.headers.map((name, values) {
+        // according to https://stackoverflow.com/a/3097052/5107884 it is
+        // possible to concatenate multiple header values for the same name with
+        // a comma
+        return MapEntry(name, values.join(', '));
+      });
+
+      request.headers.addAll(flattenedHeaders);
+    }
+
     if (requestInfo.content case final Uint8List content) {
       request.bodyBytes = content;
     }
