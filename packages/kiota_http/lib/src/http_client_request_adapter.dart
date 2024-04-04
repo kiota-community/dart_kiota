@@ -89,7 +89,7 @@ class HttpClientRequestAdapter implements RequestAdapter {
     http.StreamedResponse response,
     ErrorMappings? errorMapping,
   ) async {
-    if (response.statusCode >= 200 && response.statusCode < 300) {
+    if (response.statusCode >= 200 && response.statusCode < 400) {
       return;
     }
 
