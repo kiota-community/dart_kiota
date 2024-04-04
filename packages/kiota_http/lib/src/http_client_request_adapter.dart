@@ -247,45 +247,30 @@ class HttpClientRequestAdapter implements RequestAdapter {
       return null;
     }
 
-    if (ModelType is bool?) {
-      return rootNode.getBoolValue() as ModelType;
+    switch (ModelType) {
+      case const (bool):
+        return rootNode.getBoolValue() as ModelType;
+      case const (int):
+        return rootNode.getIntValue() as ModelType;
+      case const (double):
+        return rootNode.getDoubleValue() as ModelType;
+      case const (String):
+        return rootNode.getStringValue() as ModelType;
+      case const (DateTime):
+        return rootNode.getDateTimeValue() as ModelType;
+      case const (DateOnly):
+        return rootNode.getDateOnlyValue() as ModelType;
+      case const (TimeOnly):
+        return rootNode.getTimeOnlyValue() as ModelType;
+      case const (Duration):
+        return rootNode.getDurationValue() as ModelType;
+      case const (UuidValue):
+        return rootNode.getGuidValue() as ModelType;
+      default:
+        throw ArgumentError(
+          'The type $ModelType is not supported for primitive deserialization',
+        );
     }
-
-    if (ModelType is int?) {
-      return rootNode.getIntValue() as ModelType;
-    }
-
-    if (ModelType is double?) {
-      return rootNode.getDoubleValue() as ModelType;
-    }
-
-    if (ModelType is String?) {
-      return rootNode.getStringValue() as ModelType;
-    }
-
-    if (ModelType is DateTime?) {
-      return rootNode.getDateTimeValue() as ModelType;
-    }
-
-    if (ModelType is DateOnly?) {
-      return rootNode.getDateOnlyValue() as ModelType;
-    }
-
-    if (ModelType is TimeOnly?) {
-      return rootNode.getTimeOnlyValue() as ModelType;
-    }
-
-    if (ModelType is Duration?) {
-      return rootNode.getDurationValue() as ModelType;
-    }
-
-    if (ModelType is UuidValue?) {
-      return rootNode.getGuidValue() as ModelType;
-    }
-
-    throw ArgumentError(
-      'The type $ModelType is not supported for primitive deserialization',
-    );
   }
 
   @override
