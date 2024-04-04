@@ -4,6 +4,8 @@ class KiotaClientFactory {
   KiotaClientFactory._();
 
   static http.Client createClient() {
-    return http.Client();
+    return RetryHandler(
+      http.Client(),
+    );
   }
 }
