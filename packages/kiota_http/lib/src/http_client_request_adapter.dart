@@ -31,9 +31,9 @@ class HttpClientRequestAdapter implements RequestAdapter {
     }
   }
 
-  Future<http.BaseRequest> _getMessageFromInfo(
+  http.BaseRequest _getMessageFromInfo(
     RequestInformation requestInfo,
-  ) async {
+  ) {
     final request = http.Request(
       requestInfo.httpMethod!.value,
       requestInfo.uri,
@@ -70,7 +70,7 @@ class HttpClientRequestAdapter implements RequestAdapter {
 
     await _authProvider.authenticateRequest(requestInfo, additionalAuthContext);
 
-    final message = await _getMessageFromInfo(requestInfo);
+    final message = _getMessageFromInfo(requestInfo);
 
     return _client.send(message);
   }
@@ -164,7 +164,7 @@ class HttpClientRequestAdapter implements RequestAdapter {
   Future<T?> convertToNativeRequest<T>(RequestInformation requestInfo) async {
     await _authProvider.authenticateRequest(requestInfo);
 
-    final request = await _getMessageFromInfo(requestInfo);
+    final request = _getMessageFromInfo(requestInfo);
     if (request is T) {
       return request as T;
     }
