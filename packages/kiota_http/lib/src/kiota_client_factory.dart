@@ -21,7 +21,7 @@ class KiotaClientFactory {
         },
       ),
       // TODO(ricardoboss): Get the version from the pubspec
-      userAgent: 'kiota_http/0.0.1',
+      userAgent: 'kiota_http/$packageVersion',
     );
   }
 }
