@@ -15,8 +15,12 @@ class HttpClientRequestAdapter implements RequestAdapter {
 
   final http.Client _client;
   final AuthenticationProvider _authProvider;
+
+  // ignore: prefer_final_fields
   ParseNodeFactory _pNodeFactory;
+  // ignore: prefer_final_fields
   SerializationWriterFactory _sWriterFactory;
+
   String? _baseUrl;
 
   @override
