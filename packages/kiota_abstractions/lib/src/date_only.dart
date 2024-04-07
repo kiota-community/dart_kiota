@@ -7,7 +7,7 @@ part of '../kiota_abstractions.dart';
 /// way.
 ///
 /// It can only be used to represent a date in the Gregorian calendar.
-abstract class DateOnly {
+abstract class DateOnly implements Comparable<DateOnly> {
   /// Extracts the date part of a [DateTime] and creates an object implementing
   /// [DateOnly].
   factory DateOnly.fromDateTime(DateTime dateTime) {
@@ -49,8 +49,9 @@ abstract class DateOnly {
   int get day;
 }
 
+@immutable
 class _DateOnlyImpl implements DateOnly {
-  _DateOnlyImpl({
+  const _DateOnlyImpl({
     required this.day,
     required this.month,
     required this.year,
@@ -64,4 +65,29 @@ class _DateOnlyImpl implements DateOnly {
 
   @override
   final int year;
+
+  @override
+  int compareTo(DateOnly other) {
+    if (year != other.year) {
+      return year.compareTo(other.year);
+    }
+
+    if (month != other.month) {
+      return month.compareTo(other.month);
+    }
+
+    return day.compareTo(other.day);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other is DateOnly) {
+      return compareTo(other) == 0;
+    }
+
+    return false;
+  }
+
+  @override
+  int get hashCode => year.hashCode ^ month.hashCode ^ day.hashCode;
 }
