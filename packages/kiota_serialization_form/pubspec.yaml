@@ -1,0 +1,15 @@
+name: kiota_serialization_form
+description: "Kiota serialization for form data"
+version: 0.0.1-pre.1
+homepage: https://github.com/ricardoboss/dart_kiota_abstractions/tree/main/packages/kiota_serialization_form
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  kiota_abstractions:
+    path: ../kiota_abstractions
+
+dev_dependencies:
+  test: ^1.25.2

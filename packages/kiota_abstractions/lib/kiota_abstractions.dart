@@ -27,6 +27,7 @@ part 'src/authentication/base_bearer_token_authentication_provider.dart';
 part 'src/base_request_builder.dart';
 part 'src/case_insensitive_map.dart';
 part 'src/date_only.dart';
+part 'src/enum_registry.dart';
 part 'src/error_mappings.dart';
 part 'src/extensions/base_request_builder_extensions.dart';
 part 'src/extensions/date_only_extensions.dart';
