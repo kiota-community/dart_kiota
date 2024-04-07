@@ -5,7 +5,7 @@ part of '../kiota_abstractions.dart';
 /// This interface provides an abstraction layer over time only objects.
 /// It is used to represent time only values in a serialization format agnostic
 /// way.
-abstract class TimeOnly {
+abstract class TimeOnly implements Comparable<TimeOnly> {
   /// Extracts the time part of a [DateTime] and creates an object implementing
   /// [TimeOnly].
   factory TimeOnly.fromDateTime(DateTime dateTime) {
@@ -53,8 +53,9 @@ abstract class TimeOnly {
   int get milliseconds;
 }
 
+@immutable
 class _TimeOnlyImpl implements TimeOnly {
-  _TimeOnlyImpl({
+  const _TimeOnlyImpl({
     required this.hours,
     required this.minutes,
     required this.seconds,
@@ -72,4 +73,37 @@ class _TimeOnlyImpl implements TimeOnly {
 
   @override
   final int milliseconds;
+
+  @override
+  int compareTo(TimeOnly other) {
+    if (hours != other.hours) {
+      return hours.compareTo(other.hours);
+    }
+
+    if (minutes != other.minutes) {
+      return minutes.compareTo(other.minutes);
+    }
+
+    if (seconds != other.seconds) {
+      return seconds.compareTo(other.seconds);
+    }
+
+    return milliseconds.compareTo(other.milliseconds);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (other is TimeOnly) {
+      return compareTo(other) == 0;
+    }
+
+    return false;
+  }
+
+  @override
+  int get hashCode =>
+      hours.hashCode ^
+      minutes.hashCode ^
+      seconds.hashCode ^
+      milliseconds.hashCode;
 }

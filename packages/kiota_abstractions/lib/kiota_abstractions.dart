@@ -11,6 +11,7 @@ import 'dart:collection';
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:meta/meta.dart';
 import 'package:std_uritemplate/std_uritemplate.dart';
 import 'package:uuid/uuid.dart';
 
