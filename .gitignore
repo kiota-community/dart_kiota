@@ -27,3 +27,7 @@ pubspec.lock
 **/doc/api/
 .dart_tool/
 build/
+
+# ignore generated files
+gen/
+*.mocks.dart
