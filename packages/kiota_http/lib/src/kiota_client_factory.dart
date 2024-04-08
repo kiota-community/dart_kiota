@@ -20,7 +20,6 @@ class KiotaClientFactory {
           return retryCodes.contains(response.statusCode);
         },
       ),
-      // TODO(ricardoboss): Get the version from the pubspec
       userAgent: 'kiota_http/$packageVersion',
     );
   }
