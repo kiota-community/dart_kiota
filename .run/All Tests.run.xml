@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="All Tests" type="CompoundRunConfigurationType">
+    <toRun name="Test kiota_abstractions" type="DartTestRunConfigurationType" />
+    <toRun name="Test kiota_http" type="DartTestRunConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>

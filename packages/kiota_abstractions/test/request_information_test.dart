@@ -21,11 +21,7 @@ void main() {
       expect(blank.pathParameters, <String, dynamic>{});
       expect(blank.queryParameters, <String, dynamic>{});
       expect(blank.headers, HttpHeaders());
-      expect(
-        blank.content,
-        isA<Uint8List>()
-            .having((content) => content.length, 'length', equals(0)),
-      );
+      expect(blank.content, isNull);
       expect(blank.requestOptions, <RequestOption>[]);
 
       expect(() => blank.uri, throwsArgumentError);

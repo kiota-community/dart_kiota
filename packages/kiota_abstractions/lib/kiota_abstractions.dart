@@ -15,6 +15,7 @@ import 'package:std_uritemplate/std_uritemplate.dart';
 import 'package:uuid/uuid.dart';
 
 part 'src/api_client_builder.dart';
+part 'src/api_exception.dart';
 part 'src/authentication/access_token_provider.dart';
 part 'src/authentication/allowed_hosts_validator.dart';
 part 'src/authentication/anonymous_authentication_provider.dart';

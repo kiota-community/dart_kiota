@@ -34,7 +34,7 @@ class RequestInformation {
   HttpHeaders get headers => _headers;
 
   /// The request body.
-  Uint8List content = Uint8List(0);
+  Uint8List? content;
 
   final Map<String, RequestOption> _requestOptions = {};
 
