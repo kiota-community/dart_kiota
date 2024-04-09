@@ -172,8 +172,7 @@ class FormParseNode implements ParseNode {
 
   @override
   Duration? getDurationValue() {
-    // TODO(ricardoboss): Need this to be merged: https://github.com/ricardoboss/dart_kiota/blob/f6331f769fe9067d48bde075aaea1fd22e89a83a/packages/kiota_abstractions/lib/src/extensions/duration_extensions.dart
-    throw UnsupportedError('Duration deserialization is not supported yet');
+    return DurationExtensions.tryParse(_decodedValue);
   }
 
   @override
