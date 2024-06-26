@@ -82,7 +82,9 @@ class FormParseNode implements ParseNode {
       return null;
     }
 
-    return FormParseNode(_fields[sanitizedIdentifier]!);
+    return FormParseNode(_fields[sanitizedIdentifier]!)
+      ..onAfterAssignFieldValues = onAfterAssignFieldValues
+      ..onBeforeAssignFieldValues = onBeforeAssignFieldValues;
   }
 
   @override
