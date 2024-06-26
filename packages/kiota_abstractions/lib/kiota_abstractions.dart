@@ -34,7 +34,6 @@ part 'src/extensions/date_only_extensions.dart';
 part 'src/extensions/duration_extensions.dart';
 part 'src/extensions/map_extensions.dart';
 part 'src/extensions/request_information_extensions.dart';
-part 'src/extensions/string_extensions.dart';
 part 'src/extensions/time_only_extensions.dart';
 part 'src/http_headers.dart';
 part 'src/http_method.dart';
