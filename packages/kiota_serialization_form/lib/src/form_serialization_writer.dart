@@ -131,7 +131,7 @@ class FormSerializationWriter implements SerializationWriter {
 
   @override
   void writeStringValue(String? key, String? value) {
-    if (key == null || value == null) {
+    if (key == null || key.isEmpty || value == null || value.isEmpty) {
       return;
     }
 
