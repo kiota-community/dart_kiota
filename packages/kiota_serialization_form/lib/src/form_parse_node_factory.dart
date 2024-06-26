@@ -1,5 +1,6 @@
 part of '../kiota_serialization_form.dart';
 
+/// The [ParseNodeFactory] implementation for form content types
 class FormParseNodeFactory implements ParseNodeFactory {
   @override
   ParseNode getRootParseNode(String contentType, Uint8List content) {

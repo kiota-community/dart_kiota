@@ -14,3 +14,4 @@ import 'package:uuid/uuid_value.dart';
 part 'src/form_parse_node.dart';
 part 'src/form_parse_node_factory.dart';
 part 'src/form_serialization_writer.dart';
+part 'src/form_serialization_writer_factory.dart';

@@ -1,5 +1,6 @@
 part of '../kiota_serialization_form.dart';
 
+/// Represents a [ParseNode] that can be used to parse a form url encoded string.
 class FormParseNode implements ParseNode {
   FormParseNode(String value)
       : _rawValue = value,
