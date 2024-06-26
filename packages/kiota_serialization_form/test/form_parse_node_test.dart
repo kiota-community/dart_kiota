@@ -182,5 +182,27 @@ void main() {
 
       expect(value, isNotNull);
     });
+
+    test('FormParseNode parses fields', () {
+      final node =
+          FormParseNode('filename=file.txt&size=123&type=null&temp=true');
+
+      final filename = node.getChildNode('filename');
+      final size = node.getChildNode('size');
+      final type = node.getChildNode('type');
+      final temp = node.getChildNode('temp');
+
+      expect(filename, isNotNull);
+      expect(filename!.getStringValue(), 'file.txt');
+
+      expect(size, isNotNull);
+      expect(size!.getIntValue(), 123);
+
+      expect(type, isNotNull);
+      expect(type!.getStringValue(), null);
+
+      expect(temp, isNotNull);
+      expect(temp!.getBoolValue(), true);
+    });
   });
 }
