@@ -64,7 +64,7 @@ class MultipartBody implements Parsable {
   }
 
   @override
-  Map<String, ParseNode Function()> getFieldDeserializers() =>
+  Map<String, void Function(ParseNode)> getFieldDeserializers() =>
       throw UnimplementedError();
 
   @override
