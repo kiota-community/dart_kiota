@@ -18,9 +18,28 @@ abstract class SerializationWriter {
   /// [key].
   void writeDoubleValue(String? key, double? value);
 
+  /// Writes the specified [UuidValue] value to the buffer with an optional
+  /// given [key].
+  void writeUuidValue(String? key, UuidValue? value);
+
   /// Writes the specified [DateTime] value to the buffer with an optional given
   /// [key].
   void writeDateTimeValue(String? key, DateTime? value);
+
+  /// Writes the specified [Duration] value to the buffer with an optional given
+  /// [key].
+  void writeDurationValue(String? key, Duration? value);
+
+  /// Writes the specified [TimeOnly] value to the buffer with an optional given
+  /// [key].
+  void writeTimeOnlyValue(String? key, TimeOnly? value);
+
+  /// Writes the specified [DateOnly] value to the buffer with an optional given
+  /// [key].
+  void writeDateOnlyValue(String? key, DateOnly? value);
+
+  /// Writes a null value for the specified [key].
+  void writeNullValue(String? key);
 
   /// Writes the specified collection of primitive values to the buffer with an
   /// optional given [key].
@@ -57,9 +76,6 @@ abstract class SerializationWriter {
   /// Writes the specified enum value to the buffer with an optional given
   /// [key].
   void writeEnumValue<T extends Enum>(String? key, T? value);
-
-  /// Writes a null value for the specified [key].
-  void writeNullValue(String? key);
 
   /// Writes the specified additional data to the buffer.
   void writeAdditionalData(Map<String, dynamic> value);
