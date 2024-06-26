@@ -98,7 +98,10 @@ class FormParseNode implements ParseNode {
         ..onAfterAssignFieldValues = onAfterAssignFieldValues
         ..onBeforeAssignFieldValues = onBeforeAssignFieldValues;
 
-      yield node.getEnumValue<T>()!;
+      final enumValue = node.getEnumValue<T>();
+      if (enumValue != null) {
+        yield enumValue;
+      }
     }
   }
 
@@ -116,34 +119,34 @@ class FormParseNode implements ParseNode {
     final collection =
         _decodedValue.split(',').where((entry) => entry.isNotEmpty);
 
-    final T Function(FormParseNode node) converter;
+    final T? Function(FormParseNode node) converter;
     switch (T) {
       case const (bool):
-        converter = (node) => node.getBoolValue() as T;
+        converter = (node) => node.getBoolValue() as T?;
         break;
       case const (int):
-        converter = (node) => node.getIntValue() as T;
+        converter = (node) => node.getIntValue() as T?;
         break;
       case const (double):
-        converter = (node) => node.getDoubleValue() as T;
+        converter = (node) => node.getDoubleValue() as T?;
         break;
       case const (String):
-        converter = (node) => node.getStringValue() as T;
+        converter = (node) => node.getStringValue() as T?;
         break;
       case const (DateTime):
-        converter = (node) => node.getDateTimeValue() as T;
+        converter = (node) => node.getDateTimeValue() as T?;
         break;
       case const (DateOnly):
-        converter = (node) => node.getDateOnlyValue() as T;
+        converter = (node) => node.getDateOnlyValue() as T?;
         break;
       case const (TimeOnly):
-        converter = (node) => node.getTimeOnlyValue() as T;
+        converter = (node) => node.getTimeOnlyValue() as T?;
         break;
       case const (Duration):
-        converter = (node) => node.getDurationValue() as T;
+        converter = (node) => node.getDurationValue() as T?;
         break;
       case const (UuidValue):
-        converter = (node) => node.getGuidValue() as T;
+        converter = (node) => node.getGuidValue() as T?;
         break;
       default:
         throw UnsupportedError('Unsupported primitive type $T');
@@ -154,7 +157,10 @@ class FormParseNode implements ParseNode {
         ..onAfterAssignFieldValues = onAfterAssignFieldValues
         ..onBeforeAssignFieldValues = onBeforeAssignFieldValues;
 
-      yield converter(node);
+      final value = converter(node);
+      if (value != null) {
+        yield value;
+      }
     }
   }
 
@@ -221,7 +227,7 @@ class FormParseNode implements ParseNode {
       return;
     }
 
-    Map<String, Object>? additionalData = null;
+    Map<String, Object>? additionalData;
     if (item case final AdditionDataHolder dataHolder) {
       dataHolder.additionalData = additionalData ??= {};
     }
@@ -232,11 +238,11 @@ class FormParseNode implements ParseNode {
       final value = field.value;
 
       if (deserializers.containsKey(key)) {
-        final deserializer = deserializers[key]!;
-
         if (value == 'null') {
           continue;
         }
+
+        final deserializer = deserializers[key]!;
 
         final node = FormParseNode(value)
           ..onBeforeAssignFieldValues = onBeforeAssignFieldValues
