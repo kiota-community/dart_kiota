@@ -15,5 +15,5 @@ class FormSerializationWriterFactory implements SerializationWriterFactory {
   }
 
   @override
-  String get validContentType => "application/x-www-form-urlencoded";
+  String get validContentType => 'application/x-www-form-urlencoded';
 }
