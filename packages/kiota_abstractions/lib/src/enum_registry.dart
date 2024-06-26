@@ -37,7 +37,7 @@ class EnumRegistry {
       throw ArgumentError('Enum type $T is not registered');
     }
 
-    return value.name.toLowerCase();
+    return value.name;
   }
 
   /// Gets the [Enum] case of the [value] of the type [T].

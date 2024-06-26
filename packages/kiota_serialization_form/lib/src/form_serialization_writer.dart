@@ -83,7 +83,7 @@ class FormSerializationWriter implements SerializationWriter {
         valueNames.write(',');
       }
 
-      valueNames.write(value.name.toLowerCase());
+      valueNames.write(EnumRegistry.getCaseValue(value));
     }
 
     writeStringValue(key, valueNames?.toString());
