@@ -4,7 +4,7 @@ part of '../kiota_serialization_form.dart';
 /// encoded string.
 class FormSerializationWriter implements SerializationWriter {
   final StringBuffer _buffer = StringBuffer();
-  int depth = 0;
+  bool writingObject = false;
 
   @override
   ParsableHook? onAfterObjectSerialization;
@@ -27,7 +27,7 @@ class FormSerializationWriter implements SerializationWriter {
     }
   }
 
-  void _writeAnyValue(String key, Object? value) {
+  void _writeAnyValue(String? key, Object? value) {
     switch (value) {
       case null:
         writeNullValue(key);
@@ -56,9 +56,7 @@ class FormSerializationWriter implements SerializationWriter {
 
   @override
   void writeBoolValue(String? key, {bool? value}) {
-    if (value != null) {
-      writeStringValue(key, value.toString().toLowerCase());
-    }
+    writeStringValue(key, value?.toString().toLowerCase());
   }
 
   @override
@@ -73,7 +71,20 @@ class FormSerializationWriter implements SerializationWriter {
     String? key,
     Iterable<T>? values,
   ) {
-    // TODO: implement writeCollectionOfEnumValues
+    if (values == null) return;
+
+    StringBuffer? valueNames;
+    for (final value in values) {
+      if (valueNames == null) {
+        valueNames = StringBuffer();
+      } else {
+        valueNames.write(',');
+      }
+
+      valueNames.write(value.name.toFirstCharacterLowerCase());
+    }
+
+    writeStringValue(key, valueNames?.toString());
   }
 
   @override
@@ -81,38 +92,40 @@ class FormSerializationWriter implements SerializationWriter {
     String? key,
     Iterable<T>? values,
   ) {
-    // TODO: implement writeCollectionOfObjectValues
+    throw new UnsupportedError(
+      'Form serialization does not support collections of objects.',
+    );
   }
 
   @override
   void writeCollectionOfPrimitiveValues<T>(String? key, Iterable<T>? values) {
-    // TODO: implement writeCollectionOfPrimitiveValues
+    if (values == null) return;
+
+    for (final value in values) {
+      if (value != null) {
+        _writeAnyValue(key, value);
+      }
+    }
   }
 
   @override
   void writeDateTimeValue(String? key, DateTime? value) {
-    if (value != null) {
-      writeStringValue(key, value.toIso8601String());
-    }
+    writeStringValue(key, value?.toIso8601String());
   }
 
   @override
   void writeDoubleValue(String? key, double? value) {
-    if (value != null) {
-      writeStringValue(key, value.toString());
-    }
+    writeStringValue(key, value?.toString());
   }
 
   @override
   void writeEnumValue<T extends Enum>(String? key, T? value) {
-    // TODO: implement writeEnumValue
+    writeStringValue(key, value?.name);
   }
 
   @override
   void writeIntValue(String? key, int? value) {
-    if (value != null) {
-      writeStringValue(key, value.toString());
-    }
+    writeStringValue(key, value?.toString());
   }
 
   @override
@@ -126,7 +139,39 @@ class FormSerializationWriter implements SerializationWriter {
     T? value, [
     Iterable<Parsable>? additionalValuesToMerge,
   ]) {
-    // TODO: implement writeObjectValue
+    if (writingObject) {
+      throw new UnsupportedError(
+        'Form serialization does not support nested objects.',
+      );
+    }
+
+    writingObject = true;
+
+    try {
+      if (value == null) {
+        return;
+      }
+
+      onBeforeObjectSerialization?.call(value);
+      onStartObjectSerialization?.call(value, this);
+
+      value.serialize(this);
+
+      if (additionalValuesToMerge != null) {
+        for (final additionalValue in additionalValuesToMerge) {
+          onBeforeObjectSerialization?.call(additionalValue);
+          onStartObjectSerialization?.call(additionalValue, this);
+
+          additionalValue.serialize(this);
+
+          onAfterObjectSerialization?.call(additionalValue);
+        }
+      }
+
+      onAfterObjectSerialization?.call(value);
+    } finally {
+      writingObject = false;
+    }
   }
 
   @override
@@ -147,29 +192,21 @@ class FormSerializationWriter implements SerializationWriter {
 
   @override
   void writeDateOnlyValue(String? key, DateOnly? value) {
-    if (value != null) {
-      writeStringValue(key, value.toRfc3339String());
-    }
+    writeStringValue(key, value?.toRfc3339String());
   }
 
   @override
   void writeDurationValue(String? key, Duration? value) {
-    if (value != null) {
-      writeStringValue(key, value.toString());
-    }
+    writeStringValue(key, value?.toString());
   }
 
   @override
   void writeTimeOnlyValue(String? key, TimeOnly? value) {
-    if (value != null) {
-      writeStringValue(key, value.toRfc3339String());
-    }
+    writeStringValue(key, value?.toRfc3339String());
   }
 
   @override
   void writeUuidValue(String? key, UuidValue? value) {
-    if (value != null) {
-      writeStringValue(key, value.uuid);
-    }
+    writeStringValue(key, value?.uuid);
   }
 }
