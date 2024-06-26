@@ -1,7 +1,7 @@
 part of '../kiota_serialization_form.dart';
 
 class FormParseNode implements ParseNode {
-  FormParseNode({required String value})
+  FormParseNode(String value)
       : _rawValue = value,
         _fields = _parseFields(value);
 
@@ -82,7 +82,7 @@ class FormParseNode implements ParseNode {
       return null;
     }
 
-    return FormParseNode(value: _fields[sanitizedIdentifier]!);
+    return FormParseNode(_fields[sanitizedIdentifier]!);
   }
 
   @override
@@ -91,7 +91,7 @@ class FormParseNode implements ParseNode {
         _decodedValue.split(',').where((entry) => entry.isNotEmpty);
 
     for (final entry in collection) {
-      final node = new FormParseNode(value: entry)
+      final node = FormParseNode(entry)
         ..onAfterAssignFieldValues = onAfterAssignFieldValues
         ..onBeforeAssignFieldValues = onBeforeAssignFieldValues;
 
@@ -147,7 +147,7 @@ class FormParseNode implements ParseNode {
     }
 
     for (final entry in collection) {
-      final node = new FormParseNode(value: entry)
+      final node = FormParseNode(entry)
         ..onAfterAssignFieldValues = onAfterAssignFieldValues
         ..onBeforeAssignFieldValues = onBeforeAssignFieldValues;
 
@@ -235,7 +235,7 @@ class FormParseNode implements ParseNode {
           continue;
         }
 
-        final node = FormParseNode(value: value)
+        final node = FormParseNode(value)
           ..onBeforeAssignFieldValues = onBeforeAssignFieldValues
           ..onAfterAssignFieldValues = onAfterAssignFieldValues;
 
