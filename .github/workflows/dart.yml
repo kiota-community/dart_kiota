@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        package: ['kiota_abstractions', 'kiota_http', 'kiota_serialization_text']
+        package: ['kiota_abstractions', 'kiota_http', 'kiota_serialization_form', 'kiota_serialization_text']
 
     name: '${{ matrix.package }}: Analyze & Test'
     runs-on: ubuntu-latest
