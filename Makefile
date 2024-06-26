@@ -9,6 +9,9 @@ pub-get-http:
 pub-get-serialization-text:
 	cd packages/kiota_serialization_text && dart pub get
 
+pub-get-serialization-form:
+	cd packages/kiota_serialization_form && dart pub get
+
 format:
 	dart format packages
 
@@ -20,7 +23,7 @@ generate-abstractions:
 generate-http:
 	cd packages/kiota_http && dart run build_runner build --delete-conflicting-outputs
 
-test: test-abstractions test-http test-serialization-text
+test: test-abstractions test-http test-serialization-text test-serialization-form
 
 test-abstractions:
 	cd packages/kiota_abstractions && dart test
@@ -30,3 +33,6 @@ test-http:
 
 test-serialization-text:
 	cd packages/kiota_serialization_text && dart test
+
+test-serialization-form:
+	cd packages/kiota_serialization_form && dart test
