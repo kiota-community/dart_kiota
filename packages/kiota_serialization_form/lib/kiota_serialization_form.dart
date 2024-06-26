@@ -9,7 +9,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:kiota_abstractions/kiota_abstractions.dart';
-import 'package:uuid/uuid_value.dart';
+import 'package:uuid/uuid.dart';
 
 part 'src/form_parse_node.dart';
 part 'src/form_parse_node_factory.dart';

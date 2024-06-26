@@ -123,31 +123,22 @@ class FormParseNode implements ParseNode {
     switch (T) {
       case const (bool):
         converter = (node) => node.getBoolValue() as T?;
-        break;
       case const (int):
         converter = (node) => node.getIntValue() as T?;
-        break;
       case const (double):
         converter = (node) => node.getDoubleValue() as T?;
-        break;
       case const (String):
         converter = (node) => node.getStringValue() as T?;
-        break;
       case const (DateTime):
         converter = (node) => node.getDateTimeValue() as T?;
-        break;
       case const (DateOnly):
         converter = (node) => node.getDateOnlyValue() as T?;
-        break;
       case const (TimeOnly):
         converter = (node) => node.getTimeOnlyValue() as T?;
-        break;
       case const (Duration):
         converter = (node) => node.getDurationValue() as T?;
-        break;
       case const (UuidValue):
         converter = (node) => node.getGuidValue() as T?;
-        break;
       default:
         throw UnsupportedError('Unsupported primitive type $T');
     }

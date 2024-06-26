@@ -71,7 +71,9 @@ class FormSerializationWriter implements SerializationWriter {
     String? key,
     Iterable<T>? values,
   ) {
-    if (values == null) return;
+    if (values == null) {
+      return;
+    }
 
     StringBuffer? valueNames;
     for (final value in values) {
@@ -92,14 +94,16 @@ class FormSerializationWriter implements SerializationWriter {
     String? key,
     Iterable<T>? values,
   ) {
-    throw new UnsupportedError(
+    throw UnsupportedError(
       'Form serialization does not support collections of objects.',
     );
   }
 
   @override
   void writeCollectionOfPrimitiveValues<T>(String? key, Iterable<T>? values) {
-    if (values == null) return;
+    if (values == null) {
+      return;
+    }
 
     for (final value in values) {
       if (value != null) {
@@ -140,7 +144,7 @@ class FormSerializationWriter implements SerializationWriter {
     Iterable<Parsable>? additionalValuesToMerge,
   ]) {
     if (writingObject) {
-      throw new UnsupportedError(
+      throw UnsupportedError(
         'Form serialization does not support nested objects.',
       );
     }
