@@ -37,7 +37,7 @@ jobs:
         working-directory: packages/${{ matrix.package }}
 
       - name: Run build_runner
-        if: contains(fromJson('[ "kiota_abstractions", "kiota_http" ]'), matrix.package)
+        if: contains(fromJson('[ "kiota_abstractions", "kiota_http", "kiota_serialization_form" ]'), matrix.package)
         run: dart run build_runner build --delete-conflicting-outputs
         working-directory: packages/${{ matrix.package }}
 
