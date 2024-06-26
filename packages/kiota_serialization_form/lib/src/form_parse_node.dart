@@ -30,9 +30,7 @@ class FormParseNode implements ParseNode {
       result[key]!.add(value);
     }
 
-    return result.map((key, values) {
-      return MapEntry(key, values.join(','));
-    });
+    return result.map((key, values) => MapEntry(key, values.join(',')));
   }
 
   static String _sanitizeKey(String key) {
@@ -254,6 +252,10 @@ class FormParseNode implements ParseNode {
 
   @override
   String? getStringValue() {
+    if (_decodedValue == 'null') {
+      return null;
+    }
+
     return _decodedValue;
   }
 
