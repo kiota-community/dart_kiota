@@ -202,8 +202,54 @@ class FormParseNode implements ParseNode {
 
   @override
   T? getObjectValue<T extends Parsable>(ParsableFactory<T> factory) {
-    // TODO: implement getObjectValue
-    throw UnimplementedError();
+    final item = factory(this);
+
+    onBeforeAssignFieldValues?.call(item);
+
+    _assignFieldValues(item);
+
+    onAfterAssignFieldValues?.call(item);
+
+    return item;
+  }
+
+  void _assignFieldValues<T extends Parsable>(T item) {
+    if (_fields.isEmpty) {
+      return;
+    }
+
+    Map<String, Object>? additionalData = null;
+    if (item case final AdditionDataHolder dataHolder) {
+      dataHolder.additionalData = additionalData ??= {};
+    }
+
+    final deserializers = item.getFieldDeserializers();
+    for (final field in _fields.entries) {
+      final key = field.key;
+      final value = field.value;
+
+      if (deserializers.containsKey(key)) {
+        final deserializer = deserializers[key]!;
+
+        if (value == 'null') {
+          continue;
+        }
+
+        final node = FormParseNode(value: value)
+          ..onBeforeAssignFieldValues = onBeforeAssignFieldValues
+          ..onAfterAssignFieldValues = onAfterAssignFieldValues;
+
+        deserializer.call(node);
+      } else if (additionalData != null) {
+        if (!additionalData.containsKey(key)) {
+          additionalData[key] = value;
+        }
+      } else {
+        throw StateError(
+          'Field $key is not defined in the model and no additional data is available',
+        );
+      }
+    }
   }
 
   @override
