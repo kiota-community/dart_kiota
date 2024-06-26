@@ -1,7 +1,5 @@
 // ignore_for_file: avoid_redundant_argument_values
 
-import 'dart:typed_data';
-
 import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:mockito/annotations.dart';
 import 'package:test/test.dart';
