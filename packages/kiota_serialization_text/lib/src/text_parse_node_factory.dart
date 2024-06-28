@@ -3,7 +3,7 @@ part of '../kiota_serialization_text.dart';
 class TextParseNodeFactory implements ParseNodeFactory {
   @override
   ParseNode getRootParseNode(String contentType, Uint8List content) {
-    if (contentType != validContentType) {
+    if (contentType.toLowerCase() != validContentType) {
       throw ArgumentError('Invalid content type');
     }
 
