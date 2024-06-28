@@ -4,7 +4,7 @@ part of '../kiota_serialization_form.dart';
 class FormParseNodeFactory implements ParseNodeFactory {
   @override
   ParseNode getRootParseNode(String contentType, Uint8List content) {
-    if (contentType != validContentType) {
+    if (contentType.toLowerCase() != validContentType) {
       throw ArgumentError('Invalid content type');
     }
 
