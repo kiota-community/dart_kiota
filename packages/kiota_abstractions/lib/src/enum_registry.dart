@@ -53,10 +53,8 @@ class EnumRegistry {
       throw ArgumentError('Enum type $T is not registered');
     }
 
-    final lowerCaseValue = value.toLowerCase();
-
     return registration.cases.cast<T?>().firstWhere(
-          (x) => (x! as Enum).name.toLowerCase() == lowerCaseValue,
+          (x) => (x! as Enum).name == value,
           orElse: () => null,
         );
   }
