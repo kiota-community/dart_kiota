@@ -158,11 +158,19 @@ void main() {
     });
 
     test('getCollectionOfEnumValues', () {
-      final node = FormParseNode('Get,post');
+      final node = FormParseNode('get,post');
 
       final values = node.getCollectionOfEnumValues<HttpMethod>();
 
       expect(values, equals([HttpMethod.get, HttpMethod.post]));
+    });
+
+    test('getCollectionOfEnumValues is case sensitive', () {
+      final node = FormParseNode('GET,Post');
+
+      final values = node.getCollectionOfEnumValues<HttpMethod>();
+
+      expect(values, equals([]));
     });
 
     test('getObjectValue', () {
