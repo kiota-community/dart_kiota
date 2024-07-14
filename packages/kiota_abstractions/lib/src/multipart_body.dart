@@ -68,7 +68,7 @@ class MultipartBody implements Parsable {
       throw UnimplementedError();
 
   @override
-  Future<void> serialize(SerializationWriter writer) async {
+  void serialize(SerializationWriter writer) {
     final writerFactory = requestAdapter?.serializationWriterFactory;
     if (writerFactory == null) {
       throw StateError(
@@ -112,10 +112,6 @@ class MultipartBody implements Parsable {
         writer.writeByteArrayValue(null, partValue);
       } else if (partValue is List<int>) {
         writer.writeByteArrayValue(null, Uint8List.fromList(partValue));
-      } else if (partValue is Stream<int>) {
-        final content = await partValue.toList();
-
-        writer.writeByteArrayValue(null, Uint8List.fromList(content));
       } else {
         throw UnsupportedError(
           'Unsupported type ${partValue.runtimeType} for part $partKey',

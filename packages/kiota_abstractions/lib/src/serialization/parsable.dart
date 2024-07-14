@@ -6,5 +6,5 @@ abstract class Parsable {
   Map<String, ParseNode Function()> getFieldDeserializers();
 
   /// Writes the objects properties to the current writer.
-  FutureOr<void> serialize(SerializationWriter writer);
+  void serialize(SerializationWriter writer);
 }
