@@ -83,7 +83,9 @@ class FormSerializationWriter implements SerializationWriter {
         valueNames.write(',');
       }
 
-      valueNames.write(EnumRegistry.getCaseValue(value));
+      final caseValue = (value as Enum).name;
+
+      valueNames.write(caseValue);
     }
 
     writeStringValue(key, valueNames?.toString());
@@ -124,7 +126,9 @@ class FormSerializationWriter implements SerializationWriter {
 
   @override
   void writeEnumValue<T extends Enum>(String? key, T? value) {
-    writeStringValue(key, EnumRegistry.getCaseValue(value));
+    final caseValue = (value as Enum?)?.name;
+
+    writeStringValue(key, caseValue);
   }
 
   @override
