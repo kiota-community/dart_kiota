@@ -46,7 +46,7 @@ class TextParseNode implements ParseNode {
   }
 
   @override
-  Iterable<T> getCollectionOfEnumValues<T extends Enum>() {
+  Iterable<T> getCollectionOfEnumValues<T extends Enum>(EnumFactory<T> parser) {
     throw _noStructuredDataError();
   }
 
@@ -83,15 +83,12 @@ class TextParseNode implements ParseNode {
   }
 
   @override
-  T? getEnumValue<T extends Enum>() {
-    if (_text == null) {
+  T? getEnumValue<T extends Enum>(EnumFactory<T> parser) {
+    if (_text == null || _text.isEmpty) {
       return null;
     }
 
-    // We'd need something like a static abstract method to be able to get all
-    // the values of an enum, but Dart doesn't support that.
-    // see: https://github.com/dart-lang/language/issues/356
-    throw UnsupportedError('Enum parsing is not supported yet');
+    return parser(_text);
   }
 
   @override

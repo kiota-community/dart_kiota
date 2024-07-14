@@ -38,7 +38,7 @@ abstract class ParseNode {
   Iterable<T> getCollectionOfPrimitiveValues<T>();
 
   /// Gets the collection of enum values of the node.
-  Iterable<T> getCollectionOfEnumValues<T extends Enum>();
+  Iterable<T> getCollectionOfEnumValues<T extends Enum>(EnumFactory<T> parser);
 
   /// Gets the collection of model object values of the node.
   Iterable<T> getCollectionOfObjectValues<T extends Parsable>(
@@ -46,7 +46,7 @@ abstract class ParseNode {
   );
 
   /// Gets the enum value of the node.
-  T? getEnumValue<T extends Enum>();
+  T? getEnumValue<T extends Enum>(EnumFactory<T> parser);
 
   /// Gets the model object value of the node.
   T? getObjectValue<T extends Parsable>(ParsableFactory<T> factory);

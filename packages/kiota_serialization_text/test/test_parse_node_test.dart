@@ -3,6 +3,10 @@ import 'package:kiota_serialization_text/kiota_serialization_text.dart';
 import 'package:test/test.dart';
 import 'package:uuid/uuid.dart';
 
+HttpMethod? _httpEnumFactory(String value) => HttpMethod.values
+    .cast<HttpMethod?>()
+    .firstWhere((e) => e!.name == value, orElse: () => null);
+
 void main() {
   group('TextParseNode', () {
     final throwsNoStructuredDataError = throwsA(
@@ -121,17 +125,11 @@ void main() {
     });
 
     test('getEnumValue', () {
-      final node = TextParseNode('value');
+      final node = TextParseNode('get');
 
       expect(
-        () => node.getEnumValue<HttpMethod>(),
-        throwsA(
-          isA<UnsupportedError>().having(
-            (e) => e.message,
-            'message',
-            equals('Enum parsing is not supported yet'),
-          ),
-        ),
+        node.getEnumValue<HttpMethod>(_httpEnumFactory),
+        HttpMethod.get,
       );
     });
 
@@ -168,7 +166,7 @@ void main() {
       final node = TextParseNode('value');
 
       expect(
-        () => node.getCollectionOfEnumValues<HttpMethod>(),
+        () => node.getCollectionOfEnumValues<HttpMethod>(_httpEnumFactory),
         throwsNoStructuredDataError,
       );
     });

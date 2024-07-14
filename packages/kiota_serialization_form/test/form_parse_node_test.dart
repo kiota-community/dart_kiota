@@ -7,12 +7,13 @@ import 'package:uuid/uuid.dart';
 
 import 'form_parse_node_test.mocks.dart';
 
+HttpMethod? _httpEnumFactory(String value) => HttpMethod.values
+    .cast<HttpMethod?>()
+    .firstWhere((e) => e!.name == value, orElse: () => null);
+
 @GenerateMocks([Parsable])
 void main() {
   group('FormParseNode', () {
-    setUp(() => EnumRegistry.register(HttpMethod.values));
-    tearDown(() => EnumRegistry.unregister<HttpMethod>());
-
     test('leaves quotes if unbalanced', () {
       final preQuote = FormParseNode('"value');
       final postQuote = FormParseNode('value"');
@@ -117,7 +118,10 @@ void main() {
     test('getEnumValue', () {
       final node = FormParseNode('get');
 
-      expect(node.getEnumValue<HttpMethod>(), equals(HttpMethod.get));
+      expect(
+        node.getEnumValue<HttpMethod>(_httpEnumFactory),
+        equals(HttpMethod.get),
+      );
     });
 
     test('getChildNode', () {
@@ -160,7 +164,8 @@ void main() {
     test('getCollectionOfEnumValues', () {
       final node = FormParseNode('get,post');
 
-      final values = node.getCollectionOfEnumValues<HttpMethod>();
+      final values =
+          node.getCollectionOfEnumValues<HttpMethod>(_httpEnumFactory);
 
       expect(values, equals([HttpMethod.get, HttpMethod.post]));
     });
@@ -168,7 +173,8 @@ void main() {
     test('getCollectionOfEnumValues is case sensitive', () {
       final node = FormParseNode('GET,Post');
 
-      final values = node.getCollectionOfEnumValues<HttpMethod>();
+      final values =
+          node.getCollectionOfEnumValues<HttpMethod>(_httpEnumFactory);
 
       expect(values, equals([]));
     });

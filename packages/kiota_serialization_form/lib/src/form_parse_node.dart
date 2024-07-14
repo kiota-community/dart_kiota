@@ -87,7 +87,7 @@ class FormParseNode implements ParseNode {
   }
 
   @override
-  Iterable<T> getCollectionOfEnumValues<T extends Enum>() sync* {
+  Iterable<T> getCollectionOfEnumValues<T extends Enum>(EnumFactory<T> parser) sync* {
     final collection =
         _decodedValue.split(',').where((entry) => entry.isNotEmpty);
 
@@ -96,7 +96,7 @@ class FormParseNode implements ParseNode {
         ..onAfterAssignFieldValues = onAfterAssignFieldValues
         ..onBeforeAssignFieldValues = onBeforeAssignFieldValues;
 
-      final enumValue = node.getEnumValue<T>();
+      final enumValue = node.getEnumValue<T>(parser);
       if (enumValue != null) {
         yield enumValue;
       }
@@ -174,13 +174,13 @@ class FormParseNode implements ParseNode {
   }
 
   @override
-  T? getEnumValue<T extends Enum>() {
+  T? getEnumValue<T extends Enum>(EnumFactory<T> parser) {
     final value = _decodedValue;
     if (value.isEmpty) {
       return null;
     }
 
-    return EnumRegistry.getCase<T>(value);
+    return parser(value);
   }
 
   @override
