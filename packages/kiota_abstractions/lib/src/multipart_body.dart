@@ -89,25 +89,21 @@ class MultipartBody implements Parsable {
       if (first) {
         first = false;
       } else {
-        await _addNewLine(writer);
+        _addNewLine(writer);
       }
 
-      await writer.writeStringValue(null, '--$boundary');
-      await writer.writeStringValue('Content-Type', partContentType);
-      await writer.writeStringValue(
-        'Content-Disposition',
-        'form-data; name="$partKey"',
-      );
+      writer
+        ..writeStringValue(null, '--$boundary')
+        ..writeStringValue('Content-Type', partContentType)
+        ..writeStringValue('Content-Disposition', 'form-data; name="$partKey"');
 
-      await _addNewLine(writer);
+      _addNewLine(writer);
 
       if (partValue is Parsable) {
-        final partWriter =
-            writerFactory.getSerializationWriter(partContentType);
+        final partWriter = writerFactory.getSerializationWriter(partContentType)
+          ..writeObjectValue(null, partValue);
 
-        await writer.writeObjectValue(null, partValue);
-
-        final partContent = await partWriter.getSerializedContent();
+        final partContent = partWriter.getSerializedContent();
 
         writer.writeByteArrayValue(null, partContent);
       } else if (partValue is String) {
@@ -127,11 +123,11 @@ class MultipartBody implements Parsable {
       }
     }
 
-    await _addNewLine(writer);
+    _addNewLine(writer);
 
     writer.writeStringValue(null, '--$boundary--');
   }
 
-  Future<void> _addNewLine(SerializationWriter writer) async =>
-      await writer.writeStringValue(null, '');
+  void _addNewLine(SerializationWriter writer) =>
+      writer.writeStringValue(null, '');
 }

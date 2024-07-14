@@ -43,26 +43,25 @@ extension RequestInformationExtensions on RequestInformation {
 
   /// Sets the content of the request to the provided collection of parsable
   /// objects.
-  Future<void> setContentFromParsableCollection<T extends Parsable>(
+  void setContentFromParsableCollection<T extends Parsable>(
     RequestAdapter requestAdapter,
     String contentType,
     Iterable<T> items,
-  ) async {
-    final writer = _getSerializationWriter(requestAdapter, contentType, items);
-
-    await writer.writeCollectionOfObjectValues(null, items);
+  ) {
+    final writer = _getSerializationWriter(requestAdapter, contentType, items)
+      ..writeCollectionOfObjectValues(null, items);
 
     headers.putIfAbsent(contentTypeHeader, () => {contentType});
 
-    content = await writer.getSerializedContent();
+    content = writer.getSerializedContent();
   }
 
   /// Sets the content of the request to the provided parsable object.
-  Future<void> setContentFromParsable<T extends Parsable>(
+  void setContentFromParsable<T extends Parsable>(
     RequestAdapter requestAdapter,
     String contentType,
     T item,
-  ) async {
+  ) {
     final writer = _getSerializationWriter(requestAdapter, contentType, item);
 
     var writtenContentType = contentType;
@@ -75,7 +74,7 @@ extension RequestInformationExtensions on RequestInformation {
 
     headers.putIfAbsent(contentTypeHeader, () => {writtenContentType});
 
-    content = await writer.getSerializedContent();
+    content = writer.getSerializedContent();
   }
 
   SerializationWriter _getSerializationWriter<T>(
@@ -93,41 +92,40 @@ extension RequestInformationExtensions on RequestInformation {
 
   /// Sets the content of the request to the provided collection of scalar
   /// values.
-  Future<void> setContentFromScalarCollection<T>(
+  void setContentFromScalarCollection<T>(
     RequestAdapter requestAdapter,
     String contentType,
     Iterable<T> items,
-  ) async {
-    final writer = _getSerializationWriter(requestAdapter, contentType, items);
-
-    await writer.writeCollectionOfPrimitiveValues(null, items);
+  ) {
+    final writer = _getSerializationWriter(requestAdapter, contentType, items)
+      ..writeCollectionOfPrimitiveValues(null, items);
 
     headers.putIfAbsent(contentTypeHeader, () => {contentType});
 
-    content = await writer.getSerializedContent();
+    content = writer.getSerializedContent();
   }
 
   /// Sets the content of the request to the provided scalar value.
-  Future<void> setContentFromScalar<T>(
+  void setContentFromScalar<T>(
     RequestAdapter requestAdapter,
     String contentType,
     T item,
-  ) async {
+  ) {
     final writer = _getSerializationWriter(requestAdapter, contentType, item);
 
     switch (item) {
       case final String s:
-        await writer.writeStringValue(null, s);
+        writer.writeStringValue(null, s);
       case final bool b:
-        await writer.writeBoolValue(null, value: b);
+        writer.writeBoolValue(null, value: b);
       case final int i:
-        await writer.writeIntValue(null, i);
+        writer.writeIntValue(null, i);
       case final double d:
-        await writer.writeDoubleValue(null, d);
+        writer.writeDoubleValue(null, d);
       case final DateTime t:
-        await writer.writeDateTimeValue(null, t);
+        writer.writeDateTimeValue(null, t);
       case null:
-        await writer.writeNullValue(null);
+        writer.writeNullValue(null);
       default:
         throw UnsupportedError(
           'Unsupported scalar value type: ${item.runtimeType}',
@@ -136,7 +134,7 @@ extension RequestInformationExtensions on RequestInformation {
 
     headers.putIfAbsent(contentTypeHeader, () => {contentType});
 
-    content = await writer.getSerializedContent();
+    content = writer.getSerializedContent();
   }
 
   void configure<T>(void Function(RequestConfiguration)? configurator) {
