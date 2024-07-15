@@ -70,9 +70,7 @@ class TextSerializationWriter implements SerializationWriter {
 
   @override
   void writeEnumValue<T extends Enum>(String? key, T? value) {
-    final caseValue = (value as Enum?)?.name;
-
-    writeStringValue(key, caseValue);
+    writeStringValue(key, value?.name);
   }
 
   @override
