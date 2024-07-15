@@ -7,7 +7,7 @@ import 'package:uuid/uuid.dart';
 
 import 'form_parse_node_test.mocks.dart';
 
-HttpMethod? _httpEnumFactory(String value) => HttpMethod.values
+HttpMethod? _httpMethodEnumFactory(String value) => HttpMethod.values
     .cast<HttpMethod?>()
     .firstWhere((e) => e!.name == value, orElse: () => null);
 
@@ -119,7 +119,7 @@ void main() {
       final node = FormParseNode('get');
 
       expect(
-        node.getEnumValue<HttpMethod>(_httpEnumFactory),
+        node.getEnumValue<HttpMethod>(_httpMethodEnumFactory),
         equals(HttpMethod.get),
       );
     });
@@ -165,7 +165,7 @@ void main() {
       final node = FormParseNode('get,post');
 
       final values =
-          node.getCollectionOfEnumValues<HttpMethod>(_httpEnumFactory);
+          node.getCollectionOfEnumValues<HttpMethod>(_httpMethodEnumFactory);
 
       expect(values, equals([HttpMethod.get, HttpMethod.post]));
     });
@@ -174,7 +174,7 @@ void main() {
       final node = FormParseNode('GET,Post');
 
       final values =
-          node.getCollectionOfEnumValues<HttpMethod>(_httpEnumFactory);
+          node.getCollectionOfEnumValues<HttpMethod>(_httpMethodEnumFactory);
 
       expect(values, equals([]));
     });

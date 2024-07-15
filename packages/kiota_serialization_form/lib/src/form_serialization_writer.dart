@@ -123,8 +123,12 @@ class FormSerializationWriter implements SerializationWriter {
   }
 
   @override
-  void writeEnumValue<T extends Enum>(String? key, T? value) {
-    writeStringValue(key, value?.name);
+  void writeEnumValue<T extends Enum>(
+    String? key,
+    T? value,
+    EnumSerializer<T> serializer,
+  ) {
+    writeStringValue(key, serializer(value));
   }
 
   @override
