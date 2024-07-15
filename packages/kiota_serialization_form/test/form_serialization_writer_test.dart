@@ -14,5 +14,16 @@ void main() {
 
       expect(utf8.decode(writer.getSerializedContent()), equals('key=get'));
     });
+
+    test('writeCollectionOfEnumValues', () {
+      final writer = FormSerializationWriter()
+        ..writeCollectionOfEnumValues(
+          'key',
+          [HttpMethod.get, HttpMethod.post],
+          _httpMethodEnumSerializer,
+        );
+
+      expect(utf8.decode(writer.getSerializedContent()), equals('key=get%2Cpost'));
+    });
   });
 }
