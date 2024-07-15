@@ -70,6 +70,7 @@ class FormSerializationWriter implements SerializationWriter {
   void writeCollectionOfEnumValues<T extends Enum>(
     String? key,
     Iterable<T>? values,
+      EnumSerializer<T> serializer,
   ) {
     if (values == null) {
       return;
@@ -83,7 +84,7 @@ class FormSerializationWriter implements SerializationWriter {
         valueNames.write(',');
       }
 
-      valueNames.write(value.name);
+      valueNames.write(serializer(value));
     }
 
     writeStringValue(key, valueNames?.toString());

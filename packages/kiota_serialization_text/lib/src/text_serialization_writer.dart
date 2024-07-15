@@ -41,6 +41,7 @@ class TextSerializationWriter implements SerializationWriter {
   void writeCollectionOfEnumValues<T extends Enum>(
     String? key,
     Iterable<T>? values,
+    EnumSerializer<T> serializer,
   ) {
     throw _noStructuredDataError();
   }

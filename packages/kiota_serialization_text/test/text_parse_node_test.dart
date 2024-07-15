@@ -3,20 +3,14 @@ import 'package:kiota_serialization_text/kiota_serialization_text.dart';
 import 'package:test/test.dart';
 import 'package:uuid/uuid.dart';
 
+import 'text_test_helper.dart';
+
 HttpMethod? _httpMethodEnumFactory(String value) => HttpMethod.values
     .cast<HttpMethod?>()
     .firstWhere((e) => e!.name == value, orElse: () => null);
 
 void main() {
   group('TextParseNode', () {
-    final throwsNoStructuredDataError = throwsA(
-      isA<UnsupportedError>().having(
-        (e) => e.message,
-        'message',
-        equals('Text does not support structured data'),
-      ),
-    );
-
     test('trims quotes', () {
       final node = TextParseNode('"value"');
 

@@ -57,6 +57,7 @@ abstract class SerializationWriter {
   void writeCollectionOfEnumValues<T extends Enum>(
     String? key,
     Iterable<T>? values,
+    EnumSerializer<T> serializer,
   );
 
   /// Writes the specified byte list as a base64 string to the buffer with an
