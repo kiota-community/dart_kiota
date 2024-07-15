@@ -75,7 +75,11 @@ abstract class SerializationWriter {
 
   /// Writes the specified enum value to the buffer with an optional given
   /// [key].
-  void writeEnumValue<T extends Enum>(String? key, T? value);
+  void writeEnumValue<T extends Enum>(
+    String? key,
+    T? value,
+    EnumSerializer<T> serializer,
+  );
 
   /// Writes the specified additional data to the buffer.
   void writeAdditionalData(Map<String, dynamic> value);

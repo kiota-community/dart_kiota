@@ -3,7 +3,7 @@ import 'package:kiota_serialization_text/kiota_serialization_text.dart';
 import 'package:test/test.dart';
 import 'package:uuid/uuid.dart';
 
-HttpMethod? _httpEnumFactory(String value) => HttpMethod.values
+HttpMethod? _httpMethodEnumFactory(String value) => HttpMethod.values
     .cast<HttpMethod?>()
     .firstWhere((e) => e!.name == value, orElse: () => null);
 
@@ -128,7 +128,7 @@ void main() {
       final node = TextParseNode('get');
 
       expect(
-        node.getEnumValue<HttpMethod>(_httpEnumFactory),
+        node.getEnumValue<HttpMethod>(_httpMethodEnumFactory),
         HttpMethod.get,
       );
     });
@@ -166,7 +166,7 @@ void main() {
       final node = TextParseNode('value');
 
       expect(
-        () => node.getCollectionOfEnumValues<HttpMethod>(_httpEnumFactory),
+        () => node.getCollectionOfEnumValues<HttpMethod>(_httpMethodEnumFactory),
         throwsNoStructuredDataError,
       );
     });
