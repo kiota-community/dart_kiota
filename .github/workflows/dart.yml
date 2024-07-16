@@ -10,11 +10,15 @@ jobs:
   define-matrix:
     runs-on: ubuntu-latest
 
+    name: 'Discover packages'
+
     outputs:
       packages: ${{ steps.packages.outputs.packages }}
 
     steps:
-      - name: Determine packages
+      - uses: actions/checkout@v4
+
+      - name: Discover packages
         id: packages
         run: |
           packages=$(ls -d packages/* | jq -R -s -c 'split("\n")[:-1]')
