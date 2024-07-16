@@ -21,7 +21,7 @@ jobs:
       - name: Discover packages
         id: packages
         run: |
-          packages=$(ls -d packages/* | jq -R -s -c 'split("\n")[:-1]')
+          packages=$(ls -d packages/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')
           echo "packages=${packages}" >> $GITHUB_OUTPUT
 
   static-analysis:
