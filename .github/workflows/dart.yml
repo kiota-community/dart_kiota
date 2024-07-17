@@ -59,7 +59,7 @@ jobs:
         working-directory: packages/${{ matrix.package }}
 
       - name: Run build_runner
-        if: contains(fromJson('${{ env.build_runner_packages }}'), matrix.package)
+        if: contains(fromJson(${{ env.build_runner_packages }}), matrix.package)
         run: dart run build_runner build --delete-conflicting-outputs
         working-directory: packages/${{ matrix.package }}
 
@@ -100,7 +100,7 @@ jobs:
         working-directory: packages/${{ matrix.package }}
 
       - name: Run build_runner
-        if: contains(fromJson('${{ env.build_runner_packages }}'), matrix.package)
+        if: contains(fromJson(${{ env.build_runner_packages }}), matrix.package)
         run: dart run build_runner build --delete-conflicting-outputs
         working-directory: packages/${{ matrix.package }}
 
