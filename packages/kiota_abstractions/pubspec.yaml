@@ -1,7 +1,7 @@
 name: kiota_abstractions
-description: "Kiota abstractions for Dart"
+description: "Provides interfaces and base classes for Dart Kiota clients."
 version: 0.0.1-pre.1
-homepage: https://github.com/ricardoboss/dart_kiota_abstractions/tree/main/packages/kiota_abstractions
+homepage: https://github.com/ricardoboss/dart_kiota/tree/main/packages/kiota_abstractions
 publish_to: 'none'
 
 topics:
