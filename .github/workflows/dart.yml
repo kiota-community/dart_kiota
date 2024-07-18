@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:
-  build_runner_packages: '[ "kiota_abstractions", "kiota_http", "kiota_serialization_form" ]'
-
 jobs:
   define-matrix:
     runs-on: ubuntu-latest
@@ -58,10 +55,8 @@ jobs:
         run: dart format --output=none --set-exit-if-changed .
         working-directory: packages/${{ matrix.package }}
 
-      - name: Run build_runner
-        if: contains(fromJson(${{ env.build_runner_packages }}), matrix.package)
-        run: dart run build_runner build --delete-conflicting-outputs
-        working-directory: packages/${{ matrix.package }}
+      - name: Prepare package
+        run: dart run tooling/bin/tooling.dart prepare ${{ matrix.package }}
 
       - name: Analyze project source
         continue-on-error: true
@@ -99,10 +94,8 @@ jobs:
         run: dart pub get
         working-directory: packages/${{ matrix.package }}
 
-      - name: Run build_runner
-        if: contains(fromJson(${{ env.build_runner_packages }}), matrix.package)
-        run: dart run build_runner build --delete-conflicting-outputs
-        working-directory: packages/${{ matrix.package }}
+      - name: Prepare package
+        run: dart run tooling/bin/tooling.dart prepare ${{ matrix.package }}
 
       - name: Run tests
         run: dart test
