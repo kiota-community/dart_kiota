@@ -87,7 +87,9 @@ class FormParseNode implements ParseNode {
   }
 
   @override
-  Iterable<T> getCollectionOfEnumValues<T extends Enum>(EnumFactory<T> parser) sync* {
+  Iterable<T> getCollectionOfEnumValues<T extends Enum>(
+    EnumFactory<T> parser,
+  ) sync* {
     final collection =
         _decodedValue.split(',').where((entry) => entry.isNotEmpty);
 

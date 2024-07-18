@@ -23,7 +23,10 @@ void main() {
           _httpMethodEnumSerializer,
         );
 
-      expect(utf8.decode(writer.getSerializedContent()), equals('key=get%2Cpost'));
+      expect(
+        utf8.decode(writer.getSerializedContent()),
+        equals('key=get%2Cpost'),
+      );
     });
   });
 }

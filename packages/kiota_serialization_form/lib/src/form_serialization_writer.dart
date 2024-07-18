@@ -70,7 +70,7 @@ class FormSerializationWriter implements SerializationWriter {
   void writeCollectionOfEnumValues<T extends Enum>(
     String? key,
     Iterable<T>? values,
-      EnumSerializer<T> serializer,
+    EnumSerializer<T> serializer,
   ) {
     if (values == null) {
       return;
