@@ -160,7 +160,8 @@ void main() {
       final node = TextParseNode('value');
 
       expect(
-        () => node.getCollectionOfEnumValues<HttpMethod>(_httpMethodEnumFactory),
+        () =>
+            node.getCollectionOfEnumValues<HttpMethod>(_httpMethodEnumFactory),
         throwsNoStructuredDataError,
       );
     });
