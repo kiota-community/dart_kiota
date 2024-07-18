@@ -1,7 +1,8 @@
 name: kiota_http
-description: "Kiota http client for Dart"
+description: "Provides an implementation of a Kiota RequestAdapter that uses `http`."
 version: 0.0.1-pre.1
-homepage: https://github.com/ricardoboss/dart_kiota_abstractions/tree/main/packages/kiota_http
+homepage: https://github.com/ricardoboss/dart_kiota/tree/main/packages/kiota_http
+repository: https://github.com/ricardoboss/dart_kiota
 publish_to: 'none'
 
 environment:
@@ -10,9 +11,9 @@ environment:
 dependencies:
   kiota_abstractions:
     path: ../kiota_abstractions
-  http: ^1.2.1
-  http_parser: ^4.0.2
-  uuid: ^4.3.3
+  http: ^1.2.2
+  http_parser: ^4.1.0
+  uuid: ^4.4.2
 
 dev_dependencies:
   strict: ^2.0.0
