@@ -56,7 +56,7 @@ jobs:
         working-directory: packages/${{ matrix.package }}
 
       - name: Prepare package
-        run: dart run tooling/bin/tooling.dart prepare ${{ matrix.package }}
+        run: dart run tooling prepare ${{ matrix.package }}
         working-directory: tooling
 
       - name: Analyze project source
@@ -96,7 +96,7 @@ jobs:
         working-directory: packages/${{ matrix.package }}
 
       - name: Prepare package
-        run: dart run tooling/bin/tooling.dart prepare ${{ matrix.package }}
+        run: dart run tooling prepare ${{ matrix.package }}
         working-directory: tooling
 
       - name: Run tests
