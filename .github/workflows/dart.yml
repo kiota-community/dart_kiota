@@ -57,6 +57,7 @@ jobs:
 
       - name: Prepare package
         run: dart run tooling/bin/tooling.dart prepare ${{ matrix.package }}
+        working-directory: tooling
 
       - name: Analyze project source
         continue-on-error: true
@@ -96,6 +97,7 @@ jobs:
 
       - name: Prepare package
         run: dart run tooling/bin/tooling.dart prepare ${{ matrix.package }}
+        working-directory: tooling
 
       - name: Run tests
         run: dart test
