@@ -15,9 +15,9 @@ environment:
   sdk: '>=3.2.6 <4.0.0'
 
 dependencies:
-  meta: ^1.14.0
-  std_uritemplate: ^0.0.55
-  uuid: ^4.3.3
+  meta: ^1.15.0
+  std_uritemplate: ^1.0.3
+  uuid: ^4.4.2
 
 dev_dependencies:
   strict: ^2.0.0
