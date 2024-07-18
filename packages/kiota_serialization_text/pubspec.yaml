@@ -1,7 +1,8 @@
 name: kiota_serialization_text
-description: "Kiota text serialization for Dart"
+description: "Provides parsing and serialization support for the `text/plain` content type."
 version: 0.0.1-pre.1
 homepage: https://github.com/ricardoboss/dart_kiota/tree/main/packages/kiota_serialization_text
+repository: https://github.com/ricardoboss/dart_kiota
 publish_to: 'none'
 
 environment:
@@ -10,7 +11,7 @@ environment:
 dependencies:
   kiota_abstractions:
     path: ../kiota_abstractions
-  uuid: ^4.3.3
+  uuid: ^4.4.2
 
 dev_dependencies:
   strict: ^2.0.0
