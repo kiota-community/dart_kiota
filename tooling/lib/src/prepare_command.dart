@@ -25,8 +25,6 @@ class PrepareCommand extends Command {
     }
 
     _runForPackage(package);
-
-    stdout.writeln('Done');
   }
 
   void _runForAllPackages() {
