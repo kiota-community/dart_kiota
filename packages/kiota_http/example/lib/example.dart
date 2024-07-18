@@ -6,7 +6,8 @@ import 'package:kiota_http/kiota_http.dart';
 
 Future<void> main() async {
   // Setup
-  ParseNodeFactoryRegistry.defaultInstance.contentTypeAssociatedFactories['application/json'] =
+  ParseNodeFactoryRegistry
+          .defaultInstance.contentTypeAssociatedFactories['application/json'] =
       _CatFactsParseNodeFactory();
   var client = KiotaClientFactory.createClient();
   var authProvider = AnonymousAuthenticationProvider();
