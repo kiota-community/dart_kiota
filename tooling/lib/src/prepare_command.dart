@@ -12,6 +12,9 @@ class PrepareCommand extends Command {
 
   @override
   void run() {
+    // change to the root directory
+    Directory.current = Directory.current.parent;
+
     final package = argResults!.rest.firstOrNull;
     if (package == null) {
       stdout.writeln('No package specified. Running for all packages');
