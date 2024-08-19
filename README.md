@@ -22,9 +22,13 @@ From the comment at: https://github.com/microsoft/kiota/issues/2199#issuecomment
 
 See https://github.com/ricardoboss/dart_kiota/issues/18
 
+#### Other
+
+- [ ] Test Coverage >80%
+
 ### License
 
-This project is licensed under the MIT License - see the [LICENSE](../../LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ---
 
