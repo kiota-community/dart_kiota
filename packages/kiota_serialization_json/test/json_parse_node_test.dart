@@ -4,7 +4,9 @@ import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:kiota_serialization_json/kiota_serialization_json.dart';
 import 'package:test/test.dart';
 
+import 'derived_microsoft_graph_user.dart';
 import 'microsoft_graph_user.dart';
+import 'test_enums.dart';
 
 const _testUserJson = r'''
 {
@@ -29,7 +31,7 @@ const _testUserJson = r'''
   "startWorkTime": "08:00:00.0000000",
   "endWorkTime": "17:00:00.0000000",
   "userPrincipalName": "MeganB@M365x214355.onmicrosoft.com",
-  "birthDay": "2017-09-04",
+  "birthDay": "1999-08-07",
   "id": "48d31887-5fad-4d73-a9f5-3c356e68a038"
 }''';
 
@@ -58,7 +60,7 @@ const _testStudentJson = r'''
   "endWorkTime": "17:00:00.0000000",
   "userPrincipalName": "MeganB@M365x214355.onmicrosoft.com",
   "birthDay": "2017-09-04",
-  "enrolmentDate": "2017-09-04,
+  "enrolmentDate": "2017-09-04",
   "id": "48d31887-5fad-4d73-a9f5-3c356e68a038"
 }''';
 
@@ -125,17 +127,29 @@ void main() {
         // expect(testEntity.AdditionalData.ContainsKey('mobilePhone'), isTrue);
         // expect('Auditor', testEntity.additionalData['jobTitle']);
         expect(testEntity.id, '48d31887-5fad-4d73-a9f5-3c356e68a038');
-        // expect.Equal(TestEnum.One | TestEnum.Two,
+        // expect(testEntity.numbers, TestEnum.One | TestEnum.Two);
         // expect.teststEntity.Numbers); // Unknown enum value is not included
-        // expect.Equal(TestNamingEnum.Item2SubItem1,
-        //   testEntity.TestNamingEnum); // correct value is chosen
-        // expect.Equal(TimeSpan.FromHours(1),
-        //   testEntity.WorkDuration); // Parses timespan values
+        expect(testEntity.testNamingEnum, NamingEnum.item2SubItem1);
+        expect(testEntity.workDuration, const Duration(hours: 1));
         // expect.Equal(new Time(8, 0, 0).ToString(),
         //   testEntity.StartWorkTime.ToString()); // Parses time values
         // expect.Equal(new Time(17, 0, 0).ToString(),
         //   testEntity.EndWorkTime.ToString()); // Parses time values
-        expect(testEntity.birthDay, DateOnly.fromComponents(2017, 9, 4));
+        expect(testEntity.birthDay, DateOnly.fromComponents(1999, 8, 7));
+      }
+    });
+
+    test('Get object derived from user', () {
+      final jsonParseNode = JsonParseNode(jsonDecode(_testStudentJson));
+      final testEntity = jsonParseNode
+          .getObjectValue(MicrosoftGraphUser.createFromDiscriminator);
+      expect(testEntity, isNotNull);
+      if (testEntity is DerivedMicrosoftGraphUser) {
+        expect(testEntity.enrolmentDate, DateOnly.fromComponents(2017, 9, 4));
+      } else {
+        throw ApiException(
+            message:
+                'Test entity is not of type DerivedMicrosoftGraphUser, but of ${testEntity.runtimeType}',);
       }
     });
   });

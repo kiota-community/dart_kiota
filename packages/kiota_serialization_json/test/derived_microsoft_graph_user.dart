@@ -3,6 +3,8 @@ import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'microsoft_graph_user.dart';
 
 class DerivedMicrosoftGraphUser extends MicrosoftGraphUser {
+  DerivedMicrosoftGraphUser();
+
   DateOnly? enrolmentDate;
 
   @override
@@ -17,4 +19,5 @@ class DerivedMicrosoftGraphUser extends MicrosoftGraphUser {
     parentDeserializers['enrolmentDate'] = (node) => enrolmentDate = node.getDateOnlyValue();
     return parentDeserializers;
   }
+
 }

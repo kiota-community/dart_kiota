@@ -1,9 +1,13 @@
 import 'package:kiota_abstractions/kiota_abstractions.dart';
 
 import 'derived_microsoft_graph_user.dart';
+import 'test_enums.dart';
 
-class MicrosoftGraphUser
-    extends Parsable /* implements AdditionDataHolder */ {
+NamingEnum? _namingEnumFactory(String value) => NamingEnum.values
+    .cast<NamingEnum?>()
+    .firstWhere((e) => e!.text == value, orElse: () => null);
+
+class MicrosoftGraphUser extends Parsable /* implements AdditionDataHolder */ {
   MicrosoftGraphUser();
 
   factory MicrosoftGraphUser.createFromDiscriminator(ParseNode parseNode) {
@@ -20,11 +24,12 @@ class MicrosoftGraphUser
   // IDictionary<string, object> AdditionalData { get; set; }
   String? id;
   // TestEnum? Numbers { get; set; }
-  // TestNamingEnum? TestNamingEnum { get; set; }
+  NamingEnum? testNamingEnum;
   // TimeSpan? WorkDuration { get; set; }
   DateOnly? birthDay;
   TimeOnly? startWorkTime;
   TimeOnly? endWorkTime;
+  Duration? workDuration;
   // DateTimeOffset? CreatedDateTime { get; set; }
   double? heightInMetres;
   String? officeLocation;
@@ -37,7 +42,7 @@ class MicrosoftGraphUser
       // writer.writeEnumValue<TestNamingEnum>("testNamingEnum", TestNamingEnum);
       // writer.writeDateTimeOffsetValue("createdDateTime", CreatedDateTime);
       ..writeStringValue('officeLocation', officeLocation)
-      // writer.writeTimeSpanValue("workDuration", WorkDuration);
+      ..writeDurationValue('workDuration', workDuration)
       ..writeDateOnlyValue('birthDay', birthDay)
       ..writeDoubleValue('heightInMetres', heightInMetres)
       ..writeTimeOnlyValue('startWorkTime', startWorkTime)
@@ -50,10 +55,11 @@ class MicrosoftGraphUser
     return <String, void Function(ParseNode node)>{
       'id': (node) => id = node.getStringValue(),
       // 'numbers': (node) => numbers = node.getEnumValue<TestEnum>(),
-      // 'testNamingEnum': (node) => testNamingEnum = node.getEnumValue<TestNamingEnum>(),
+      'testNamingEnum': (node) =>
+          testNamingEnum = node.getEnumValue<NamingEnum>(_namingEnumFactory),
       // 'createdDateTime': (node) => createdDateTime = node.getDateTimeOffsetValue();
       'officeLocation': (node) => officeLocation = node.getStringValue(),
-      // 'workDuration': (node) => workDuration = node.getTimeSpanValue(),
+      'workDuration': (node) => workDuration = node.getDurationValue(),
       'heightInMetres': (node) => heightInMetres = node.getDoubleValue(),
       'birthDay': (node) => birthDay = node.getDateOnlyValue(),
       'startWorkTime': (node) => startWorkTime = node.getTimeOnlyValue(),

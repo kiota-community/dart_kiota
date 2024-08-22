@@ -1,9 +1,9 @@
 part of '../kiota_serialization_json.dart';
 
 class JsonParseNode implements ParseNode {
-  JsonParseNode(this._json);
+  JsonParseNode(this._node);
 
-  final dynamic _json;
+  final dynamic _node;
 
   @override
   ParsableHook? onAfterAssignFieldValues;
@@ -13,17 +13,28 @@ class JsonParseNode implements ParseNode {
 
   @override
   bool? getBoolValue() {
-    return _json == null ? null : bool.tryParse(_json.toString());
+    return _node == null ? null : bool.tryParse(_node.toString());
   }
 
   @override
   Uint8List? getByteArrayValue() {
-    return _json == null ? null : base64Decode(_json.toString());
+    return _node == null ? null : base64Decode(_node.toString());
   }
 
   @override
   ParseNode? getChildNode(String identifier) {
-    return null;
+    if (_node is Map) {
+      final childNode = _node[identifier];
+      if (childNode != null) {
+        final result = JsonParseNode(childNode);
+        // TODO(Kees): Call on... events
+        // result.onBeforeAssignFieldValues((f) => onBeforeAssignFieldValues);
+        // result.onAfterAssignFieldValues(onAfterAssignFieldValues);
+        return result;
+      }
+      
+      return null;
+    }
   }
 
   @override
@@ -45,61 +56,57 @@ class JsonParseNode implements ParseNode {
 
   @override
   DateOnly? getDateOnlyValue() {
-    return _json == null ? null : DateOnly.fromDateTimeString(_json.toString());
+    return _node == null ? null : DateOnly.fromDateTimeString(_node.toString());
   }
 
   @override
   DateTime? getDateTimeValue() {
-    return _json == null ? null : DateTime.tryParse(_json.toString());
+    return _node == null ? null : DateTime.tryParse(_node.toString());
   }
 
   @override
   double? getDoubleValue() {
-    return _json == null ? null : double.tryParse(_json.toString());
+    return _node == null ? null : double.tryParse(_node.toString());
   }
 
   @override
   Duration? getDurationValue() {
-    return _json == null ? null : DurationExtensions.tryParse(_json.toString());
+    return _node == null ? null : DurationExtensions.tryParse(_node.toString());
   }
 
   @override
   T? getEnumValue<T extends Enum>(EnumFactory<T> parser) {
-    // if (_json == null || _json.isEmpty) {
-    //   return null;
-    // }
-    // TODO(kees): Restore original code above
-    return parser(_json.toString());
+    return _node == null ? null : parser(_node.toString());
   }
 
   @override
   UuidValue? getGuidValue() {
-    return _json == null ? null : UuidValue.withValidation(_json.toString());
+    return _node == null ? null : UuidValue.withValidation(_node.toString());
   }
 
   @override
   int? getIntValue() {
-    return _json == null ? null : int.tryParse(_json.toString());
+    return _node == null ? null : int.tryParse(_node.toString());
   }
 
   @override
   T? getObjectValue<T extends Parsable>(ParsableFactory<T> factory) {
-    // TODO(Kees): Needs a proper implementation
+    // TODO(Kees): Handle getting untyped value
     final item = factory(this);
-    // OnBeforeAssignFieldValues?.Invoke(item);
+    onBeforeAssignFieldValues?.call(item);
     _assignFieldValues(item);
-    // OnAfterAssignFieldValues?.Invoke(item);
+    onAfterAssignFieldValues?.call(item);
+
     return item;
   }
 
   void _assignFieldValues<T extends Parsable>(T item) {
     final fieldDeserializers = item.getFieldDeserializers();
 
-    if (_json is Map) {
-      for (final entry in _json.entries) {
+    if (_node is Map) {
+      for (final entry in _node.entries) {
         if (fieldDeserializers.containsKey(entry.key)) {
           print('Found property: ${entry.key} to deserialize');
-
           final fieldDeserializer = fieldDeserializers[entry.key];
           fieldDeserializer!.call(JsonParseNode(entry.value));
         }
@@ -109,12 +116,12 @@ class JsonParseNode implements ParseNode {
 
   @override
   String? getStringValue() {
-    final result = _json.toString();
+    final result = _node.toString();
     return result == 'null' ? null : result;
   }
 
   @override
   TimeOnly? getTimeOnlyValue() {
-    return _json == null ? null : TimeOnly.fromDateTimeString(_json.toString());
+    return _node == null ? null : TimeOnly.fromDateTimeString(_node.toString());
   }
 }
