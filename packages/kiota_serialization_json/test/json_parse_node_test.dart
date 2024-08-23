@@ -127,14 +127,12 @@ void main() {
         // expect(testEntity.AdditionalData.ContainsKey('mobilePhone'), isTrue);
         // expect('Auditor', testEntity.additionalData['jobTitle']);
         expect(testEntity.id, '48d31887-5fad-4d73-a9f5-3c356e68a038');
-        // expect(testEntity.numbers, TestEnum.One | TestEnum.Two);
-        // expect.teststEntity.Numbers); // Unknown enum value is not included
+        // expect(testEntity.Numbers, TestEnum.One | TestEnum.Two); // Unknown enum value is not included
         expect(testEntity.testNamingEnum, NamingEnum.item2SubItem1);
         expect(testEntity.workDuration, const Duration(hours: 1));
-        // expect.Equal(new Time(8, 0, 0).ToString(),
-        //   testEntity.StartWorkTime.ToString()); // Parses time values
-        // expect.Equal(new Time(17, 0, 0).ToString(),
-        //   testEntity.EndWorkTime.ToString()); // Parses time values
+        expect(testEntity.startWorkTime, TimeOnly.fromComponents(8, 0));
+        expect(testEntity.endWorkTime, TimeOnly.fromComponents(17, 0));
+        expect(testEntity.createdDateTime, DateTime.utc(2017, 7, 29, 3, 7, 25));
         expect(testEntity.birthDay, DateOnly.fromComponents(1999, 8, 7));
       }
     });
@@ -148,8 +146,9 @@ void main() {
         expect(testEntity.enrolmentDate, DateOnly.fromComponents(2017, 9, 4));
       } else {
         throw ApiException(
-            message:
-                'Test entity is not of type DerivedMicrosoftGraphUser, but of ${testEntity.runtimeType}',);
+          message:
+              'Test entity is not of type DerivedMicrosoftGraphUser, but of ${testEntity.runtimeType}',
+        );
       }
     });
   });

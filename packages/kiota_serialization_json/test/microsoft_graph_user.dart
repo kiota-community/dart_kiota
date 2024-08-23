@@ -25,12 +25,11 @@ class MicrosoftGraphUser extends Parsable /* implements AdditionDataHolder */ {
   String? id;
   // TestEnum? Numbers { get; set; }
   NamingEnum? testNamingEnum;
-  // TimeSpan? WorkDuration { get; set; }
   DateOnly? birthDay;
   TimeOnly? startWorkTime;
   TimeOnly? endWorkTime;
   Duration? workDuration;
-  // DateTimeOffset? CreatedDateTime { get; set; }
+  DateTime? createdDateTime;
   double? heightInMetres;
   String? officeLocation;
 
@@ -40,7 +39,7 @@ class MicrosoftGraphUser extends Parsable /* implements AdditionDataHolder */ {
       ..writeStringValue('id', id)
       // writer.writeEnumValue<TestEnum>("numbers", Numbers);
       // writer.writeEnumValue<TestNamingEnum>("testNamingEnum", TestNamingEnum);
-      // writer.writeDateTimeOffsetValue("createdDateTime", CreatedDateTime);
+      ..writeDateTimeValue('createdDateTime', createdDateTime)
       ..writeStringValue('officeLocation', officeLocation)
       ..writeDurationValue('workDuration', workDuration)
       ..writeDateOnlyValue('birthDay', birthDay)
@@ -57,7 +56,7 @@ class MicrosoftGraphUser extends Parsable /* implements AdditionDataHolder */ {
       // 'numbers': (node) => numbers = node.getEnumValue<TestEnum>(),
       'testNamingEnum': (node) =>
           testNamingEnum = node.getEnumValue<NamingEnum>(_namingEnumFactory),
-      // 'createdDateTime': (node) => createdDateTime = node.getDateTimeOffsetValue();
+      'createdDateTime': (node) => createdDateTime = node.getDateTimeValue(),
       'officeLocation': (node) => officeLocation = node.getStringValue(),
       'workDuration': (node) => workDuration = node.getDurationValue(),
       'heightInMetres': (node) => heightInMetres = node.getDoubleValue(),
