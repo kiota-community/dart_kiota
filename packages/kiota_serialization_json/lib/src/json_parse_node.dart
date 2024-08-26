@@ -51,7 +51,12 @@ class JsonParseNode implements ParseNode {
 
   @override
   Iterable<T> getCollectionOfPrimitiveValues<T>() {
-    return [];
+    final result = <T> [];
+    if (_node is List) {
+      _node.forEach((value) => result.add(value as T));
+    }
+        
+    return result;
   }
 
   @override
