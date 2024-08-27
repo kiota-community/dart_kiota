@@ -5,9 +5,11 @@ import 'test_enums.dart';
 
 NamingEnum? _namingEnumFactory(String value) => NamingEnum.values
     .cast<NamingEnum?>()
-    .firstWhere((e) => e!.text == value, orElse: () => null);
+    .firstWhere((e) => e!.value == value, orElse: () => null);
 
-class MicrosoftGraphUser extends Parsable /* implements AdditionDataHolder */ {
+String? _namingEnumSerializer(NamingEnum? value) => value?.value;
+
+class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
   MicrosoftGraphUser();
 
   factory MicrosoftGraphUser.createFromDiscriminator(ParseNode parseNode) {
@@ -21,10 +23,11 @@ class MicrosoftGraphUser extends Parsable /* implements AdditionDataHolder */ {
     };
   }
 
-  // IDictionary<string, object> AdditionalData { get; set; }
+  @override
+  Map<String, Object?> additionalData = {};
+
   String? id;
-  // TestEnum? Numbers { get; set; }
-  NamingEnum? testNamingEnum;
+  NamingEnum? namingEnum;
   DateOnly? birthDay;
   TimeOnly? startWorkTime;
   TimeOnly? endWorkTime;
@@ -37,25 +40,24 @@ class MicrosoftGraphUser extends Parsable /* implements AdditionDataHolder */ {
   void serialize(SerializationWriter writer) {
     writer
       ..writeStringValue('id', id)
-      // writer.writeEnumValue<TestEnum>("numbers", Numbers);
-      // writer.writeEnumValue<TestNamingEnum>("testNamingEnum", TestNamingEnum);
+      ..writeEnumValue<NamingEnum>(
+          'namingEnum', namingEnum, _namingEnumSerializer)
       ..writeDateTimeValue('createdDateTime', createdDateTime)
       ..writeStringValue('officeLocation', officeLocation)
       ..writeDurationValue('workDuration', workDuration)
       ..writeDateOnlyValue('birthDay', birthDay)
       ..writeDoubleValue('heightInMetres', heightInMetres)
       ..writeTimeOnlyValue('startWorkTime', startWorkTime)
-      ..writeTimeOnlyValue('endWorkTime', endWorkTime);
-    // writer.writeAdditionalData(AdditionalData);
+      ..writeTimeOnlyValue('endWorkTime', endWorkTime)
+      ..writeAdditionalData(additionalData);
   }
 
   @override
   Map<String, void Function(ParseNode)> getFieldDeserializers() {
     return <String, void Function(ParseNode node)>{
       'id': (node) => id = node.getStringValue(),
-      // 'numbers': (node) => numbers = node.getEnumValue<TestEnum>(),
-      'testNamingEnum': (node) =>
-          testNamingEnum = node.getEnumValue<NamingEnum>(_namingEnumFactory),
+      'namingEnum': (node) =>
+          namingEnum = node.getEnumValue<NamingEnum>(_namingEnumFactory),
       'createdDateTime': (node) => createdDateTime = node.getDateTimeValue(),
       'officeLocation': (node) => officeLocation = node.getStringValue(),
       'workDuration': (node) => workDuration = node.getDurationValue(),
@@ -70,8 +72,15 @@ class MicrosoftGraphUser extends Parsable /* implements AdditionDataHolder */ {
   String toString() {
     return '''
       id: $id
-      birthDay: $birthDay
+      namingEnum: $namingEnum
+      createdDateTime: $createdDateTime
       officeLocation: $officeLocation
+      workDuration: $workDuration
+      heightInMetres: $heightInMetres
+      birthDay: ${birthDay?.year}-${birthDay?.month}-${birthDay?.day}
+      startWorkTime: ${startWorkTime?.hours}:${startWorkTime?.minutes}
+      endWorkTime: ${endWorkTime?.hours}:${endWorkTime?.minutes}
+      additionalData: $additionalData
     ''';
   }
 }

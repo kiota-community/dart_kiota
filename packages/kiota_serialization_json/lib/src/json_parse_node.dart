@@ -26,15 +26,13 @@ class JsonParseNode implements ParseNode {
     if (_node is Map) {
       final childNode = _node[identifier];
       if (childNode != null) {
-        final result = JsonParseNode(childNode);
-        // TODO(Kees): Call on... events
-        // result.onBeforeAssignFieldValues((f) => onBeforeAssignFieldValues);
-        // result.onAfterAssignFieldValues(onAfterAssignFieldValues);
-        return result;
+        return JsonParseNode(childNode)
+          ..onBeforeAssignFieldValues = onBeforeAssignFieldValues
+          ..onAfterAssignFieldValues = onAfterAssignFieldValues;
       }
-      
-      return null;
     }
+
+    return null;
   }
 
   @override
@@ -51,11 +49,11 @@ class JsonParseNode implements ParseNode {
 
   @override
   Iterable<T> getCollectionOfPrimitiveValues<T>() {
-    final result = <T> [];
+    final result = <T>[];
     if (_node is List) {
       _node.forEach((value) => result.add(value as T));
     }
-        
+
     return result;
   }
 
@@ -106,16 +104,29 @@ class JsonParseNode implements ParseNode {
   }
 
   void _assignFieldValues<T extends Parsable>(T item) {
-    final fieldDeserializers = item.getFieldDeserializers();
-
     if (_node is Map) {
+      onBeforeAssignFieldValues?.call(item);
+
+      final itemAdditionalData = item is AdditionalDataHolder
+          ? (item as AdditionalDataHolder).additionalData
+          : null;
+
+      final fieldDeserializers = item.getFieldDeserializers();
+
       for (final entry in _node.entries) {
         if (fieldDeserializers.containsKey(entry.key)) {
-          print('Found property: ${entry.key} to deserialize');
           final fieldDeserializer = fieldDeserializers[entry.key];
-          fieldDeserializer!.call(JsonParseNode(entry.value));
+          if (fieldDeserializer != null) {
+            final itemNode = JsonParseNode(entry.value)
+              ..onBeforeAssignFieldValues = onBeforeAssignFieldValues
+              ..onAfterAssignFieldValues = onAfterAssignFieldValues;
+            fieldDeserializer.call(itemNode);
+          }
+        } else {
+          itemAdditionalData?[entry.key as String] = entry.value;
         }
       }
+      onAfterAssignFieldValues?.call(item);
     }
   }
 

@@ -16,8 +16,7 @@ const _testUserJson = r'''
      "+1 412 555 0109"
   ],
   "displayName": "Megan Bowen",
-  "numbers": "one,two,thirtytwo",
-  "testNamingEnum": "Item2:SubItem1",
+  "namingEnum": "Item2:SubItem1",
   "givenName": "Megan",
   "accountEnabled": true,
   "createdDateTime": "2017-07-29T03:07:25Z",
@@ -44,8 +43,7 @@ const _testStudentJson = r'''
     "+1 412 555 0109"
   ],
   "displayName": "Megan Bowen",
-  "numbers": "one,two,thirtytwo",
-  "testNamingEnum": "Item2:SubItem1",
+  "namingEnum": "Item2:SubItem1",
   "givenName": "Megan",
   "accountEnabled": true,
   "createdDateTime": "2017-07-29T03:07:25Z",
@@ -119,16 +117,16 @@ void main() {
       final testEntity = jsonParseNode
           .getObjectValue(MicrosoftGraphUser.createFromDiscriminator);
 
+      print(testEntity);
       expect(testEntity, isNotNull);
       if (testEntity != null) {
+        expect(testEntity.additionalData, isNotEmpty);
+        expect(testEntity.additionalData.containsKey('mobilePhone'), isTrue);
+        expect(testEntity.additionalData['jobTitle'], 'Auditor');
+
         expect(testEntity.officeLocation, null);
-        // expect(testEntity.additionalData, isNotEmpty);
-        // expect(testEntity.additionalData.containsKey('jobTitle'), isTrue);
-        // expect(testEntity.AdditionalData.ContainsKey('mobilePhone'), isTrue);
-        // expect('Auditor', testEntity.additionalData['jobTitle']);
         expect(testEntity.id, '48d31887-5fad-4d73-a9f5-3c356e68a038');
-        // expect(testEntity.Numbers, TestEnum.One | TestEnum.Two); // Unknown enum value is not included
-        expect(testEntity.testNamingEnum, NamingEnum.item2SubItem1);
+        expect(testEntity.namingEnum, NamingEnum.item2SubItem1);
         expect(testEntity.workDuration, const Duration(hours: 1));
         expect(testEntity.startWorkTime, TimeOnly.fromComponents(8, 0));
         expect(testEntity.endWorkTime, TimeOnly.fromComponents(17, 0));
