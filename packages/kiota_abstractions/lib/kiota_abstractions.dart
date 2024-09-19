@@ -15,6 +15,7 @@ import 'package:meta/meta.dart';
 import 'package:std_uritemplate/std_uritemplate.dart';
 import 'package:uuid/uuid.dart';
 
+part 'src/abstract_query_parameters.dart';
 part 'src/api_client_builder.dart';
 part 'src/api_exception.dart';
 part 'src/authentication/access_token_provider.dart';
@@ -27,6 +28,7 @@ part 'src/authentication/base_bearer_token_authentication_provider.dart';
 part 'src/base_request_builder.dart';
 part 'src/case_insensitive_map.dart';
 part 'src/date_only.dart';
+part 'src/default_query_parameters.dart';
 part 'src/error_mappings.dart';
 part 'src/extensions/base_request_builder_extensions.dart';
 part 'src/extensions/date_only_extensions.dart';

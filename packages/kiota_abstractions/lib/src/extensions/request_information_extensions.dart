@@ -137,16 +137,16 @@ extension RequestInformationExtensions on RequestInformation {
     content = writer.getSerializedContent();
   }
 
-  void configure<T>(void Function(RequestConfiguration)? configurator) {
+  void configure<T extends AbstractQueryParameters>(void Function(RequestConfiguration<T>)? configurator, T Function() createParameters) {
     if (configurator == null) {
       return;
     }
 
-    final config = RequestConfiguration();
-
+    final config = RequestConfiguration<T>()
+    ..queryParameters = createParameters();
     configurator(config);
-
-    addQueryParameters(config.queryParameters);
+    
+    addQueryParameters(config.queryParameters.getQueryParameters());
     addHeaders(config.headers);
     addRequestOptions(config.options);
   }
