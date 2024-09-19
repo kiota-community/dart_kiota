@@ -7,7 +7,4 @@ class RequestConfiguration<T extends AbstractQueryParameters> {
 
   /// The request options.
   List<RequestOption> options = [];
-
-  /// The request query parameters.
- late T queryParameters;
 }
