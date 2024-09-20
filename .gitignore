@@ -29,8 +29,11 @@ pubspec.lock
 build/
 
 # ignore generated files
-gen/
+**/gen/** */
 *.mocks.dart
+
+# Do not ignore generated version
+!**/gen/version.dart
 
 # Licenses for packages are not checked in; they are copied from the root
 packages/*/LICENSE
