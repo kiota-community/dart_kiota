@@ -7,7 +7,7 @@ import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:http/retry.dart' as retry;
 import 'package:kiota_abstractions/kiota_abstractions.dart';
-import 'package:kiota_http/version.dart';
+import 'package:kiota_http/src/version.dart';
 import 'package:uuid/uuid.dart';
 
 part 'src/http_client_request_adapter.dart';
