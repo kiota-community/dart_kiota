@@ -29,7 +29,7 @@ pubspec.lock
 build/
 
 # ignore generated files
-**/gen/** */
+**/gen/**
 *.mocks.dart
 
 # Do not ignore generated version
