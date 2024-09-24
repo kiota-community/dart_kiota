@@ -41,9 +41,10 @@ class JsonParseNode implements ParseNode {
     if (_node is List) {
         for (final value in _node)
         { 
-          final enumValue = parser(value);
-          if(enumValue != null)
+          final enumValue = parser(value as String);
+          if(enumValue != null){
             result.add(enumValue);
+          }
         }
     }
     return result;
@@ -61,8 +62,9 @@ class JsonParseNode implements ParseNode {
           ..onAfterAssignFieldValues = onAfterAssignFieldValues
           ..onBeforeAssignFieldValues = onBeforeAssignFieldValues;
           final objectValue = node.getObjectValue(factory);
-          if(objectValue != null)
+          if(objectValue != null){
             result.add(objectValue);
+            }
         }
     }
     return result;
