@@ -62,8 +62,9 @@ class JsonParseNode implements ParseNode {
           ..onAfterAssignFieldValues = onAfterAssignFieldValues
           ..onBeforeAssignFieldValues = onBeforeAssignFieldValues;
           final objectValue = node.getObjectValue(factory);
-          if(objectValue != null)
+          if(objectValue != null){
             result.add(objectValue);
+            }
         }
     }
     return result;
