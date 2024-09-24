@@ -36,14 +36,15 @@ class JsonParseNode implements ParseNode {
   }
 
   @override
-  Iterable<T> getCollectionOfEnumValues<T extends Enum>(EnumFactory<T> parser) {
+  Iterable<T> getCollectionOfEnumValues<T extends Enum>(EnumFactory<T> factory) {
         final result = <T>[];
     if (_node is List) {
         for (final value in _node)
         { 
-          final enumValue = parser(value);
-          if(enumValue != null)
+          final enumValue = factory(value.toString());
+          if(enumValue != null) {
             result.add(enumValue);
+          }
         }
     }
     return result;
