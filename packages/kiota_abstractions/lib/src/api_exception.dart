@@ -12,13 +12,13 @@ class ApiException implements Exception {
   });
 
   /// The HTTP status code of the response.
-  final int? statusCode;
+  int? statusCode;
 
   /// An optional message that describes the error.
   final String? message;
 
   /// The headers of the response.
-  final Map<String, List<String>>? responseHeaders;
+  Map<String, List<String>>? responseHeaders;
 
   /// The inner exceptions that caused this exception.
   final Iterable<Object?>? innerExceptions;

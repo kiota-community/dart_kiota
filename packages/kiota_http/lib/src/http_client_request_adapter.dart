@@ -131,11 +131,9 @@ class HttpClientRequestAdapter implements RequestAdapter {
     final result = rootNode?.getObjectValue(errorFactory);
 
     if (result case Exception exception) {
-      if (exception case final ApiException apiException) {
-        exception = apiException.copyWith(
-          statusCode: statusCodeInt,
-          responseHeaders: headers,
-        );
+    if (exception case final ApiException apiException) {
+        apiException.statusCode = statusCodeInt;
+        apiException.responseHeaders = headers;
       }
 
       throw exception;
