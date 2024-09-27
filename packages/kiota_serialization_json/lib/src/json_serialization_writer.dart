@@ -2,11 +2,12 @@ part of '../kiota_serialization_json.dart';
 
 class JsonSerializationWriter implements SerializationWriter {
   final StringBuffer _buffer = StringBuffer();
-  bool _isFirst = true;
 
-  static UnsupportedError _noStructuredDataError() {
-    return UnsupportedError('Text does not support structured data');
-  }
+  final openingObject = '{';
+  final closingObject = '}';
+  final openingArray = '[';
+  final closingArray = ']';
+  final separator = ',';
 
   @override
   ParsableHook? onAfterObjectSerialization;
@@ -19,12 +20,15 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   Uint8List getSerializedContent() {
-    return utf8.encode(_buffer.toString());
+    var content = _buffer.toString();
+    content = content.replaceAll(',  }', '}');
+    content = content.replaceAll(',  ]', ']');
+    return utf8.encode(content);
   }
 
   @override
   void writeAdditionalData(Map<String, dynamic> value) {
-    throw _noStructuredDataError();
+    //TODO
   }
 
   @override
@@ -43,7 +47,7 @@ class JsonSerializationWriter implements SerializationWriter {
     Iterable<T>? values,
     EnumSerializer<T> serializer,
   ) {
-    throw _noStructuredDataError();
+    //TODO
   }
 
   @override
@@ -51,12 +55,25 @@ class JsonSerializationWriter implements SerializationWriter {
     String? key,
     Iterable<T>? values,
   ) {
-    throw _noStructuredDataError();
-  }
+    if(values == null || values.isEmpty){
+      return;
+    }
+    else{
+    _buffer.write('$openingObject "$key" : $openingArray');
+    var first = true;
+      for (final value in values!)
+        { 
+          if(!first){
+          _buffer.write(separator);}
+          first = false;
+          value.serialize(this);
+        }  
+    _buffer.write(' $closingArray $closingObject ');
+  }}
 
   @override
   void writeCollectionOfPrimitiveValues<T>(String? key, Iterable<T>? values) {
-    throw _noStructuredDataError();
+    //TODO
   }
 
   @override
@@ -94,29 +111,30 @@ class JsonSerializationWriter implements SerializationWriter {
     T? value, [
     Iterable<Parsable>? additionalValuesToMerge,
   ]) {
-    throw _noStructuredDataError();
+    if(value == null){
+      return;
+    }
+    else if(key == null){
+      value.serialize(this);
+    }
+    else
+    {
+      _buffer.write('$openingObject "$key" :');
+      value.serialize(this);
+      _buffer.write(' $closingObject$separator ');
+    }
   }
 
   @override
   void writeStringValue(String? key, String? value) {
-    // text cannot have keys, so we throw if one is provided
-    if (key?.isNotEmpty ?? false) {
-      throw _noStructuredDataError();
+  if (key?.isEmpty ?? true) {
+      return;
     }
-
     // if the value is null or empty, we don't write anything
     if (value?.isEmpty ?? true) {
       return;
     }
-
-    if (!_isFirst) {
-      throw UnsupportedError(
-        'A value was already written for this serialization writer, text content only supports a single value',
-      );
-    }
-
-    _isFirst = false;
-    _buffer.write(value);
+    _buffer.write('"$key" : "$value"$separator ');
   }
 
   @override
