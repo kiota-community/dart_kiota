@@ -36,16 +36,17 @@ class JsonParseNode implements ParseNode {
   }
 
   @override
-  Iterable<T> getCollectionOfEnumValues<T extends Enum>(EnumFactory<T> factory) {
-        final result = <T>[];
+  Iterable<T> getCollectionOfEnumValues<T extends Enum>(
+    EnumFactory<T> factory,
+  ) {
+    final result = <T>[];
     if (_node is List) {
-        for (final value in _node)
-        { 
-          final enumValue = factory(value.toString());
-          if(enumValue != null) {
-            result.add(enumValue);
-          }
+      for (final value in _node) {
+        final enumValue = factory(value.toString());
+        if (enumValue != null) {
+          result.add(enumValue);
         }
+      }
     }
     return result;
   }
@@ -56,16 +57,15 @@ class JsonParseNode implements ParseNode {
   ) {
     final result = <T>[];
     if (_node is List) {
-       for (final value in _node)
-        { 
-          final node = JsonParseNode(value)
+      for (final value in _node) {
+        final node = JsonParseNode(value)
           ..onAfterAssignFieldValues = onAfterAssignFieldValues
           ..onBeforeAssignFieldValues = onBeforeAssignFieldValues;
-          final objectValue = node.getObjectValue(factory);
-          if(objectValue != null){
-            result.add(objectValue);
-            }
+        final objectValue = node.getObjectValue(factory);
+        if (objectValue != null) {
+          result.add(objectValue);
         }
+      }
     }
     return result;
   }
@@ -117,8 +117,11 @@ class JsonParseNode implements ParseNode {
 
   @override
   T? getObjectValue<T extends Parsable>(ParsableFactory<T> factory) {
-    // TODO(Kees): Handle getting untyped value
     final item = factory(this);
+    if (item is UntypedNode) {
+      return getUntypedValue(_node)! as T;
+    }
+
     onBeforeAssignFieldValues?.call(item);
     _assignFieldValues(item);
     onAfterAssignFieldValues?.call(item);
@@ -162,5 +165,69 @@ class JsonParseNode implements ParseNode {
   @override
   TimeOnly? getTimeOnlyValue() {
     return _node == null ? null : TimeOnly.fromDateTimeString(_node.toString());
+  }
+
+  UntypedNode? getUntypedValue(dynamic node) {
+    if (node == null) {
+      return UntypedNull();
+    }
+
+    if (node is List) {
+      final arrayValue = getCollectionOfUntypedValues(node);
+      return UntypedArray(arrayValue);
+    }
+
+    if (node is Map) {
+      final propertiesMap = <String, UntypedNode>{};
+      for (final entry in node.entries) {
+        final fieldKey = entry.key as String;
+        final fieldValue = entry.value;
+        final childNode = JsonParseNode(fieldValue);
+        // childNode.setOnBeforeAssignFieldValues(this.getOnBeforeAssignFieldValues());
+        // childNode.setOnAfterAssignFieldValues(this.getOnAfterAssignFieldValues());
+        propertiesMap[fieldKey] =
+            childNode.getUntypedValue(fieldValue)!;
+      }
+      return UntypedObject(propertiesMap);
+    }
+
+    final doubleValue = double.tryParse(node.toString());
+    if (doubleValue != null) {
+      return UntypedDouble(doubleValue);
+    }
+
+    final intValue = int.tryParse(node.toString());
+    if (intValue != null) {
+      return UntypedInteger(intValue);
+    }
+
+    final boolValue = bool.tryParse(node.toString());
+    if (boolValue != null) {
+      return UntypedBoolean(value: boolValue);
+    }
+
+    if (node is String) {
+      return UntypedString(node);
+    }
+
+    throw ArgumentError.value(node, 'node');
+  }
+
+  /// Gets the collection of untyped values of the node.
+  Iterable<UntypedNode> getCollectionOfUntypedValues(List<dynamic> nodeArray) {
+    final result = <UntypedNode>[];
+
+    nodeArray.forEach((arrayElement) {
+      final node = JsonParseNode(arrayElement)
+        ..onAfterAssignFieldValues = onAfterAssignFieldValues
+        ..onBeforeAssignFieldValues = onBeforeAssignFieldValues;
+
+      final value = node.getUntypedValue(arrayElement);
+      if (value != null) {
+        result.add(value);
+      }
+    });
+
+    return result;
   }
 }

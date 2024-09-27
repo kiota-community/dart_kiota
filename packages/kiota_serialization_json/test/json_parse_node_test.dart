@@ -7,6 +7,7 @@ import 'package:test/test.dart';
 import 'derived_microsoft_graph_user.dart';
 import 'microsoft_graph_user.dart';
 import 'test_enums.dart';
+import 'untyped_test_entity.dart';
 
 const _testUserJson = r'''
 {
@@ -117,7 +118,6 @@ void main() {
       final testEntity = jsonParseNode
           .getObjectValue(MicrosoftGraphUser.createFromDiscriminator);
 
-      print(testEntity);
       expect(testEntity, isNotNull);
       if (testEntity != null) {
         expect(testEntity.additionalData, isNotEmpty);
@@ -147,6 +147,21 @@ void main() {
           message:
               'Test entity is not of type DerivedMicrosoftGraphUser, but of ${testEntity.runtimeType}',
         );
+      }
+    });
+
+    test('Get user object from untyped Json', () {
+      final jsonParseNode = JsonParseNode(jsonDecode(_testUntypedJson));
+      final testEntity = jsonParseNode
+          .getObjectValue(UntypedTestEntity.createFromDiscriminator);
+
+      expect(testEntity, isNotNull);
+      if (testEntity != null) {
+        expect(testEntity.additionalData, isNotEmpty);
+
+        final location = testEntity.location;
+        expect(location, isNotNull);
+        expect(location is UntypedObject, isTrue);
       }
     });
   });
