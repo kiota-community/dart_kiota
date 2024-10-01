@@ -109,6 +109,7 @@ class CaseInsensitiveMap<K extends String, V> implements Map<K, V> {
 
   @override
   V putIfAbsent(K key, V Function() ifAbsent) {
+    _originalKeys[normalizeKey(key)] = key;
     return _contents.putIfAbsent(normalizeKey(key), ifAbsent);
   }
 
