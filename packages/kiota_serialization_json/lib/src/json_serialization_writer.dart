@@ -26,7 +26,10 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   void writeAdditionalData(Map<String, dynamic> value) {
-    //TODO
+    for(final entry in value.entries){
+      _buffer..add('"${entry.key}":"${_getAnyValue(entry.value as Object)}"')
+      ..add(separator);
+    }
   }
 
   @override
