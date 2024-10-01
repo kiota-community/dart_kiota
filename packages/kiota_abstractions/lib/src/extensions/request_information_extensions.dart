@@ -13,7 +13,7 @@ extension RequestInformationExtensions on RequestInformation {
 
   /// Vanity method to add headers to the request.
   void addHeaders(HttpHeaders headers) {
-    headers.addAll(headers);
+    this.headers.addAll(headers);
   }
 
   /// Vanity method to add query parameters to the request.
