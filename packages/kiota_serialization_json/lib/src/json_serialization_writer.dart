@@ -1,7 +1,7 @@
 part of '../kiota_serialization_json.dart';
 
 class JsonSerializationWriter implements SerializationWriter {
-  final StringBuffer _buffer = StringBuffer();
+  final List<String> _buffer = [];
 
   final openingObject = '{';
   final closingObject = '}';
@@ -20,10 +20,7 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   Uint8List getSerializedContent() {
-    var content = _buffer.toString();
-    content = content.replaceAll(',  }', '}');
-    content = content.replaceAll(',  ]', ']');
-    return utf8.encode(content);
+    return utf8.encode('{${_buffer.join()}}');
   }
 
   @override
@@ -59,16 +56,21 @@ class JsonSerializationWriter implements SerializationWriter {
       return;
     }
     else{
-    _buffer.write('$openingObject "$key" : $openingArray');
+    _buffer.add('"$key":$openingArray');
     var first = true;
-      for (final value in values!)
+      for (final value in values)
         { 
           if(!first){
-          _buffer.write(separator);}
+          _buffer.add(separator);}
           first = false;
+          _buffer.add(openingObject);
           value.serialize(this);
+          _buffer.add(closingObject);
         }  
-    _buffer.write(' $closingArray $closingObject ');
+      if(_buffer.last == separator){
+        _buffer.removeLast();
+      }
+    _buffer.add(closingArray);
   }}
 
   @override
@@ -119,9 +121,12 @@ class JsonSerializationWriter implements SerializationWriter {
     }
     else
     {
-      _buffer.write('$openingObject "$key" :');
+      _buffer.add('"$key":$openingObject');
       value.serialize(this);
-      _buffer.write(' $closingObject$separator ');
+      if(_buffer.last == separator){
+        _buffer.removeLast();
+      }
+      _buffer.add(closingObject);
     }
   }
 
@@ -134,7 +139,8 @@ class JsonSerializationWriter implements SerializationWriter {
     if (value?.isEmpty ?? true) {
       return;
     }
-    _buffer.write('"$key" : "$value"$separator ');
+    _buffer..add('"$key":"$value"')
+    ..add(separator);
   }
 
   @override
