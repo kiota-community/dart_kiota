@@ -45,8 +45,28 @@ class JsonSerializationWriter implements SerializationWriter {
     Iterable<T>? values,
     EnumSerializer<T> serializer,
   ) {
-    //TODO
-  }
+    if(values == null || values.isEmpty){
+      return;
+    }
+    else{
+    final writeAsObject = _buffer.isEmpty;
+    final opening = writeAsObject? openingObject : '';
+    _buffer.add('$opening"$key":$openingArray');
+    var first = true;
+      for (final value in values)
+        { 
+          if(!first){
+            _buffer.add(separator);
+          }
+          first = false;
+          _buffer.add('"${serializer(value)}"');
+        }
+    _buffer.add(closingArray);
+    if(writeAsObject){
+      _buffer.add(closingObject);
+    }
+    _buffer.add(separator);
+  }}
 
   @override
   void writeCollectionOfObjectValues<T extends Parsable>(
@@ -76,8 +96,28 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   void writeCollectionOfPrimitiveValues<T>(String? key, Iterable<T>? values) {
-    //TODO
-  }
+    if(values == null || values.isEmpty){
+      return;
+    }
+    else{
+    final writeAsObject = _buffer.isEmpty;
+    final opening = writeAsObject? openingObject : '';
+    _buffer.add('$opening"$key":$openingArray');
+    var first = true;
+      for (final value in values)
+        { 
+          if(!first){
+            _buffer.add(separator);
+          }
+          first = false;
+         _buffer.add('"${_getAnyValue(value!)}"');
+        }
+    _buffer.add(closingArray);
+    if(writeAsObject){
+      _buffer.add(closingObject);
+    }
+    _buffer.add(separator);
+  }}
 
   @override
   void writeDateTimeValue(String? key, DateTime? value) {
@@ -170,6 +210,23 @@ class JsonSerializationWriter implements SerializationWriter {
   void removeSeparator(){
     if(_buffer.last == separator){
       _buffer.removeLast();
+    }
+  }
+
+  String _getAnyValue(Object value) {
+    switch (value) {
+      case final String s:
+        return s;
+      case final UuidValue u:
+        return u.uuid;
+      case final DateTime d:
+        return d.toIso8601String();
+      case final DateOnly d:
+        return d.toRfc3339String();
+      case final TimeOnly t:
+        return t.toRfc3339String();
+      default:
+       return value.toString();
     }
   }
 }
