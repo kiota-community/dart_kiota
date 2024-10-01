@@ -20,7 +20,8 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   Uint8List getSerializedContent() {
-    return utf8.encode('{${_buffer.join()}}');
+    removeSeparator();
+    return utf8.encode(_buffer.join());
   }
 
   @override
@@ -61,16 +62,16 @@ class JsonSerializationWriter implements SerializationWriter {
       for (final value in values)
         { 
           if(!first){
-          _buffer.add(separator);}
+            _buffer.add(separator);
+          }
           first = false;
           _buffer.add(openingObject);
           value.serialize(this);
+          removeSeparator();
           _buffer.add(closingObject);
         }  
-      if(_buffer.last == separator){
-        _buffer.removeLast();
-      }
-    _buffer.add(closingArray);
+    _buffer..add(closingArray)
+    ..add(separator);
   }}
 
   @override
@@ -117,16 +118,19 @@ class JsonSerializationWriter implements SerializationWriter {
       return;
     }
     else if(key == null){
+      _buffer.add(openingObject);
       value.serialize(this);
+      removeSeparator();
+      _buffer..add(closingObject)
+      ..add(separator);
     }
     else
     {
       _buffer.add('"$key":$openingObject');
       value.serialize(this);
-      if(_buffer.last == separator){
-        _buffer.removeLast();
-      }
-      _buffer.add(closingObject);
+      removeSeparator();
+      _buffer..add(closingObject)
+      ..add(separator);
     }
   }
 
@@ -161,5 +165,11 @@ class JsonSerializationWriter implements SerializationWriter {
   @override
   void writeUuidValue(String? key, UuidValue? value) {
     writeStringValue(key, value?.uuid);
+  }
+
+  void removeSeparator(){
+    if(_buffer.last == separator){
+      _buffer.removeLast();
+    }
   }
 }
