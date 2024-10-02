@@ -130,10 +130,10 @@ class HttpClientRequestAdapter implements RequestAdapter {
     final rootNode = await _getRootParseNode(response);
     final result = rootNode?.getObjectValue(errorFactory);
 
-    if (result case Exception exception) {
+    if (result case final Exception exception) {
     if (exception case final ApiException apiException) {
-        apiException.statusCode = statusCodeInt;
-        apiException.responseHeaders = headers;
+        apiException..statusCode = statusCodeInt
+        ..responseHeaders = headers;
       }
 
       throw exception;

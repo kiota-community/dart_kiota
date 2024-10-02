@@ -44,7 +44,7 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
     writer
       ..writeUuidValue('id', id)
       ..writeEnumValue<NamingEnum>(
-          'namingEnum', namingEnum, _namingEnumSerializer)
+          'namingEnum', namingEnum, _namingEnumSerializer,)
       ..writeDateTimeValue('createdDateTime', createdDateTime)
       ..writeStringValue('officeLocation', officeLocation)
       ..writeDurationValue('workDuration', workDuration)

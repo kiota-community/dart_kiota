@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:kiota_serialization_json/kiota_serialization_json.dart';
 import 'package:test/test.dart';
+import 'package:uuid/uuid.dart';
 
 import 'derived_microsoft_graph_user.dart';
 import 'microsoft_graph_user.dart';
@@ -125,7 +126,7 @@ void main() {
         expect(testEntity.additionalData['jobTitle'], 'Auditor');
 
         expect(testEntity.officeLocation, null);
-        expect(testEntity.id, '48d31887-5fad-4d73-a9f5-3c356e68a038');
+        expect(testEntity.id, UuidValue.fromString('48d31887-5fad-4d73-a9f5-3c356e68a038'));
         expect(testEntity.namingEnum, NamingEnum.item2SubItem1);
         expect(testEntity.workDuration, const Duration(hours: 1));
         expect(testEntity.startWorkTime, TimeOnly.fromComponents(8, 0));
@@ -163,6 +164,16 @@ void main() {
         expect(location, isNotNull);
         expect(location is UntypedObject, isTrue);
       }
+    });
+    test('Get enumcollection from json', () {
+      final jsonParseNode = JsonParseNode(jsonDecode(_testCollectionOfEnumsJson));
+      final testCollection = jsonParseNode
+          .getCollectionOfEnumValues((value)=> NamingEnum.values.where((ne) => ne.value == value).firstOrNull);
+
+      expect(testCollection, isNotNull);
+      expect(testCollection.length, 2);
+      expect(testCollection.first, NamingEnum.item2SubItem1);
+      expect(testCollection.last, NamingEnum.item3SubItem1);
     });
   });
 }
