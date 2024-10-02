@@ -1,4 +1,4 @@
-The `kiota_serialization_json` package is the Dart Text serialization library implementation to
+The `kiota_serialization_json` package is the Dart Json serialization library implementation to
 handle `application/json` responses.
 
 ## Usage
@@ -9,7 +9,7 @@ Install the package in the generated project:
 >
 > ```yaml
 > dependencies:
->   kiota_serialization_text:
+>   kiota_serialization_json:
 >     git:
 >       url: https://github.com/ricardoboss/dart_kiota.git
 >       ref: main
