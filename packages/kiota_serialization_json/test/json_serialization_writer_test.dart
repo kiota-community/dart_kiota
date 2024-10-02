@@ -52,7 +52,7 @@ void main() {
   
       final writer = JsonSerializationWriter()
         ..writeObjectValue(
-          null, simpleUser);
+          null, simpleUser,);
 
       expect(
         utf8.decode(writer.getSerializedContent()),

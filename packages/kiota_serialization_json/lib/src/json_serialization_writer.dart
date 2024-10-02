@@ -161,19 +161,25 @@ class JsonSerializationWriter implements SerializationWriter {
       return;
     }
     else if(key == null){
+      onBeforeObjectSerialization?.call(value);
       _buffer.add(openingObject);
+      onStartObjectSerialization?.call(value, this);
       value.serialize(this);
       removeSeparator();
-      _buffer..add(closingObject)
-      ..add(separator);
+      _buffer.add(closingObject);
+      onAfterObjectSerialization?.call(value);
+      _buffer.add(separator);
     }
     else
     {
+      onBeforeObjectSerialization?.call(value);
       _buffer.add('"$key":$openingObject');
+      onStartObjectSerialization?.call(value, this);
       value.serialize(this);
       removeSeparator();
-      _buffer..add(closingObject)
-      ..add(separator);
+      _buffer.add(closingObject);
+      onAfterObjectSerialization?.call(value);
+      _buffer.add(separator);
     }
   }
 
