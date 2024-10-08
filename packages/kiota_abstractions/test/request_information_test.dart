@@ -226,5 +226,17 @@ void main() {
       // Assert
       expect(testRequest.uri.toString(), 'http://localhost/first,second');
     });
+
+    test('Add headers', () {
+      // Arrange
+      final testRequest = RequestInformation();
+      final headers = HttpHeaders()..putIfAbsent('key', () => {'value'});
+
+      // Act
+      testRequest.addHeaders(headers);
+
+      // Assert
+      expect(testRequest.headers['key'], {'value'});
+    });
   });
 }
