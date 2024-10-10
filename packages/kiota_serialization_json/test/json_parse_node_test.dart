@@ -133,6 +133,7 @@ void main() {
         expect(testEntity.endWorkTime, TimeOnly.fromComponents(17, 0));
         expect(testEntity.createdDateTime, DateTime.utc(2017, 7, 29, 3, 7, 25));
         expect(testEntity.birthDay, DateOnly.fromComponents(1999, 8, 7));
+        expect(testEntity.accountEnabled, true);
       }
     });
 

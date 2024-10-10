@@ -37,6 +37,7 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
   double? heightInMetres;
   String? officeLocation;
   bool? active;
+  bool? accountEnabled;
   Iterable<int> numbers=[];
 
   @override
@@ -53,6 +54,7 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
       ..writeTimeOnlyValue('startWorkTime', startWorkTime)
       ..writeTimeOnlyValue('endWorkTime', endWorkTime)
       ..writeBoolValue('active', value:active)
+      ..writeBoolValue('accountEnabled', value:accountEnabled)
       ..writeCollectionOfPrimitiveValues('numbers', numbers)
       ..writeAdditionalData(additionalData);
   }
@@ -71,6 +73,7 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
       'startWorkTime': (node) => startWorkTime = node.getTimeOnlyValue(),
       'endWorkTime': (node) => endWorkTime = node.getTimeOnlyValue(),
       'active': (node) => active = node.getBoolValue(),
+      'accountEnabled': (node) => accountEnabled = node.getBoolValue(),
       'numbers' : (node) => numbers = node.getCollectionOfPrimitiveValues<int>(),
     };
   }
@@ -88,6 +91,7 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
       startWorkTime: ${startWorkTime?.hours}:${startWorkTime?.minutes}
       endWorkTime: ${endWorkTime?.hours}:${endWorkTime?.minutes}
       active: $active
+      accountEnabled: $accountEnabled
       numbers: $numbers
       additionalData: $additionalData
     ''';

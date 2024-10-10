@@ -13,7 +13,7 @@ class JsonParseNode implements ParseNode {
 
   @override
   bool? getBoolValue() {
-    return _node == null ? null : bool.tryParse(_node.toString());
+    return _node as bool;
   }
 
   @override
@@ -92,7 +92,7 @@ class JsonParseNode implements ParseNode {
 
   @override
   double? getDoubleValue() {
-    return _node == null ? null : double.tryParse(_node.toString());
+    return _node as double;
   }
 
   @override
@@ -112,7 +112,7 @@ class JsonParseNode implements ParseNode {
 
   @override
   int? getIntValue() {
-    return _node == null ? null : int.tryParse(_node.toString());
+    return _node as int;
   }
 
   @override
