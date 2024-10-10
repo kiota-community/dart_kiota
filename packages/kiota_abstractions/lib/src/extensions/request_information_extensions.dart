@@ -142,7 +142,7 @@ extension RequestInformationExtensions on RequestInformation {
       return;
     }
 
-    final config = RequestConfiguration<T>(HttpHeaders(), [], queryParameters: createParameters());
+    final config = RequestConfiguration<T>(HttpHeaders(), [], createParameters());
     configurator(config);
 
     addQueryParameters(config.queryParameters.getQueryParameters());
