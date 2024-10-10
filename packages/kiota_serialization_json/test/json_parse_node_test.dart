@@ -176,5 +176,16 @@ void main() {
       expect(testCollection.first, NamingEnum.item2SubItem1);
       expect(testCollection.last, NamingEnum.item3SubItem1);
     });
+
+    test('Get collection of primitive values from json', () {
+      final jsonParseNode = JsonParseNode(jsonDecode('[2,3,5]'));
+      final testCollection = jsonParseNode
+          .getCollectionOfPrimitiveValues<int>();
+
+      expect(testCollection, isNotNull);
+      expect(testCollection.length, 3);
+      expect(testCollection.first,2);
+      expect(testCollection.last, 5);
+    });
   });
 }

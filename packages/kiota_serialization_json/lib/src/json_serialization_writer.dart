@@ -27,14 +27,21 @@ class JsonSerializationWriter implements SerializationWriter {
   @override
   void writeAdditionalData(Map<String, dynamic> value) {
     for(final entry in value.entries){
-      _buffer..add('"${entry.key}":"${_getAnyValue(entry.value as Object)}"')
-      ..add(separator);
+      if(entry.value is bool || entry.value is int || entry.value is double)
+      {
+        _buffer.add('"${entry.key}":${entry.value}');
+      }
+      else
+      {
+        _buffer.add('"${entry.key}":"${_getAnyValue(entry.value as Object)}"');
+      }
+      _buffer.add(separator);
     }
   }
 
   @override
   void writeBoolValue(String? key, {bool? value}) {
-    writeStringValue(key, value?.toString());
+    writeUnquotedValue(key, value);
   }
 
   @override
@@ -113,7 +120,14 @@ class JsonSerializationWriter implements SerializationWriter {
             _buffer.add(separator);
           }
           first = false;
-         _buffer.add('"${_getAnyValue(value!)}"');
+          if(value is bool || value is int || value is double)
+          {
+           _buffer.add('$value');
+          }
+          else
+          {
+           _buffer.add('"${_getAnyValue(value!)}"');
+          }
         }
     _buffer.add(closingArray);
     if(writeAsObject){
@@ -129,7 +143,7 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   void writeDoubleValue(String? key, double? value) {
-    writeStringValue(key, value?.toString());
+    writeUnquotedValue(key, value);
   }
 
   @override
@@ -143,7 +157,7 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   void writeIntValue(String? key, int? value) {
-    writeStringValue(key, value?.toString());
+    writeUnquotedValue(key, value);
   }
 
   @override
@@ -193,6 +207,18 @@ class JsonSerializationWriter implements SerializationWriter {
       return;
     }
     _buffer..add('"$key":"$value"')
+    ..add(separator);
+  }
+
+  void writeUnquotedValue(String? key, Object? value) {
+  if (key?.isEmpty ?? true) {
+      return;
+    }
+    // if the value is null or empty, we don't write anything
+    if (value == null) {
+      return;
+    }
+    _buffer..add('"$key":$value')
     ..add(separator);
   }
 

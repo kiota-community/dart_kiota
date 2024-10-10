@@ -33,7 +33,7 @@ void main() {
 
       expect(
         utf8.decode(writer.getSerializedContent()),
-        equals('{"intlist":["1","2","3"]}'),
+        equals('{"intlist":[1,2,3]}'),
       );
     });
 
@@ -56,7 +56,7 @@ void main() {
 
       expect(
         utf8.decode(writer.getSerializedContent()),
-        equals('{"id":"01924bf0-a3dd-707c-bfb2-5826130b96f2","createdDateTime":"2023-12-01T15:15:00.000","officeLocation":"at the desk","workDuration":"40:00:00.000000","birthDay":"2024-10-01","heightInMetres":"1.7","startWorkTime":"06:00:00","active":"true","numbers":["2","3","5"],"a":"some value","b":"12","c":"false"}'),
+        equals('{"id":"01924bf0-a3dd-707c-bfb2-5826130b96f2","createdDateTime":"2023-12-01T15:15:00.000","officeLocation":"at the desk","workDuration":"40:00:00.000000","birthDay":"2024-10-01","heightInMetres":1.7,"startWorkTime":"06:00:00","active":true,"numbers":[2,3,5],"a":"some value","b":12,"c":false}'),
       );
     });
 
@@ -82,7 +82,7 @@ void main() {
 
       expect(
         utf8.decode(writer.getSerializedContent()),
-        equals('{"name":"a group","leader":{"heightInMetres":"1.9","endWorkTime":"17:00:00"},"members":[{"officeLocation":"on a chair","workDuration":"2:00:00.000000","a":"#1 coworker"},{"workDuration":"12:00:00.000000","active":"true"}]}'),
+        equals('{"name":"a group","leader":{"heightInMetres":1.9,"endWorkTime":"17:00:00"},"members":[{"officeLocation":"on a chair","workDuration":"2:00:00.000000","a":"#1 coworker"},{"workDuration":"12:00:00.000000","active":true}]}'),
       );
     });
   });
