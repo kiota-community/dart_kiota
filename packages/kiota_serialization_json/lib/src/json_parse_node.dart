@@ -130,30 +130,32 @@ class JsonParseNode implements ParseNode {
   }
 
   void _assignFieldValues<T extends Parsable>(T item) {
-    if (_node is Map) {
-      onBeforeAssignFieldValues?.call(item);
-
-      final itemAdditionalData = item is AdditionalDataHolder
-          ? (item as AdditionalDataHolder).additionalData
-          : null;
-
-      final fieldDeserializers = item.getFieldDeserializers();
-
-      for (final entry in _node.entries) {
-        if (fieldDeserializers.containsKey(entry.key)) {
-          final fieldDeserializer = fieldDeserializers[entry.key];
-          if (fieldDeserializer != null) {
-            final itemNode = JsonParseNode(entry.value)
-              ..onBeforeAssignFieldValues = onBeforeAssignFieldValues
-              ..onAfterAssignFieldValues = onAfterAssignFieldValues;
-            fieldDeserializer.call(itemNode);
-          }
-        } else {
-          itemAdditionalData?[entry.key as String] = entry.value;
-        }
-      }
-      onAfterAssignFieldValues?.call(item);
+    if (_node is! Map){
+      return;
     }
+     
+    onBeforeAssignFieldValues?.call(item);
+
+    final itemAdditionalData = item is AdditionalDataHolder
+        ? (item as AdditionalDataHolder).additionalData
+        : null;
+
+    final fieldDeserializers = item.getFieldDeserializers();
+
+    for (final entry in _node.entries) {
+      if (fieldDeserializers.containsKey(entry.key)) {
+        final fieldDeserializer = fieldDeserializers[entry.key];
+        if (fieldDeserializer != null) {
+          final itemNode = JsonParseNode(entry.value)
+            ..onBeforeAssignFieldValues = onBeforeAssignFieldValues
+            ..onAfterAssignFieldValues = onAfterAssignFieldValues;
+          fieldDeserializer.call(itemNode);
+        }
+      } else {
+        itemAdditionalData?[entry.key as String] = entry.value;
+      }
+    }
+    onAfterAssignFieldValues?.call(item);
   }
 
   @override
@@ -182,9 +184,9 @@ class JsonParseNode implements ParseNode {
       for (final entry in node.entries) {
         final fieldKey = entry.key as String;
         final fieldValue = entry.value;
-        final childNode = JsonParseNode(fieldValue);
-        // childNode.setOnBeforeAssignFieldValues(this.getOnBeforeAssignFieldValues());
-        // childNode.setOnAfterAssignFieldValues(this.getOnAfterAssignFieldValues());
+        final childNode = JsonParseNode(fieldValue)
+            ..onBeforeAssignFieldValues = onBeforeAssignFieldValues
+            ..onAfterAssignFieldValues = onAfterAssignFieldValues;
         propertiesMap[fieldKey] =
             childNode.getUntypedValue(fieldValue)!;
       }
@@ -210,7 +212,7 @@ class JsonParseNode implements ParseNode {
       return UntypedString(node);
     }
 
-    throw ArgumentError.value(node, 'node');
+    throw ArgumentError.value(node, 'node', 'Unable to parse untyped node');
   }
 
   /// Gets the collection of untyped values of the node.
