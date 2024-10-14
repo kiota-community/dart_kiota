@@ -1,8 +1,8 @@
 name: kiota_http
 description: "Provides an implementation of a Kiota RequestAdapter that uses `http`."
 version: 0.0.1-pre.1
-homepage: https://github.com/ricardoboss/dart_kiota/tree/main/packages/kiota_http
-repository: https://github.com/ricardoboss/dart_kiota
+homepage: https://github.com/kiota-community/dart_kiota/tree/main/packages/kiota_http
+repository: https://github.com/kiota-community/dart_kiota
 publish_to: 'none'
 
 environment:
