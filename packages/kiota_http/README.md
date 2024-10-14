@@ -11,7 +11,7 @@ Install the package in the generated project:
 > dependencies:
 >   kiota_http_client:
 >     git:
->       url: https://github.com/ricardoboss/dart_kiota.git
+>       url: https://github.com/kiota-community/dart_kiota.git
 >       ref: main
 >       path: packages/kiota_http
 > ```

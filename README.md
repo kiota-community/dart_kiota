@@ -15,12 +15,12 @@ From the comment at: https://github.com/microsoft/kiota/issues/2199#issuecomment
 
 #### Abstractions
 
-- [x] Backing store abstractions https://github.com/ricardoboss/dart_kiota_abstractions/pull/10
-- [x] Authentication abstractions https://github.com/ricardoboss/dart_kiota_abstractions/pull/12
+- [x] Backing store abstractions https://github.com/kiota-community/dart_kiota_abstractions/pull/10
+- [x] Authentication abstractions https://github.com/kiota-community/dart_kiota_abstractions/pull/12
 
 #### Implementations
 
-See https://github.com/ricardoboss/dart_kiota/issues/18
+See https://github.com/kiota-community/dart_kiota/issues/18
 
 #### Other
 
