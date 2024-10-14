@@ -29,7 +29,7 @@ jobs:
     needs: define-matrix
 
     permissions:
-      contents: write
+      checks: write
 
     strategy:
       fail-fast: false
