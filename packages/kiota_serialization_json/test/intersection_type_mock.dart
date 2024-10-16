@@ -37,7 +37,6 @@ class IntersectionTypeMock extends Parsable implements AdditionalDataHolder {
   @override
   Map<String, void Function(ParseNode parseNode)> getFieldDeserializers() {
     final deserializers = <String, void Function(ParseNode node)>{};
-    // Should be other way around en with putIfAbsent
     if (composedType1 != null) {
       composedType1!.getFieldDeserializers().forEach((k,v) => deserializers.putIfAbsent(k, ()=>v));
     }
