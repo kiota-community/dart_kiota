@@ -174,32 +174,44 @@ class JsonSerializationWriter implements SerializationWriter {
   void writeObjectValue<T extends Parsable>(
     String? key,
     T? value, [
-    Iterable<Parsable>? additionalValuesToMerge,
+    Iterable<Parsable?>? additionalValuesToMerge,
   ]) {
-    if(value == null){
+    if(value == null && additionalValuesToMerge == null){
       return;
     }
-    else if(key == null){
+    if(value !=  null){
       onBeforeObjectSerialization?.call(value);
-      _buffer.add(openingObject);
-      onStartObjectSerialization?.call(value, this);
-      value.serialize(this);
-      removeSeparator();
-      _buffer.add(closingObject);
-      onAfterObjectSerialization?.call(value);
-      _buffer.add(separator);
+    }
+
+    if(key == null){
+      _buffer.add(openingObject);  
     }
     else
     {
-      onBeforeObjectSerialization?.call(value);
       _buffer.add('"$key":$openingObject');
+    }
+    if(value != null){
       onStartObjectSerialization?.call(value, this);
       value.serialize(this);
-      removeSeparator();
-      _buffer.add(closingObject);
-      onAfterObjectSerialization?.call(value);
-      _buffer.add(separator);
     }
+    if (additionalValuesToMerge != null) {
+      for (final additionalValue in additionalValuesToMerge) {
+        if(additionalValue != null){
+          onBeforeObjectSerialization?.call(additionalValue);
+          onStartObjectSerialization?.call(additionalValue, this);
+
+          additionalValue.serialize(this);
+
+          onAfterObjectSerialization?.call(additionalValue);
+        }
+      }
+    }
+    removeSeparator();
+    _buffer.add(closingObject);
+    if(value != null){
+      onAfterObjectSerialization?.call(value);
+    }
+    _buffer.add(separator);
   }
 
   @override

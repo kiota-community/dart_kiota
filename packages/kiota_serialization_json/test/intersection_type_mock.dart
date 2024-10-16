@@ -54,8 +54,7 @@ class IntersectionTypeMock extends Parsable implements AdditionalDataHolder {
     } else if (composedType3 != null) {
       writer.writeCollectionOfObjectValues(null, composedType3);
     } else {
-      //TODO map should be able to contain null objects
-      writer.writeObjectValue(null, composedType1, [composedType2!]);
+      writer.writeObjectValue(null, composedType1, [composedType2]);
     }
   }
 }

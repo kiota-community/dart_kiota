@@ -99,8 +99,7 @@ void main() {
         ..serialize(writer);
       final content = writer.getSerializedContent();
       final result = utf8.decode(content);
-      //this one still fails because writeObject needs to use additionalValuesToMerge
-      // expect(result, '{"id":"opaque","officeLocation":"Montreal","displayName":"McGill"}');
+      expect(result, '{"id":"opaque","officeLocation":"Montreal","displayName":"McGill"}');
     });
 
     test('SerializeIntersectionTypeComplexProperty2', () {
@@ -111,8 +110,7 @@ void main() {
         ..serialize(writer);
       final content = writer.getSerializedContent();
       final result = utf8.decode(content);
-      //this one still fails because writeObject needs to use additionalValuesToMerge
-      //expect(result, '{"displayName":"McGill","id":10}');
+      expect(result, '{"displayName":"McGill","id":10}');
     });
     test('SerializeIntersectionTypeComplexProperty3', () {
       final testEntity1 = MicrosoftGraphUser()..officeLocation='Montreal'..id='10'..namingEnum=NamingEnum.item2SubItem1;
