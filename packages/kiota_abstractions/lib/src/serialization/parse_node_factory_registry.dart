@@ -35,14 +35,14 @@ class ParseNodeFactoryRegistry implements ParseNodeFactory {
         contentType.split(';').where((element) => element.isNotEmpty).first;
     if (contentTypeAssociatedFactories.containsKey(vendorSpecificContentType)) {
       return contentTypeAssociatedFactories[vendorSpecificContentType]!
-          .getRootParseNode(contentType, content);
+          .getRootParseNode(vendorSpecificContentType, content);
     }
 
     final cleanedContentType =
         vendorSpecificContentType.replaceAll(contentTypeVendorCleanupRegex, '');
     if (contentTypeAssociatedFactories.containsKey(cleanedContentType)) {
       return contentTypeAssociatedFactories[cleanedContentType]!
-          .getRootParseNode(contentType, content);
+          .getRootParseNode(cleanedContentType, content);
     }
 
     throw UnsupportedError(

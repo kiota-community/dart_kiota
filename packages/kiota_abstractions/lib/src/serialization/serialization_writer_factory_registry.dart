@@ -29,14 +29,14 @@ class SerializationWriterFactoryRegistry implements SerializationWriterFactory {
         contentType.split(';').where((element) => element.isNotEmpty).first;
     if (contentTypeAssociatedFactories.containsKey(vendorSpecificContentType)) {
       return contentTypeAssociatedFactories[vendorSpecificContentType]!
-          .getSerializationWriter(contentType);
+          .getSerializationWriter(vendorSpecificContentType);
     }
 
     final cleanedContentType =
         vendorSpecificContentType.replaceAll(contentTypeVendorCleanupRegex, '');
     if (contentTypeAssociatedFactories.containsKey(cleanedContentType)) {
       return contentTypeAssociatedFactories[cleanedContentType]!
-          .getSerializationWriter(contentType);
+          .getSerializationWriter(cleanedContentType);
     }
 
     throw UnsupportedError(
