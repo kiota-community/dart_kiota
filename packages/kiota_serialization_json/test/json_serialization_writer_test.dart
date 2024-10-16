@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:kiota_serialization_json/kiota_serialization_json.dart';
 import 'package:test/test.dart';
-import 'package:uuid/uuid.dart';
 
 import 'microsoft_graph_group.dart';
 import 'microsoft_graph_user.dart';
@@ -39,7 +38,7 @@ void main() {
 
      test('writeObject', () {
         final simpleUser = MicrosoftGraphUser()
-        ..id=UuidValue.fromString('01924bf0-a3dd-707c-bfb2-5826130b96f2')
+        ..id='abc'
         ..createdDateTime=DateTime(2023,12,1,15,15)
         ..officeLocation='at the desk'
         ..workDuration=const Duration(hours: 40)
@@ -56,7 +55,7 @@ void main() {
 
       expect(
         utf8.decode(writer.getSerializedContent()),
-        equals('{"id":"01924bf0-a3dd-707c-bfb2-5826130b96f2","createdDateTime":"2023-12-01T15:15:00.000","officeLocation":"at the desk","workDuration":"40:00:00.000000","birthDay":"2024-10-01","heightInMetres":1.7,"startWorkTime":"06:00:00","active":true,"numbers":[2,3,5],"a":"some value","b":12,"c":false}'),
+        equals('{"id":"abc","createdDateTime":"2023-12-01T15:15:00.000","officeLocation":"at the desk","workDuration":"40:00:00.000000","birthDay":"2024-10-01","heightInMetres":1.7,"startWorkTime":"06:00:00","active":true,"numbers":[2,3,5],"a":"some value","b":12,"c":false}'),
       );
     });
 

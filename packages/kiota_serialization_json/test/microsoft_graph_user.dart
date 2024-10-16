@@ -1,5 +1,4 @@
 import 'package:kiota_abstractions/kiota_abstractions.dart';
-import 'package:uuid/uuid.dart';
 
 import 'derived_microsoft_graph_user.dart';
 import 'test_enums.dart';
@@ -27,7 +26,7 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
   @override
   Map<String, Object?> additionalData = {};
 
-  UuidValue? id;
+  String? id;
   NamingEnum? namingEnum;
   DateOnly? birthDay;
   TimeOnly? startWorkTime;
@@ -43,7 +42,7 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
   @override
   void serialize(SerializationWriter writer) {
     writer
-      ..writeUuidValue('id', id)
+      ..writeStringValue('id', id)
       ..writeEnumValue<NamingEnum>(
           'namingEnum', namingEnum, _namingEnumSerializer,)
       ..writeDateTimeValue('createdDateTime', createdDateTime)
@@ -62,7 +61,7 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
   @override
   Map<String, void Function(ParseNode)> getFieldDeserializers() {
     return <String, void Function(ParseNode node)>{
-      'id': (node) => id = node.getGuidValue(),
+      'id': (node) => id = node.getStringValue(),
       'namingEnum': (node) =>
           namingEnum = node.getEnumValue<NamingEnum>(_namingEnumFactory),
       'createdDateTime': (node) => createdDateTime = node.getDateTimeValue(),

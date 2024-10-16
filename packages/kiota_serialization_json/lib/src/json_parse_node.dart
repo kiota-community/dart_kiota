@@ -160,8 +160,7 @@ class JsonParseNode implements ParseNode {
 
   @override
   String? getStringValue() {
-    final result = _node.toString();
-    return result == 'null' ? null : result;
+    return _node is String ? _node : null;
   }
 
   @override

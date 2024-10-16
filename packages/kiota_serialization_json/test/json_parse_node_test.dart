@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:kiota_serialization_json/kiota_serialization_json.dart';
 import 'package:test/test.dart';
-import 'package:uuid/uuid.dart';
 
 import 'derived_microsoft_graph_user.dart';
 import 'microsoft_graph_user.dart';
@@ -33,7 +32,7 @@ const _testUserJson = r'''
   "endWorkTime": "17:00:00.0000000",
   "userPrincipalName": "MeganB@M365x214355.onmicrosoft.com",
   "birthDay": "1999-08-07",
-  "id": "48d31887-5fad-4d73-a9f5-3c356e68a038"
+  "id": "someId"
 }''';
 
 const _testStudentJson = r'''
@@ -126,7 +125,7 @@ void main() {
         expect(testEntity.additionalData['jobTitle'], 'Auditor');
 
         expect(testEntity.officeLocation, null);
-        expect(testEntity.id, UuidValue.fromString('48d31887-5fad-4d73-a9f5-3c356e68a038'));
+        expect(testEntity.id, 'someId');
         expect(testEntity.namingEnum, NamingEnum.item2SubItem1);
         expect(testEntity.workDuration, const Duration(hours: 1));
         expect(testEntity.startWorkTime, TimeOnly.fromComponents(8, 0));

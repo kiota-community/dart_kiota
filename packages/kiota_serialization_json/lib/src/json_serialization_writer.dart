@@ -87,7 +87,12 @@ class JsonSerializationWriter implements SerializationWriter {
       return;
     }
     else{
-    _buffer.add('"$key":$openingArray');
+      if(key?.isEmpty?? true){
+        _buffer.add(openingArray);
+      }
+      else{
+        _buffer.add('"$key":$openingArray');
+      }
     var first = true;
       for (final value in values)
         { 
@@ -199,15 +204,18 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   void writeStringValue(String? key, String? value) {
-  if (key?.isEmpty ?? true) {
-      return;
-    }
     // if the value is null or empty, we don't write anything
     if (value?.isEmpty ?? true) {
       return;
     }
-    _buffer..add('"$key":"$value"')
-    ..add(separator);
+    if(key?.isEmpty ?? true){
+      _buffer..add('"$value"')
+      ..add(separator);
+    }
+    else{
+      _buffer..add('"$key":"$value"')
+      ..add(separator);
+    }
   }
 
   void writeUnquotedValue(String? key, Object? value) {
