@@ -9,7 +9,7 @@ Install the package in the generated project:
 >
 > ```yaml
 > dependencies:
->   kiota_http_client:
+>   kiota_http:
 >     git:
 >       url: https://github.com/kiota-community/dart_kiota.git
 >       ref: main
