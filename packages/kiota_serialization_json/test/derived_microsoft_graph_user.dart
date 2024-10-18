@@ -16,8 +16,8 @@ class DerivedMicrosoftGraphUser extends MicrosoftGraphUser {
   @override
   Map<String, void Function(ParseNode)> getFieldDeserializers() {
     final parentDeserializers = super.getFieldDeserializers();
-    parentDeserializers['enrolmentDate'] = (node) => enrolmentDate = node.getDateOnlyValue();
+    parentDeserializers['enrolmentDate'] =
+        (node) => enrolmentDate = node.getDateOnlyValue();
     return parentDeserializers;
   }
-
 }

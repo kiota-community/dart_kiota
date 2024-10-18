@@ -15,8 +15,8 @@ void main() {
       final rawResponse = utf8.encode(initialString);
       final parseNode = JsonParseNodeFactory()
           .getRootParseNode('application/json', rawResponse);
-      final result = parseNode
-          .getObjectValue(UnionTypeMock.createFromDiscriminatorValue);
+      final result =
+          parseNode.getObjectValue(UnionTypeMock.createFromDiscriminatorValue);
       expect(result, isNotNull);
       if (result != null) {
         expect(result.composedType1, isNotNull);
@@ -34,8 +34,8 @@ void main() {
       final rawResponse = utf8.encode(initialString);
       final parseNode = JsonParseNodeFactory()
           .getRootParseNode('application/json', rawResponse);
-      final result = parseNode
-          .getObjectValue(UnionTypeMock.createFromDiscriminatorValue);
+      final result =
+          parseNode.getObjectValue(UnionTypeMock.createFromDiscriminatorValue);
       expect(result, isNotNull);
       if (result != null) {
         expect(result.composedType1, isNull);
@@ -51,8 +51,8 @@ void main() {
       final rawResponse = utf8.encode(initialString);
       final parseNode = JsonParseNodeFactory()
           .getRootParseNode('application/json', rawResponse);
-      final result = parseNode
-          .getObjectValue(UnionTypeMock.createFromDiscriminatorValue);
+      final result =
+          parseNode.getObjectValue(UnionTypeMock.createFromDiscriminatorValue);
       expect(result, isNotNull);
       if (result != null) {
         expect(result.composedType1, isNull);
@@ -68,8 +68,8 @@ void main() {
       final rawResponse = utf8.encode(initialString);
       final parseNode = JsonParseNodeFactory()
           .getRootParseNode('application/json', rawResponse);
-      final result = parseNode
-          .getObjectValue(UnionTypeMock.createFromDiscriminatorValue);
+      final result =
+          parseNode.getObjectValue(UnionTypeMock.createFromDiscriminatorValue);
       expect(result, isNotNull);
       if (result != null) {
         expect(result.composedType1, isNull);
@@ -88,12 +88,14 @@ void main() {
       expect(result, '"officeLocation"');
     });
     test('SerializeUnionTypeComplexProperty1', () {
-      final testEntity1 = MicrosoftGraphUser()..officeLocation='Montreal'..id='opaque';
-      final testEntity2 = SecondTestEntity()..displayName='McGill';
+      final testEntity1 = MicrosoftGraphUser()
+        ..officeLocation = 'Montreal'
+        ..id = 'opaque';
+      final testEntity2 = SecondTestEntity()..displayName = 'McGill';
       final writer = JsonSerializationWriter();
       UnionTypeMock()
-        ..composedType1=testEntity1
-        ..composedType2=testEntity2
+        ..composedType1 = testEntity1
+        ..composedType2 = testEntity2
         ..serialize(writer);
       final content = writer.getSerializedContent();
       final result = utf8.decode(content);
@@ -101,25 +103,32 @@ void main() {
     });
 
     test('SerializeUnionTypeComplexProperty2', () {
-      final testEntity2 = SecondTestEntity()..displayName='McGill'..id=10;
+      final testEntity2 = SecondTestEntity()
+        ..displayName = 'McGill'
+        ..id = 10;
       final writer = JsonSerializationWriter();
       UnionTypeMock()
-       ..composedType2=testEntity2
+        ..composedType2 = testEntity2
         ..serialize(writer);
       final content = writer.getSerializedContent();
       final result = utf8.decode(content);
       expect(result, '{"displayName":"McGill","id":10}');
     });
     test('SerializeUnionComplexProperty3', () {
-      final testEntity1 = MicrosoftGraphUser()..officeLocation='Montreal'..id='10';
-      final testEntity2 = MicrosoftGraphUser()..officeLocation='Ottawa'..id='11';
+      final testEntity1 = MicrosoftGraphUser()
+        ..officeLocation = 'Montreal'
+        ..id = '10';
+      final testEntity2 = MicrosoftGraphUser()
+        ..officeLocation = 'Ottawa'
+        ..id = '11';
       final writer = JsonSerializationWriter();
       UnionTypeMock()
-        ..composedType3=[testEntity1, testEntity2]
+        ..composedType3 = [testEntity1, testEntity2]
         ..serialize(writer);
       final content = writer.getSerializedContent();
       final result = utf8.decode(content);
-      expect(result, '[{"id":"10","officeLocation":"Montreal"},{"id":"11","officeLocation":"Ottawa"}]');
+      expect(result,
+          '[{"id":"10","officeLocation":"Montreal"},{"id":"11","officeLocation":"Ottawa"}]');
     });
   });
 }

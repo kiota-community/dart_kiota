@@ -26,13 +26,10 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   void writeAdditionalData(Map<String, dynamic> value) {
-    for(final entry in value.entries){
-      if(entry.value is bool || entry.value is int || entry.value is double)
-      {
+    for (final entry in value.entries) {
+      if (entry.value is bool || entry.value is int || entry.value is double) {
         _buffer.add('"${entry.key}":${entry.value}');
-      }
-      else
-      {
+      } else {
         _buffer.add('"${entry.key}":"${_getAnyValue(entry.value as Object)}"');
       }
       _buffer.add(separator);
@@ -55,91 +52,85 @@ class JsonSerializationWriter implements SerializationWriter {
     Iterable<T>? values,
     EnumSerializer<T> serializer,
   ) {
-    if(values == null || values.isEmpty){
+    if (values == null || values.isEmpty) {
       return;
-    }
-    else{
-    final writeAsObject = _buffer.isEmpty;
-    final opening = writeAsObject? openingObject : '';
-    _buffer.add('$opening"$key":$openingArray');
-    var first = true;
-      for (final value in values)
-        { 
-          if(!first){
-            _buffer.add(separator);
-          }
-          first = false;
-          _buffer.add('"${serializer(value)}"');
+    } else {
+      final writeAsObject = _buffer.isEmpty;
+      final opening = writeAsObject ? openingObject : '';
+      _buffer.add('$opening"$key":$openingArray');
+      var first = true;
+      for (final value in values) {
+        if (!first) {
+          _buffer.add(separator);
         }
-    _buffer.add(closingArray);
-    if(writeAsObject){
-      _buffer.add(closingObject);
+        first = false;
+        _buffer.add('"${serializer(value)}"');
+      }
+      _buffer.add(closingArray);
+      if (writeAsObject) {
+        _buffer.add(closingObject);
+      }
+      _buffer.add(separator);
     }
-    _buffer.add(separator);
-  }}
+  }
 
   @override
   void writeCollectionOfObjectValues<T extends Parsable>(
     String? key,
     Iterable<T>? values,
   ) {
-    if(values == null || values.isEmpty){
+    if (values == null || values.isEmpty) {
       return;
-    }
-    else{
-      if(key?.isEmpty?? true){
+    } else {
+      if (key?.isEmpty ?? true) {
         _buffer.add(openingArray);
-      }
-      else{
+      } else {
         _buffer.add('"$key":$openingArray');
       }
-    var first = true;
-      for (final value in values)
-        { 
-          if(!first){
-            _buffer.add(separator);
-          }
-          first = false;
-          _buffer.add(openingObject);
-          value.serialize(this);
-          removeSeparator();
-          _buffer.add(closingObject);
-        }  
-    _buffer..add(closingArray)
-    ..add(separator);
-  }}
+      var first = true;
+      for (final value in values) {
+        if (!first) {
+          _buffer.add(separator);
+        }
+        first = false;
+        _buffer.add(openingObject);
+        value.serialize(this);
+        removeSeparator();
+        _buffer.add(closingObject);
+      }
+      _buffer
+        ..add(closingArray)
+        ..add(separator);
+    }
+  }
 
   @override
   void writeCollectionOfPrimitiveValues<T>(String? key, Iterable<T>? values) {
-    if(values == null || values.isEmpty){
+    if (values == null || values.isEmpty) {
       return;
-    }
-    else{
-    final writeAsObject = _buffer.isEmpty;
-    final opening = writeAsObject? openingObject : '';
-    _buffer.add('$opening"$key":$openingArray');
-    var first = true;
-      for (final value in values)
-        { 
-          if(!first){
-            _buffer.add(separator);
-          }
-          first = false;
-          if(value is bool || value is int || value is double)
-          {
-           _buffer.add('$value');
-          }
-          else
-          {
-           _buffer.add('"${_getAnyValue(value!)}"');
-          }
+    } else {
+      final writeAsObject = _buffer.isEmpty;
+      final opening = writeAsObject ? openingObject : '';
+      _buffer.add('$opening"$key":$openingArray');
+      var first = true;
+      for (final value in values) {
+        if (!first) {
+          _buffer.add(separator);
         }
-    _buffer.add(closingArray);
-    if(writeAsObject){
-      _buffer.add(closingObject);
+        first = false;
+        if (value is bool || value is int || value is double) {
+          _buffer.add('$value');
+        } else {
+          _buffer.add('"${_getAnyValue(value!)}"');
+        }
+      }
+      _buffer.add(closingArray);
+      if (writeAsObject) {
+        _buffer.add(closingObject);
+      }
+      _buffer.add(separator);
     }
-    _buffer.add(separator);
-  }}
+  }
 
   @override
   void writeDateTimeValue(String? key, DateTime? value) {
@@ -176,27 +167,25 @@ class JsonSerializationWriter implements SerializationWriter {
     T? value, [
     Iterable<Parsable?>? additionalValuesToMerge,
   ]) {
-    if(value == null && additionalValuesToMerge == null){
+    if (value == null && additionalValuesToMerge == null) {
       return;
     }
-    if(value !=  null){
+    if (value != null) {
       onBeforeObjectSerialization?.call(value);
     }
 
-    if(key == null){
-      _buffer.add(openingObject);  
-    }
-    else
-    {
+    if (key == null) {
+      _buffer.add(openingObject);
+    } else {
       _buffer.add('"$key":$openingObject');
     }
-    if(value != null){
+    if (value != null) {
       onStartObjectSerialization?.call(value, this);
       value.serialize(this);
     }
     if (additionalValuesToMerge != null) {
       for (final additionalValue in additionalValuesToMerge) {
-        if(additionalValue != null){
+        if (additionalValue != null) {
           onBeforeObjectSerialization?.call(additionalValue);
           onStartObjectSerialization?.call(additionalValue, this);
 
@@ -208,7 +197,7 @@ class JsonSerializationWriter implements SerializationWriter {
     }
     removeSeparator();
     _buffer.add(closingObject);
-    if(value != null){
+    if (value != null) {
       onAfterObjectSerialization?.call(value);
     }
     _buffer.add(separator);
@@ -220,26 +209,28 @@ class JsonSerializationWriter implements SerializationWriter {
     if (value?.isEmpty ?? true) {
       return;
     }
-    if(key?.isEmpty ?? true){
-      _buffer..add('"$value"')
-      ..add(separator);
-    }
-    else{
-      _buffer..add('"$key":"$value"')
-      ..add(separator);
+    if (key?.isEmpty ?? true) {
+      _buffer
+        ..add('"$value"')
+        ..add(separator);
+    } else {
+      _buffer
+        ..add('"$key":"$value"')
+        ..add(separator);
     }
   }
 
   void writeUnquotedValue(String? key, Object? value) {
-  if (key?.isEmpty ?? true) {
+    if (key?.isEmpty ?? true) {
       return;
     }
     // if the value is null or empty, we don't write anything
     if (value == null) {
       return;
     }
-    _buffer..add('"$key":$value')
-    ..add(separator);
+    _buffer
+      ..add('"$key":$value')
+      ..add(separator);
   }
 
   @override
@@ -262,8 +253,8 @@ class JsonSerializationWriter implements SerializationWriter {
     writeStringValue(key, value?.uuid);
   }
 
-  void removeSeparator(){
-    if(_buffer.last == separator){
+  void removeSeparator() {
+    if (_buffer.last == separator) {
       _buffer.removeLast();
     }
   }
@@ -281,7 +272,7 @@ class JsonSerializationWriter implements SerializationWriter {
       case final TimeOnly t:
         return t.toRfc3339String();
       default:
-       return value.toString();
+        return value.toString();
     }
   }
 }

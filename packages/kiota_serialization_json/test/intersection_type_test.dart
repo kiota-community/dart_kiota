@@ -90,38 +90,50 @@ void main() {
       expect(result, '"officeLocation"');
     });
     test('SerializeIntersectionTypeComplexProperty1', () {
-      final testEntity1 = MicrosoftGraphUser()..officeLocation='Montreal'..id='opaque';
-      final testEntity2 = SecondTestEntity()..displayName='McGill';
+      final testEntity1 = MicrosoftGraphUser()
+        ..officeLocation = 'Montreal'
+        ..id = 'opaque';
+      final testEntity2 = SecondTestEntity()..displayName = 'McGill';
       final writer = JsonSerializationWriter();
       IntersectionTypeMock()
-        ..composedType1=testEntity1
-        ..composedType2=testEntity2
+        ..composedType1 = testEntity1
+        ..composedType2 = testEntity2
         ..serialize(writer);
       final content = writer.getSerializedContent();
       final result = utf8.decode(content);
-      expect(result, '{"id":"opaque","officeLocation":"Montreal","displayName":"McGill"}');
+      expect(result,
+          '{"id":"opaque","officeLocation":"Montreal","displayName":"McGill"}');
     });
 
     test('SerializeIntersectionTypeComplexProperty2', () {
-      final testEntity2 = SecondTestEntity()..displayName='McGill'..id=10;
+      final testEntity2 = SecondTestEntity()
+        ..displayName = 'McGill'
+        ..id = 10;
       final writer = JsonSerializationWriter();
       IntersectionTypeMock()
-       ..composedType2=testEntity2
+        ..composedType2 = testEntity2
         ..serialize(writer);
       final content = writer.getSerializedContent();
       final result = utf8.decode(content);
       expect(result, '{"displayName":"McGill","id":10}');
     });
     test('SerializeIntersectionTypeComplexProperty3', () {
-      final testEntity1 = MicrosoftGraphUser()..officeLocation='Montreal'..id='10'..namingEnum=NamingEnum.item2SubItem1;
-      final testEntity2 = MicrosoftGraphUser()..officeLocation='Ottawa'..id='11'..namingEnum=NamingEnum.item3SubItem1;
+      final testEntity1 = MicrosoftGraphUser()
+        ..officeLocation = 'Montreal'
+        ..id = '10'
+        ..namingEnum = NamingEnum.item2SubItem1;
+      final testEntity2 = MicrosoftGraphUser()
+        ..officeLocation = 'Ottawa'
+        ..id = '11'
+        ..namingEnum = NamingEnum.item3SubItem1;
       final writer = JsonSerializationWriter();
       IntersectionTypeMock()
-        ..composedType3=[testEntity1, testEntity2]
+        ..composedType3 = [testEntity1, testEntity2]
         ..serialize(writer);
       final content = writer.getSerializedContent();
       final result = utf8.decode(content);
-      expect(result, '[{"id":"10","namingEnum":"Item2:SubItem1","officeLocation":"Montreal"},{"id":"11","namingEnum":"Item3:SubItem1","officeLocation":"Ottawa"}]');
+      expect(result,
+          '[{"id":"10","namingEnum":"Item2:SubItem1","officeLocation":"Montreal"},{"id":"11","namingEnum":"Item3:SubItem1","officeLocation":"Ottawa"}]');
     });
   });
 }

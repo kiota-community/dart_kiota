@@ -7,17 +7,20 @@ class IntersectionTypeMock extends Parsable implements AdditionalDataHolder {
   IntersectionTypeMock();
 
   factory IntersectionTypeMock.createFromDiscriminatorValue(
-      ParseNode parseNode,) {
+    ParseNode parseNode,
+  ) {
     final result = IntersectionTypeMock();
     if (parseNode.getStringValue() != null) {
       result.stringValue = parseNode.getStringValue();
     } else if (parseNode
         .getCollectionOfObjectValues<MicrosoftGraphUser>(
-            MicrosoftGraphUser.createFromDiscriminator,)
+          MicrosoftGraphUser.createFromDiscriminator,
+        )
         .isNotEmpty) {
       result.composedType3 =
           parseNode.getCollectionOfObjectValues<MicrosoftGraphUser>(
-              MicrosoftGraphUser.createFromDiscriminator,);
+        MicrosoftGraphUser.createFromDiscriminator,
+      );
     } else {
       result
         ..composedType1 = MicrosoftGraphUser()
@@ -38,11 +41,15 @@ class IntersectionTypeMock extends Parsable implements AdditionalDataHolder {
   Map<String, void Function(ParseNode parseNode)> getFieldDeserializers() {
     final deserializers = <String, void Function(ParseNode node)>{};
     if (composedType1 != null) {
-      composedType1!.getFieldDeserializers().forEach((k,v) => deserializers.putIfAbsent(k, ()=>v));
+      composedType1!
+          .getFieldDeserializers()
+          .forEach((k, v) => deserializers.putIfAbsent(k, () => v));
     }
     if (composedType2 != null) {
-      composedType2!.getFieldDeserializers().forEach((k,v) => deserializers.putIfAbsent(k, ()=>v));
-    }    
+      composedType2!
+          .getFieldDeserializers()
+          .forEach((k, v) => deserializers.putIfAbsent(k, () => v));
+    }
     return deserializers;
   }
 
