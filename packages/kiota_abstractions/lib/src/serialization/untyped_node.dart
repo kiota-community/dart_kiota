@@ -2,12 +2,11 @@ part of '../../kiota_abstractions.dart';
 
 /// Base class for untyped node.
 class UntypedNode implements Parsable {
-    UntypedNode();
+    const UntypedNode();
 
-    /// Creates a new [UntypedNode] instance of the appropriate class
-    /// based on discriminator value.
-    factory UntypedNode.createFromDiscriminatorValue(ParseNode parseNode) {
-      return UntypedNode();
+    /// Creates a new [UntypedNode] instance.
+    factory UntypedNode.createFromDiscriminatorValue(ParseNode _) {
+      return const UntypedNode();
     }
     /// The deserialization information for the current model.
     /// Returns a map of serializer methods for this object.
@@ -23,7 +22,7 @@ class UntypedNode implements Parsable {
     }
 
     /// Gets the value assigned to untyped node.
-    Object getValue() {
+    Object? getValue() {
       throw Exception('getValue is implemented for derived types of UntypedNode');
     }
 }

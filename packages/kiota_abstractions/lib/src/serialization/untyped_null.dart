@@ -1,7 +1,10 @@
 part of '../../kiota_abstractions.dart';
 
 class UntypedNull extends UntypedNode {
-  UntypedNull();
+  const UntypedNull();
 
-  final dynamic value = null;
+  @override
+  Object? getValue() {
+    return null;
+  }
 }

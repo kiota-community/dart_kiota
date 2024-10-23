@@ -2,7 +2,7 @@ part of '../../kiota_abstractions.dart';
 
 class UntypedString extends UntypedNode {
 
-  UntypedString(this.value);
+  const UntypedString(this.value);
 
   final String value;
 }
