@@ -1,7 +1,8 @@
 part of '../kiota_serialization_multipart.dart';
 
 class MultipartSerializationWriter implements SerializationWriter {
-  final StringBuffer _buffer = StringBuffer();
+  final Uint8Buffer _buffer = Uint8Buffer();
+
   final errorMessagePrefix = 'Multipart serialization does not support writing';
 
   @override
@@ -16,7 +17,7 @@ class MultipartSerializationWriter implements SerializationWriter {
 
   @override
   Uint8List getSerializedContent() {
-    return utf8.encode(_buffer.toString());
+    return Uint8List.fromList(_buffer);
   }
 
   @override
@@ -32,25 +33,31 @@ class MultipartSerializationWriter implements SerializationWriter {
   @override
   void writeByteArrayValue(String? key, Uint8List? value) {
     if (value != null) {
-      _buffer.write(value);
+      _buffer.addAll(value);
     }
   }
 
   @override
   void writeCollectionOfEnumValues<T extends Enum>(
-      String? key, Iterable<T>? values, EnumSerializer<T> serializer,) {
+    String? key,
+    Iterable<T>? values,
+    EnumSerializer<T> serializer,
+  ) {
     throw UnsupportedError('$errorMessagePrefix collection of enum values');
   }
 
   @override
   void writeCollectionOfObjectValues<T extends Parsable>(
-      String? key, Iterable<T>? values,) {
+    String? key,
+    Iterable<T>? values,
+  ) {
     throw UnsupportedError('$errorMessagePrefix collection of object values');
   }
 
   @override
   void writeCollectionOfPrimitiveValues<T>(String? key, Iterable<T>? values) {
-    throw UnsupportedError('$errorMessagePrefix collection of primitive values');
+    throw UnsupportedError(
+        '$errorMessagePrefix collection of primitive values');
   }
 
   @override
@@ -75,7 +82,10 @@ class MultipartSerializationWriter implements SerializationWriter {
 
   @override
   void writeEnumValue<T extends Enum>(
-      String? key, T? value, EnumSerializer<T> serializer,) {
+    String? key,
+    T? value,
+    EnumSerializer<T> serializer,
+  ) {
     throw UnsupportedError('$errorMessagePrefix enum values');
   }
 
@@ -90,8 +100,11 @@ class MultipartSerializationWriter implements SerializationWriter {
   }
 
   @override
-  void writeObjectValue<T extends Parsable>(String? key, T? value,
-      [Iterable<Parsable?>? additionalValuesToMerge,]) {
+  void writeObjectValue<T extends Parsable>(
+    String? key,
+    T? value, [
+    Iterable<Parsable?>? additionalValuesToMerge,
+  ]) {
     if (value != null) {
       if (onBeforeObjectSerialization != null) {
         onBeforeObjectSerialization?.call(value);
@@ -102,27 +115,27 @@ class MultipartSerializationWriter implements SerializationWriter {
         }
         value.serialize(this);
       } else {
-        throw Exception('Expected MultipartBody instance but got ${value.runtimeType}');
+        throw Exception(
+            'Expected MultipartBody instance but got ${value.runtimeType}');
       }
       if (onAfterObjectSerialization != null) {
         onAfterObjectSerialization?.call(value);
       }
     }
-
   }
 
   @override
   void writeStringValue(String? key, String? value) {
     if (key != null && key.isNotEmpty) {
-      _buffer.write(key);
+      _buffer.addAll(utf8.encode(key));
     }
     if (value != null && value.isNotEmpty) {
       if (key != null && key.isNotEmpty) {
-        _buffer.write(': ');
+        _buffer.addAll(utf8.encode(': '));
       }
-      _buffer.write(value);
+      _buffer.addAll(utf8.encode(value));
     }
-    _buffer.write('\r\n');
+    _buffer.addAll(utf8.encode('\r\n'));
   }
 
   @override

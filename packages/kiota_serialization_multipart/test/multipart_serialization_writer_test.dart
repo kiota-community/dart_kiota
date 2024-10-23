@@ -66,12 +66,15 @@ void main() {
 
       final serializationWriter = MultipartSerializationWriter()
         ..writeObjectValue(null, multipartBody);
-      final content = serializationWriter.getSerializedContent();
-      final expected = '''
-         ${multipartBody.boundary}
-      ''';
+      final stringContent =
+        String.fromCharCodes(serializationWriter.getSerializedContent());
 
-      expect(content, expected);
+      final expected = '''
+--${multipartBody.boundary}\r
+Content-Type: application/json\r
+Content-Disposition: form-data; name="testEntity"''';
+
+      expect(stringContent.substring(0, expected.length), expected);
     });
   });
 }

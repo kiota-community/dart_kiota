@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:kiota_abstractions/kiota_abstractions.dart';
+import 'package:typed_data/typed_buffers.dart';
 import 'package:uuid/uuid_value.dart';
 
 part 'src/multipart_serialization_writer.dart';

@@ -12,6 +12,7 @@ dependencies:
   http: ^1.2.2
   kiota_abstractions:
     path: ../kiota_abstractions
+  typed_data: ^1.3.2
   uuid: ^4.4.2
 
 dev_dependencies:
