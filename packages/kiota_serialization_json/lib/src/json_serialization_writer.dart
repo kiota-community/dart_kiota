@@ -30,7 +30,11 @@ class JsonSerializationWriter implements SerializationWriter {
       if (entry.value is bool || entry.value is int || entry.value is double) {
         _buffer.add('"${entry.key}":${entry.value}');
       } else {
-        _buffer.add('"${entry.key}":"${_getAnyValue(entry.value as Object)}"');
+         if (entry.value == null) {
+          _buffer.add('"${entry.key}": null');
+         } else {
+          _buffer.add('"${entry.key}":"${_getAnyValue(entry.value as Object)}"');
+         }
       }
       _buffer.add(separator);
     }
