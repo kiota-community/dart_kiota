@@ -1,6 +1,5 @@
 part of '../kiota_serialization_json.dart';
 
-
 class JsonParseNodeFactory implements ParseNodeFactory {
   @override
   ParseNode getRootParseNode(String contentType, Uint8List content) {

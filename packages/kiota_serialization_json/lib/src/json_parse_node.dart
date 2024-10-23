@@ -130,10 +130,10 @@ class JsonParseNode implements ParseNode {
   }
 
   void _assignFieldValues<T extends Parsable>(T item) {
-    if (_node is! Map){
+    if (_node is! Map) {
       return;
     }
-     
+
     onBeforeAssignFieldValues?.call(item);
 
     final itemAdditionalData = item is AdditionalDataHolder
@@ -184,10 +184,9 @@ class JsonParseNode implements ParseNode {
         final fieldKey = entry.key as String;
         final fieldValue = entry.value;
         final childNode = JsonParseNode(fieldValue)
-            ..onBeforeAssignFieldValues = onBeforeAssignFieldValues
-            ..onAfterAssignFieldValues = onAfterAssignFieldValues;
-        propertiesMap[fieldKey] =
-            childNode.getUntypedValue(fieldValue)!;
+          ..onBeforeAssignFieldValues = onBeforeAssignFieldValues
+          ..onAfterAssignFieldValues = onAfterAssignFieldValues;
+        propertiesMap[fieldKey] = childNode.getUntypedValue(fieldValue)!;
       }
       return UntypedObject(propertiesMap);
     }

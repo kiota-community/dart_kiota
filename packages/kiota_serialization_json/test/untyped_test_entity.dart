@@ -4,11 +4,9 @@ class UntypedTestEntity extends Parsable implements AdditionalDataHolder {
   UntypedTestEntity();
 
   factory UntypedTestEntity.createFromDiscriminator(ParseNode parseNode) {
-    final discriminatorValue = parseNode.getChildNode('@odata.type')?.getStringValue();
-    return switch(discriminatorValue)
-    {
-      _ => UntypedTestEntity()
-    };
+    final discriminatorValue =
+        parseNode.getChildNode('@odata.type')?.getStringValue();
+    return switch (discriminatorValue) { _ => UntypedTestEntity() };
   }
 
   /// Stores additional data not described in the OpenAPI description
@@ -26,13 +24,17 @@ class UntypedTestEntity extends Parsable implements AdditionalDataHolder {
 
   @override
   Map<String, void Function(ParseNode)> getFieldDeserializers() {
-    return <String, void Function(ParseNode node)> {
+    return <String, void Function(ParseNode node)>{
       'id': (node) => id = node.getStringValue(),
       'title': (node) => title = node.getStringValue(),
-      'location': (node) => location = node.getObjectValue(UntypedNode.createFromDiscriminatorValue),
-      'keywords': (node) => keywords = node.getObjectValue(UntypedNode.createFromDiscriminatorValue),
-      'detail': (node) => detail = node.getObjectValue(UntypedNode.createFromDiscriminatorValue),
-      'table': (node) => table = node.getObjectValue(UntypedNode.createFromDiscriminatorValue),
+      'location': (node) => location =
+          node.getObjectValue(UntypedNode.createFromDiscriminatorValue),
+      'keywords': (node) => keywords =
+          node.getObjectValue(UntypedNode.createFromDiscriminatorValue),
+      'detail': (node) => detail =
+          node.getObjectValue(UntypedNode.createFromDiscriminatorValue),
+      'table': (node) =>
+          table = node.getObjectValue(UntypedNode.createFromDiscriminatorValue),
     };
   }
 
@@ -47,5 +49,4 @@ class UntypedTestEntity extends Parsable implements AdditionalDataHolder {
       ..writeObjectValue('table', table)
       ..writeAdditionalData(additionalData);
   }
-
 }

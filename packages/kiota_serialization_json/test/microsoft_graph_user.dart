@@ -37,14 +37,17 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
   String? officeLocation;
   bool? active;
   bool? accountEnabled;
-  Iterable<int> numbers=[];
+  Iterable<int> numbers = [];
 
   @override
   void serialize(SerializationWriter writer) {
     writer
       ..writeStringValue('id', id)
       ..writeEnumValue<NamingEnum>(
-          'namingEnum', namingEnum, _namingEnumSerializer,)
+        'namingEnum',
+        namingEnum,
+        _namingEnumSerializer,
+      )
       ..writeDateTimeValue('createdDateTime', createdDateTime)
       ..writeStringValue('officeLocation', officeLocation)
       ..writeDurationValue('workDuration', workDuration)
@@ -52,8 +55,8 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
       ..writeDoubleValue('heightInMetres', heightInMetres)
       ..writeTimeOnlyValue('startWorkTime', startWorkTime)
       ..writeTimeOnlyValue('endWorkTime', endWorkTime)
-      ..writeBoolValue('active', value:active)
-      ..writeBoolValue('accountEnabled', value:accountEnabled)
+      ..writeBoolValue('active', value: active)
+      ..writeBoolValue('accountEnabled', value: accountEnabled)
       ..writeCollectionOfPrimitiveValues('numbers', numbers)
       ..writeAdditionalData(additionalData);
   }
@@ -73,7 +76,7 @@ class MicrosoftGraphUser extends Parsable implements AdditionalDataHolder {
       'endWorkTime': (node) => endWorkTime = node.getTimeOnlyValue(),
       'active': (node) => active = node.getBoolValue(),
       'accountEnabled': (node) => accountEnabled = node.getBoolValue(),
-      'numbers' : (node) => numbers = node.getCollectionOfPrimitiveValues<int>(),
+      'numbers': (node) => numbers = node.getCollectionOfPrimitiveValues<int>(),
     };
   }
 

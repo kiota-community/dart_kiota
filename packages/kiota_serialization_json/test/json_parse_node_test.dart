@@ -166,9 +166,10 @@ void main() {
       }
     });
     test('Get enumcollection from json', () {
-      final jsonParseNode = JsonParseNode(jsonDecode(_testCollectionOfEnumsJson));
-      final testCollection = jsonParseNode
-          .getCollectionOfEnumValues((value)=> NamingEnum.values.where((ne) => ne.value == value).firstOrNull);
+      final jsonParseNode =
+          JsonParseNode(jsonDecode(_testCollectionOfEnumsJson));
+      final testCollection = jsonParseNode.getCollectionOfEnumValues((value) =>
+          NamingEnum.values.where((ne) => ne.value == value).firstOrNull);
 
       expect(testCollection, isNotNull);
       expect(testCollection.length, 2);
@@ -178,12 +179,12 @@ void main() {
 
     test('Get collection of primitive values from json', () {
       final jsonParseNode = JsonParseNode(jsonDecode('[2,3,5]'));
-      final testCollection = jsonParseNode
-          .getCollectionOfPrimitiveValues<int>();
+      final testCollection =
+          jsonParseNode.getCollectionOfPrimitiveValues<int>();
 
       expect(testCollection, isNotNull);
       expect(testCollection.length, 3);
-      expect(testCollection.first,2);
+      expect(testCollection.first, 2);
       expect(testCollection.last, 5);
     });
   });
