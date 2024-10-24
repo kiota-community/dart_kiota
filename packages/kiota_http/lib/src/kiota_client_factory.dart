@@ -20,7 +20,7 @@ class KiotaClientFactory {
           return retryCodes.contains(response.statusCode);
         },
       ),
-      userAgent: 'kiota_http/$packageVersion',
+      userAgent: 'kiota_http/0.0.1',
     );
   }
 }

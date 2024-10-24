@@ -92,7 +92,7 @@ class TextSerializationWriter implements SerializationWriter {
   void writeObjectValue<T extends Parsable>(
     String? key,
     T? value, [
-    Iterable<Parsable>? additionalValuesToMerge,
+    Iterable<Parsable?>? additionalValuesToMerge,
   ]) {
     throw _noStructuredDataError();
   }
