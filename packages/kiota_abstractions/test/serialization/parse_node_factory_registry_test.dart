@@ -12,11 +12,14 @@ void main() {
     test('VendorSpecificContentType', () {
       const contentType = 'application/json';
       final mockFactory = MockParseNodeFactory();
-      final jsonStream= utf8.encode('{"test": "input"}');
+      final jsonStream = utf8.encode('{"test": "input"}');
       final mockParseNode = MockParseNode();
-      when(mockFactory.getRootParseNode(contentType, jsonStream)).thenReturn(mockParseNode);
-      ParseNodeFactoryRegistry.defaultInstance.contentTypeAssociatedFactories.putIfAbsent(contentType, ()=>mockFactory);
-      final rootParseNode = ParseNodeFactoryRegistry.defaultInstance.getRootParseNode('application/vnd+json', jsonStream);
+      when(mockFactory.getRootParseNode(contentType, jsonStream))
+          .thenReturn(mockParseNode);
+      ParseNodeFactoryRegistry.defaultInstance.contentTypeAssociatedFactories
+          .putIfAbsent(contentType, () => mockFactory);
+      final rootParseNode = ParseNodeFactoryRegistry.defaultInstance
+          .getRootParseNode('application/vnd+json', jsonStream);
       expect(rootParseNode, isNotNull);
     });
   });

@@ -11,9 +11,14 @@ void main() {
       const contentType = 'application/text';
       final mockWriter = MockSerializationWriter();
       final mockFactory = MockSerializationWriterFactory();
-      when(mockFactory.getSerializationWriter(contentType)).thenReturn(mockWriter);
-      SerializationWriterFactoryRegistry.defaultInstance.contentTypeAssociatedFactories.putIfAbsent(contentType, () => mockFactory);
-      final serializationWriter = SerializationWriterFactoryRegistry.defaultInstance.getSerializationWriter('application/vnd+text');
+      when(mockFactory.getSerializationWriter(contentType))
+          .thenReturn(mockWriter);
+      SerializationWriterFactoryRegistry
+          .defaultInstance.contentTypeAssociatedFactories
+          .putIfAbsent(contentType, () => mockFactory);
+      final serializationWriter = SerializationWriterFactoryRegistry
+          .defaultInstance
+          .getSerializationWriter('application/vnd+text');
       expect(serializationWriter, isNotNull);
     });
   });

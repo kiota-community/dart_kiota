@@ -20,11 +20,13 @@ class UnionTypeMock extends Parsable implements AdditionalDataHolder {
       result.stringValue = parseNode.getStringValue();
     } else if (parseNode
         .getCollectionOfObjectValues<MicrosoftGraphUser>(
-            MicrosoftGraphUser.createFromDiscriminator)
+          MicrosoftGraphUser.createFromDiscriminator,
+        )
         .isNotEmpty) {
       result.composedType3 =
           parseNode.getCollectionOfObjectValues<MicrosoftGraphUser>(
-              MicrosoftGraphUser.createFromDiscriminator);
+        MicrosoftGraphUser.createFromDiscriminator,
+      );
     }
     return result;
   }

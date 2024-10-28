@@ -170,7 +170,7 @@ class JsonParseNode implements ParseNode {
 
   UntypedNode? getUntypedValue(dynamic node) {
     if (node == null) {
-      return UntypedNull();
+      return const UntypedNull();
     }
 
     if (node is List) {

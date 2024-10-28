@@ -127,8 +127,10 @@ void main() {
         ..serialize(writer);
       final content = writer.getSerializedContent();
       final result = utf8.decode(content);
-      expect(result,
-          '[{"id":"10","officeLocation":"Montreal"},{"id":"11","officeLocation":"Ottawa"}]');
+      expect(
+        result,
+        '[{"id":"10","officeLocation":"Montreal"},{"id":"11","officeLocation":"Ottawa"}]',
+      );
     });
   });
 }
