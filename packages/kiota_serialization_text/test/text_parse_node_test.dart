@@ -88,7 +88,7 @@ void main() {
 
       expect(
         node.getGuidValue(),
-        equals(Namespace.nil),
+        equals(UuidValue.nil),
       );
     });
 
