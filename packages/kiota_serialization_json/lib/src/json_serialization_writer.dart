@@ -29,7 +29,11 @@ class JsonSerializationWriter implements SerializationWriter {
   @override
   void writeAdditionalData(Map<String, dynamic> value) {
     for (final entry in value.entries) {
-      _contents[entry.key] = entry.value;
+      if (entry.value is UntypedNode) {
+        writeUntypedValue(entry.key, entry.value as UntypedNode);
+      } else {
+        _contents[entry.key] = entry.value;
+      }
     }
   }
 
@@ -138,7 +142,11 @@ class JsonSerializationWriter implements SerializationWriter {
     }
     if (value != null) {
       onStartObjectSerialization?.call(value, this);
-      value.serialize(this);
+      if (value is UntypedNode) {
+        writeUntypedValue(key, value as UntypedNode);
+      } else {
+        value.serialize(this);
+      }
     }
     if (additionalValuesToMerge != null) {
       for (final additionalValue in additionalValuesToMerge) {
@@ -202,5 +210,39 @@ class JsonSerializationWriter implements SerializationWriter {
   @override
   void writeUuidValue(String? key, UuidValue? value) {
     writeStringValue(key, value?.uuid);
+  }
+
+  void writeUntypedValue(String? key, UntypedNode untypedValue) {
+    if (untypedValue is UntypedString) {
+      writeStringValue(key, untypedValue.value);
+    } else if (untypedValue is UntypedNull) {
+      writeNullValue(key);
+    } else if (untypedValue is UntypedBoolean) {
+      writeBoolValue(key, value: untypedValue.value);
+    } else if (untypedValue is UntypedDouble) {
+      writeDoubleValue(key, untypedValue.value);
+    } else if (untypedValue is UntypedInteger) {
+      writeIntValue(key, untypedValue.value);
+    } else if (untypedValue is UntypedObject) {
+      writeUntypedObject(key, untypedValue);
+    } else if (untypedValue is UntypedArray) {
+      writeUntypedArray(key, untypedValue);
+    }
+  }
+
+  void writeUntypedObject(String? key, UntypedObject value) {
+    final objectProperties = <String, dynamic>{};
+    for (final entry in value.properties.entries) {
+      objectProperties[entry.key] = entry.value.getValue();
+    }
+    _contents[key ?? ''] = objectProperties;
+  }
+
+  void writeUntypedArray(String? key, UntypedArray value) {
+    final arrayEntries = <dynamic>[];
+    for (final entry in value.getValue()) {
+      arrayEntries.add(entry.getValue());
+    }
+    _contents[key ?? ''] = arrayEntries;
   }
 }
