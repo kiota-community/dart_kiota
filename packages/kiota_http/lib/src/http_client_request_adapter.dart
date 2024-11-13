@@ -293,6 +293,11 @@ class HttpClientRequestAdapter implements RequestAdapter {
 
   @override
   void enableBackingStore(BackingStoreFactory backingStoreFactory) {
-    throw UnimplementedError('Backing stores not implemented.');
+    _pNodeFactory =
+        ApiClientBuilder.enableBackingStoreForParseNodeFactory(_pNodeFactory);
+    _sWriterFactory =
+        ApiClientBuilder.enableBackingStoreForSerializationWriterFactory(
+            _sWriterFactory);
+    BackingStoreFactorySingleton.instance = backingStoreFactory;
   }
 }
