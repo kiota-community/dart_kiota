@@ -85,7 +85,7 @@ void main() {
 
       expect(
         node.getGuidValue(),
-        equals(UuidValue.nil),
+        equals(UuidValue.fromString('00000000-0000-0000-0000-000000000000')),
       );
     });
 

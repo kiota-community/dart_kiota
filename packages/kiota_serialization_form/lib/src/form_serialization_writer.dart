@@ -168,7 +168,7 @@ class FormSerializationWriter implements SerializationWriter {
 
       if (additionalValuesToMerge != null) {
         for (final additionalValue in additionalValuesToMerge) {
-          if(additionalValue != null){
+          if (additionalValue != null) {
             onBeforeObjectSerialization?.call(additionalValue);
             onStartObjectSerialization?.call(additionalValue, this);
 

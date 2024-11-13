@@ -1,7 +1,7 @@
 part of '../kiota_serialization_json.dart';
 
 class JsonSerializationWriter implements SerializationWriter {
-  final List<String> _buffer = [];
+  final Map<String, dynamic> _contents = {};
 
   final openingObject = '{';
   final closingObject = '}';
@@ -20,23 +20,20 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   Uint8List getSerializedContent() {
-    removeSeparator();
-    return utf8.encode(_buffer.join());
+    if (_contents.length == 1 && _contents.keys.first == '') {
+      return utf8.encode(jsonEncode(_contents.values.first));
+    }
+    return utf8.encode(jsonEncode(_contents));
   }
 
   @override
   void writeAdditionalData(Map<String, dynamic> value) {
     for (final entry in value.entries) {
-      if (entry.value is bool || entry.value is int || entry.value is double) {
-        _buffer.add('"${entry.key}":${entry.value}');
+      if (entry.value is UntypedNode) {
+        writeUntypedValue(entry.key, entry.value as UntypedNode);
       } else {
-         if (entry.value == null) {
-          _buffer.add('"${entry.key}": null');
-         } else {
-          _buffer.add('"${entry.key}":"${_getAnyValue(entry.value as Object)}"');
-         }
+        _contents[entry.key] = entry.value;
       }
-      _buffer.add(separator);
     }
   }
 
@@ -59,22 +56,11 @@ class JsonSerializationWriter implements SerializationWriter {
     if (values == null || values.isEmpty) {
       return;
     } else {
-      final writeAsObject = _buffer.isEmpty;
-      final opening = writeAsObject ? openingObject : '';
-      _buffer.add('$opening"$key":$openingArray');
-      var first = true;
+      final enumList = <String?>[];
       for (final value in values) {
-        if (!first) {
-          _buffer.add(separator);
-        }
-        first = false;
-        _buffer.add('"${serializer(value)}"');
+        enumList.add(serializer(value));
       }
-      _buffer.add(closingArray);
-      if (writeAsObject) {
-        _buffer.add(closingObject);
-      }
-      _buffer.add(separator);
+      _contents[key ?? ''] = enumList;
     }
   }
 
@@ -86,25 +72,16 @@ class JsonSerializationWriter implements SerializationWriter {
     if (values == null || values.isEmpty) {
       return;
     } else {
-      if (key?.isEmpty ?? true) {
-        _buffer.add(openingArray);
-      } else {
-        _buffer.add('"$key":$openingArray');
-      }
-      var first = true;
+      final originalContents = {..._contents};
+      _contents.clear();
+      final objects = [];
       for (final value in values) {
-        if (!first) {
-          _buffer.add(separator);
-        }
-        first = false;
-        _buffer.add(openingObject);
         value.serialize(this);
-        removeSeparator();
-        _buffer.add(closingObject);
+        objects.add({..._contents});
+        _contents.clear();
       }
-      _buffer
-        ..add(closingArray)
-        ..add(separator);
+      _contents.addAll(originalContents);
+      _contents[key ?? ''] = objects;
     }
   }
 
@@ -113,26 +90,7 @@ class JsonSerializationWriter implements SerializationWriter {
     if (values == null || values.isEmpty) {
       return;
     } else {
-      final writeAsObject = _buffer.isEmpty;
-      final opening = writeAsObject ? openingObject : '';
-      _buffer.add('$opening"$key":$openingArray');
-      var first = true;
-      for (final value in values) {
-        if (!first) {
-          _buffer.add(separator);
-        }
-        first = false;
-        if (value is bool || value is int || value is double) {
-          _buffer.add('$value');
-        } else {
-          _buffer.add('"${_getAnyValue(value!)}"');
-        }
-      }
-      _buffer.add(closingArray);
-      if (writeAsObject) {
-        _buffer.add(closingObject);
-      }
-      _buffer.add(separator);
+      _contents[key ?? ''] = values;
     }
   }
 
@@ -177,15 +135,18 @@ class JsonSerializationWriter implements SerializationWriter {
     if (value != null) {
       onBeforeObjectSerialization?.call(value);
     }
-
-    if (key == null) {
-      _buffer.add(openingObject);
-    } else {
-      _buffer.add('"$key":$openingObject');
+    var originalContents = <String, dynamic>{};
+    if (key?.isNotEmpty ?? false) {
+      originalContents = {..._contents};
+      _contents.clear();
     }
     if (value != null) {
       onStartObjectSerialization?.call(value, this);
-      value.serialize(this);
+      if (value is UntypedNode) {
+        writeUntypedValue(key, value as UntypedNode);
+      } else {
+        value.serialize(this);
+      }
     }
     if (additionalValuesToMerge != null) {
       for (final additionalValue in additionalValuesToMerge) {
@@ -199,12 +160,16 @@ class JsonSerializationWriter implements SerializationWriter {
         }
       }
     }
-    removeSeparator();
-    _buffer.add(closingObject);
+    if (key?.isNotEmpty ?? false) {
+      final objectContents = {..._contents};
+      _contents
+        ..clear()
+        ..addAll(originalContents);
+      _contents[key ?? ''] = objectContents;
+    }
     if (value != null) {
       onAfterObjectSerialization?.call(value);
     }
-    _buffer.add(separator);
   }
 
   @override
@@ -213,15 +178,7 @@ class JsonSerializationWriter implements SerializationWriter {
     if (value?.isEmpty ?? true) {
       return;
     }
-    if (key?.isEmpty ?? true) {
-      _buffer
-        ..add('"$value"')
-        ..add(separator);
-    } else {
-      _buffer
-        ..add('"$key":"$value"')
-        ..add(separator);
-    }
+    _contents[key ?? ''] = value;
   }
 
   void writeUnquotedValue(String? key, Object? value) {
@@ -232,9 +189,7 @@ class JsonSerializationWriter implements SerializationWriter {
     if (value == null) {
       return;
     }
-    _buffer
-      ..add('"$key":$value')
-      ..add(separator);
+    _contents[key!] = value;
   }
 
   @override
@@ -257,26 +212,37 @@ class JsonSerializationWriter implements SerializationWriter {
     writeStringValue(key, value?.uuid);
   }
 
-  void removeSeparator() {
-    if (_buffer.last == separator) {
-      _buffer.removeLast();
+  void writeUntypedValue(String? key, UntypedNode untypedValue) {
+    if (untypedValue is UntypedString) {
+      writeStringValue(key, untypedValue.value);
+    } else if (untypedValue is UntypedNull) {
+      writeNullValue(key);
+    } else if (untypedValue is UntypedBoolean) {
+      writeBoolValue(key, value: untypedValue.value);
+    } else if (untypedValue is UntypedDouble) {
+      writeDoubleValue(key, untypedValue.value);
+    } else if (untypedValue is UntypedInteger) {
+      writeIntValue(key, untypedValue.value);
+    } else if (untypedValue is UntypedObject) {
+      writeUntypedObject(key, untypedValue);
+    } else if (untypedValue is UntypedArray) {
+      writeUntypedArray(key, untypedValue);
     }
   }
 
-  String _getAnyValue(Object value) {
-    switch (value) {
-      case final String s:
-        return s;
-      case final UuidValue u:
-        return u.uuid;
-      case final DateTime d:
-        return d.toIso8601String();
-      case final DateOnly d:
-        return d.toRfc3339String();
-      case final TimeOnly t:
-        return t.toRfc3339String();
-      default:
-        return value.toString();
+  void writeUntypedObject(String? key, UntypedObject value) {
+    final objectProperties = <String, dynamic>{};
+    for (final entry in value.properties.entries) {
+      objectProperties[entry.key] = entry.value.getValue();
     }
+    _contents[key ?? ''] = objectProperties;
+  }
+
+  void writeUntypedArray(String? key, UntypedArray value) {
+    final arrayEntries = <dynamic>[];
+    for (final entry in value.getValue()) {
+      arrayEntries.add(entry.getValue());
+    }
+    _contents[key ?? ''] = arrayEntries;
   }
 }

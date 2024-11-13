@@ -30,7 +30,8 @@ class MicrosoftGraphGroup extends Parsable implements AdditionalDataHolder {
       'leader': (node) => leader =
           node.getObjectValue(MicrosoftGraphUser.createFromDiscriminator),
       'members': (node) => members = node.getCollectionOfObjectValues(
-          MicrosoftGraphUser.createFromDiscriminator),
+            MicrosoftGraphUser.createFromDiscriminator,
+          ),
     };
   }
 

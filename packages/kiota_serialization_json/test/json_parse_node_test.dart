@@ -168,8 +168,10 @@ void main() {
     test('Get enumcollection from json', () {
       final jsonParseNode =
           JsonParseNode(jsonDecode(_testCollectionOfEnumsJson));
-      final testCollection = jsonParseNode.getCollectionOfEnumValues((value) =>
-          NamingEnum.values.where((ne) => ne.value == value).firstOrNull);
+      final testCollection = jsonParseNode.getCollectionOfEnumValues(
+        (value) =>
+            NamingEnum.values.where((ne) => ne.value == value).firstOrNull,
+      );
 
       expect(testCollection, isNotNull);
       expect(testCollection.length, 2);

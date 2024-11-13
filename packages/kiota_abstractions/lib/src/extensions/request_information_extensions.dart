@@ -138,8 +138,9 @@ extension RequestInformationExtensions on RequestInformation {
   }
 
   void configure<T extends AbstractQueryParameters>(
-      void Function(RequestConfiguration<T>)? configurator,
-      T Function()? createParameters) {
+    void Function(RequestConfiguration<T>)? configurator,
+    T Function()? createParameters,
+  ) {
     if (configurator == null || createParameters == null) {
       return;
     }

@@ -3,7 +3,7 @@ import 'package:kiota_abstractions/kiota_abstractions.dart';
 class SecondTestEntity extends Parsable implements AdditionalDataHolder {
   SecondTestEntity();
 
-  factory SecondTestEntity.createFromDiscriminatorValue(ParseNode parseNode) {
+  factory SecondTestEntity.createFromDiscriminatorValue(ParseNode _) {
     return SecondTestEntity();
   }
 
@@ -25,9 +25,9 @@ class SecondTestEntity extends Parsable implements AdditionalDataHolder {
   @override
   void serialize(SerializationWriter writer) {
     writer
-      ..writeStringValue("displayName", displayName)
-      ..writeIntValue("id", id)
-      ..writeIntValue("failureRate", failureRate)
+      ..writeStringValue('displayName', displayName)
+      ..writeIntValue('id', id)
+      ..writeIntValue('failureRate', failureRate)
       ..writeAdditionalData(additionalData);
   }
 }
