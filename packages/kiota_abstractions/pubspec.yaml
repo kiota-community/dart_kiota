@@ -15,12 +15,12 @@ environment:
   sdk: '>=3.2.6 <4.0.0'
 
 dependencies:
-  meta: ^1.15.0
-  std_uritemplate: ^1.0.3
-  uuid: ^4.4.2
+  meta: ^1.16.0
+  std_uritemplate: ^2.0.1
+  uuid: ^4.5.1
 
 dev_dependencies:
-  strict: ^2.0.0
-  test: ^1.25.2
+  strict: ^2.1.0
+  test: ^1.25.8
   mockito: ^5.4.4
-  build_runner: ^2.4.8
+  build_runner: any
