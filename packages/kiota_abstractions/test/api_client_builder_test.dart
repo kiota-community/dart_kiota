@@ -1,10 +1,14 @@
 import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:mockito/annotations.dart';
 import 'package:test/test.dart';
+
 import 'api_client_builder_test.mocks.dart';
 
-@GenerateMocks(
-    [SerializationWriter, SerializationWriterFactory, ParseNodeFactory])
+@GenerateMocks([
+  SerializationWriter,
+  SerializationWriterFactory,
+  ParseNodeFactory,
+])
 void main() {
   const streamContentType = 'application/octet-stream';
 
@@ -16,20 +20,23 @@ void main() {
           .putIfAbsent(streamContentType, () => mockSerializationWriterFactory);
 
       expect(
-          serializationFactoryRegistry
-                  .contentTypeAssociatedFactories[streamContentType]
-              is BackingStoreSerializationWriterProxyFactory,
-          isFalse);
+        serializationFactoryRegistry
+                .contentTypeAssociatedFactories[streamContentType]
+            is BackingStoreSerializationWriterProxyFactory,
+        isFalse,
+      );
 
       // Act
       ApiClientBuilder.enableBackingStoreForSerializationWriterFactory(
-          serializationFactoryRegistry);
+        serializationFactoryRegistry,
+      );
 
       // Assert the type has changed due to backing store enabling
       expect(
-          serializationFactoryRegistry
-              .contentTypeAssociatedFactories[streamContentType],
-          isA<BackingStoreSerializationWriterProxyFactory>());
+        serializationFactoryRegistry
+            .contentTypeAssociatedFactories[streamContentType],
+        isA<BackingStoreSerializationWriterProxyFactory>(),
+      );
     });
     test(
         'enableBackingStoreForSerializationWriterFactoryAlsoEnablesForDefaultInstance',
@@ -43,25 +50,29 @@ void main() {
           .putIfAbsent(streamContentType, () => mockSerializationWriterFactory);
 
       expect(
-          serializationFactoryRegistry
-                  .contentTypeAssociatedFactories[streamContentType]
-              is BackingStoreSerializationWriterProxyFactory,
-          isFalse);
+        serializationFactoryRegistry
+                .contentTypeAssociatedFactories[streamContentType]
+            is BackingStoreSerializationWriterProxyFactory,
+        isFalse,
+      );
 
       // Act
       ApiClientBuilder.enableBackingStoreForSerializationWriterFactory(
-          serializationFactoryRegistry);
+        serializationFactoryRegistry,
+      );
 
       // Assert the type has changed due to backing store enabling
       expect(
-          serializationFactoryRegistry
-              .contentTypeAssociatedFactories[streamContentType],
-          isA<BackingStoreSerializationWriterProxyFactory>());
+        serializationFactoryRegistry
+            .contentTypeAssociatedFactories[streamContentType],
+        isA<BackingStoreSerializationWriterProxyFactory>(),
+      );
 
       expect(
-          SerializationWriterFactoryRegistry.defaultInstance
-              .contentTypeAssociatedFactories[streamContentType],
-          isA<BackingStoreSerializationWriterProxyFactory>());
+        SerializationWriterFactoryRegistry
+            .defaultInstance.contentTypeAssociatedFactories[streamContentType],
+        isA<BackingStoreSerializationWriterProxyFactory>(),
+      );
     });
     test('enableBackingStoreForParseNodeFactory', () {
       final parseNodeRegistry = ParseNodeFactoryRegistry();
@@ -69,17 +80,19 @@ void main() {
       parseNodeRegistry.contentTypeAssociatedFactories
           .putIfAbsent(streamContentType, () => mockParseNodeFactory);
       expect(
-          parseNodeRegistry.contentTypeAssociatedFactories[streamContentType]
-              is BackingStoreParseNodeFactory,
-          isFalse);
+        parseNodeRegistry.contentTypeAssociatedFactories[streamContentType]
+            is BackingStoreParseNodeFactory,
+        isFalse,
+      );
 
       // Act
       ApiClientBuilder.enableBackingStoreForParseNodeFactory(parseNodeRegistry);
 
       // Assert the type has changed due to backing store enabling
       expect(
-          parseNodeRegistry.contentTypeAssociatedFactories[streamContentType],
-          isA<BackingStoreParseNodeFactory>());
+        parseNodeRegistry.contentTypeAssociatedFactories[streamContentType],
+        isA<BackingStoreParseNodeFactory>(),
+      );
     });
 
     test('enableBackingStoreForParseNodeFactoryAlsoEnablesForDefaultInstance',
@@ -92,21 +105,24 @@ void main() {
           .putIfAbsent(streamContentType, () => mockParseNodeFactory);
 
       expect(
-          parseNodeRegistry.contentTypeAssociatedFactories[streamContentType]
-              is BackingStoreParseNodeFactory,
-          isFalse);
+        parseNodeRegistry.contentTypeAssociatedFactories[streamContentType]
+            is BackingStoreParseNodeFactory,
+        isFalse,
+      );
 
       // Act
       ApiClientBuilder.enableBackingStoreForParseNodeFactory(parseNodeRegistry);
 
       // Assert the type has changed due to backing store enabling for the default instance as well.
       expect(
-          parseNodeRegistry.contentTypeAssociatedFactories[streamContentType],
-          isA<BackingStoreParseNodeFactory>());
+        parseNodeRegistry.contentTypeAssociatedFactories[streamContentType],
+        isA<BackingStoreParseNodeFactory>(),
+      );
       expect(
-          ParseNodeFactoryRegistry.defaultInstance
-              .contentTypeAssociatedFactories[streamContentType],
-          isA<BackingStoreParseNodeFactory>());
+        ParseNodeFactoryRegistry
+            .defaultInstance.contentTypeAssociatedFactories[streamContentType],
+        isA<BackingStoreParseNodeFactory>(),
+      );
     });
     test(
         'enableBackingStoreForParseNodeFactoryAlsoEnablesForDefaultInstanceMultipleCallsDoesNotDoubleWrap',
@@ -119,14 +135,16 @@ void main() {
           .putIfAbsent(streamContentType, () => mockParseNodeFactory);
 
       expect(
-          parseNodeRegistry.contentTypeAssociatedFactories[streamContentType]
-              is BackingStoreParseNodeFactory,
-          isFalse);
+        parseNodeRegistry.contentTypeAssociatedFactories[streamContentType]
+            is BackingStoreParseNodeFactory,
+        isFalse,
+      );
 
       // Act
       final firstResult =
           ApiClientBuilder.enableBackingStoreForParseNodeFactory(
-              parseNodeRegistry);
+        parseNodeRegistry,
+      );
       final secondResult =
           ApiClientBuilder.enableBackingStoreForParseNodeFactory(firstResult);
       final thirdResult =

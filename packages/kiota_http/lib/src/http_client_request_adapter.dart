@@ -18,6 +18,7 @@ class HttpClientRequestAdapter implements RequestAdapter {
 
   // ignore: prefer_final_fields
   ParseNodeFactory _pNodeFactory;
+
   // ignore: prefer_final_fields
   SerializationWriterFactory _sWriterFactory;
 
@@ -297,7 +298,8 @@ class HttpClientRequestAdapter implements RequestAdapter {
         ApiClientBuilder.enableBackingStoreForParseNodeFactory(_pNodeFactory);
     _sWriterFactory =
         ApiClientBuilder.enableBackingStoreForSerializationWriterFactory(
-            _sWriterFactory);
+      _sWriterFactory,
+    );
     BackingStoreFactorySingleton.instance = backingStoreFactory;
   }
 }
