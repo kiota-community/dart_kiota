@@ -57,7 +57,8 @@ class MultipartSerializationWriter implements SerializationWriter {
   @override
   void writeCollectionOfPrimitiveValues<T>(String? key, Iterable<T>? values) {
     throw UnsupportedError(
-        '$errorMessagePrefix collection of primitive values',);
+      '$errorMessagePrefix collection of primitive values',
+    );
   }
 
   @override
@@ -116,7 +117,8 @@ class MultipartSerializationWriter implements SerializationWriter {
         value.serialize(this);
       } else {
         throw Exception(
-            'Expected MultipartBody instance but got ${value.runtimeType}',);
+          'Expected MultipartBody instance but got ${value.runtimeType}',
+        );
       }
       if (onAfterObjectSerialization != null) {
         onAfterObjectSerialization?.call(value);

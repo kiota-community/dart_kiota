@@ -26,14 +26,16 @@ class ApiClientBuilder {
 
   static SerializationWriterFactory
       enableBackingStoreForSerializationWriterFactory(
-          SerializationWriterFactory original,) {
+    SerializationWriterFactory original,
+  ) {
     var result = original;
     if (original is SerializationWriterFactoryRegistry) {
       _enableBackingStoreForSerializationRegistry(original);
       if (original != SerializationWriterFactoryRegistry.defaultInstance) {
         // if the registry is the default instance, we already enabled it above. No need to do it twice
         _enableBackingStoreForSerializationRegistry(
-            SerializationWriterFactoryRegistry.defaultInstance,);
+          SerializationWriterFactoryRegistry.defaultInstance,
+        );
       }
     }
     if (result is BackingStoreSerializationWriterProxyFactory) {
@@ -47,14 +49,16 @@ class ApiClientBuilder {
   }
 
   static ParseNodeFactory enableBackingStoreForParseNodeFactory(
-      ParseNodeFactory original,) {
+    ParseNodeFactory original,
+  ) {
     var result = original;
     if (original is ParseNodeFactoryRegistry) {
       _enableBackingStoreForParseNodeRegistry(original);
       if (original != ParseNodeFactoryRegistry.defaultInstance) {
         // if the registry is the default instance, we already enabled it above. No need to do it twice
         _enableBackingStoreForParseNodeRegistry(
-            ParseNodeFactoryRegistry.defaultInstance,);
+          ParseNodeFactoryRegistry.defaultInstance,
+        );
       }
     }
     if (result is BackingStoreParseNodeFactory) {
@@ -68,7 +72,8 @@ class ApiClientBuilder {
   }
 
   static void _enableBackingStoreForParseNodeRegistry(
-      ParseNodeFactoryRegistry registry,) {
+    ParseNodeFactoryRegistry registry,
+  ) {
     final keysToUpdate = <String>[];
     registry.contentTypeAssociatedFactories.forEach((key, value) {
       if (value is! BackingStoreParseNodeFactory) {
@@ -79,12 +84,14 @@ class ApiClientBuilder {
     keysToUpdate.forEach((key) {
       registry.contentTypeAssociatedFactories[key] =
           BackingStoreParseNodeFactory(
-              concrete: registry.contentTypeAssociatedFactories[key]!,);
+        concrete: registry.contentTypeAssociatedFactories[key]!,
+      );
     });
   }
 
   static void _enableBackingStoreForSerializationRegistry(
-      SerializationWriterFactoryRegistry registry,) {
+    SerializationWriterFactoryRegistry registry,
+  ) {
     final keysToUpdate = <String>[];
     registry.contentTypeAssociatedFactories.forEach((key, value) {
       {
@@ -97,7 +104,8 @@ class ApiClientBuilder {
     keysToUpdate.forEach((key) {
       registry.contentTypeAssociatedFactories[key] =
           BackingStoreSerializationWriterProxyFactory(
-              concrete: registry.contentTypeAssociatedFactories[key]!,);
+        concrete: registry.contentTypeAssociatedFactories[key]!,
+      );
     });
   }
 }
