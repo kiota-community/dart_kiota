@@ -72,9 +72,18 @@ void main() {
       final expected = '''
 --${multipartBody.boundary}\r
 Content-Type: application/json\r
-Content-Disposition: form-data; name="testEntity"''';
+Content-Disposition: form-data; name="testEntity"\r
+\r
+{"id":"48e31887-5dad-4d73-a9f5-3c356e68a038","birthDay":"1961-09-29","workDuration":"8:00:00.000000","startWorkTime":"06:30:00","endWorkTime":"15:00:00","deviceNames":["device1","device2"],"mobilePhone":null,"jobTitle":"Author","accountEnabled":false,"createdDateTime":"1961-09-29T08:31:00.000","otherPhones":["device1","device2"]}\r
+--${multipartBody.boundary}\r
+Content-Type: application/octet-stream\r
+Content-Disposition: form-data; name="image"\r
+\r
+\u0001\u0002\u0003\r
+--${multipartBody.boundary}--\r
+''';
 
-      expect(stringContent.substring(0, expected.length), expected);
+      expect(stringContent, expected);
     });
   });
 }
