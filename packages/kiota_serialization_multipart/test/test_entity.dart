@@ -33,7 +33,7 @@ class TestEntity implements Parsable, AdditionalDataHolder {
       'workDuration': (node) => workDuration = node.getDurationValue(),
       'startWorkTime': (node) => startWorkTime = node.getTimeOnlyValue(),
       'endWorkTime': (node) => endWorkTime = node.getTimeOnlyValue(),
-      'createdDateTime': (node) => createdDateTime = node.getDateTimeValue()
+      'createdDateTime': (node) => createdDateTime = node.getDateTimeValue(),
     };
   }
 

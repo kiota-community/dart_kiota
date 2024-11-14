@@ -57,7 +57,7 @@ void main() {
           'someNull': const UntypedNull(),
           'untypedArray': const UntypedArray(untypedNodesList),
           'object': const UntypedObject(
-              {'name': UntypedString('a name'), 'age': UntypedInteger(8)})
+              {'name': UntypedString('a name'), 'age': UntypedInteger(8)},),
         };
 
       final writer = JsonSerializationWriter()

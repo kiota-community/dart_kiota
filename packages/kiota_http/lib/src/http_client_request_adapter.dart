@@ -297,7 +297,7 @@ class HttpClientRequestAdapter implements RequestAdapter {
         ApiClientBuilder.enableBackingStoreForParseNodeFactory(_pNodeFactory);
     _sWriterFactory =
         ApiClientBuilder.enableBackingStoreForSerializationWriterFactory(
-            _sWriterFactory);
+            _sWriterFactory,);
     BackingStoreFactorySingleton.instance = backingStoreFactory;
   }
 }
