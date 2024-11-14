@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:kiota_serialization_json/kiota_serialization_json.dart';
 import 'package:test/test.dart';
+import 'package:uuid/uuid.dart';
 
 import 'microsoft_graph_group.dart';
 import 'microsoft_graph_user.dart';
@@ -99,6 +100,39 @@ void main() {
         utf8.decode(writer.getSerializedContent()),
         equals(
           '{"name":"a group","leader":{"heightInMetres":1.9,"endWorkTime":"17:00:00"},"members":[{"officeLocation":"on a chair","workDuration":"2:00:00.000000","a":"#1 coworker"},{"workDuration":"12:00:00.000000","active":true}]}',
+        ),
+      );
+    });
+
+    test('writeAdditionalDataTypes', () {
+      final user2 = MicrosoftGraphUser()
+        ..workDuration = const Duration(hours: 12)
+        ..active = true;
+      final user = MicrosoftGraphUser()
+        ..officeLocation = ''
+        ..workDuration = const Duration(hours: 2)
+        ..additionalData = {
+          'a': '#1 coworker',
+          'string': 'a string',
+          'double': 0.0,
+          'bool': false,
+          'time': TimeOnly.fromComponents(12, 00),
+          'date': DateOnly.fromComponents(2000),
+          'datetime': DateTime(2024, 12, 31, 23, 59),
+          'uuid': UuidValue.fromString('019329eb-0ac5-7cc0-9dea-6440b3648264'),
+          'user': user2,
+        };
+
+      final writer = JsonSerializationWriter()
+        ..writeObjectValue(
+          null,
+          user,
+        );
+
+      expect(
+        utf8.decode(writer.getSerializedContent()),
+        equals(
+          '{"workDuration":"2:00:00.000000","a":"#1 coworker","string":"a string","double":0.0,"bool":false,"time":"12:00:00","date":"2000-01-01","datetime":"2024-12-31T23:59:00.000","uuid":"019329eb-0ac5-7cc0-9dea-6440b3648264","user":{"workDuration":"12:00:00.000000","active":true}}',
         ),
       );
     });

@@ -31,6 +31,16 @@ class JsonSerializationWriter implements SerializationWriter {
     for (final entry in value.entries) {
       if (entry.value is UntypedNode) {
         writeUntypedValue(entry.key, entry.value as UntypedNode);
+      } else if (entry.value is DateTime) {
+        writeDateTimeValue(entry.key, entry.value as DateTime);
+      } else if (entry.value is DateOnly) {
+        writeDateOnlyValue(entry.key, entry.value as DateOnly);
+      } else if (entry.value is TimeOnly) {
+        writeTimeOnlyValue(entry.key, entry.value as TimeOnly);
+      } else if (entry.value is Parsable) {
+        writeObjectValue(entry.key, entry.value as Parsable);
+      } else if (entry.value is UuidValue) {
+        writeUuidValue(entry.key, entry.value as UuidValue);
       } else {
         _contents[entry.key] = entry.value;
       }
@@ -39,7 +49,9 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   void writeBoolValue(String? key, {bool? value}) {
-    writeUnquotedValue(key, value);
+    if (value != null) {
+      _contents[key ?? ''] = value;
+    }
   }
 
   @override
@@ -101,7 +113,9 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   void writeDoubleValue(String? key, double? value) {
-    writeUnquotedValue(key, value);
+    if (value != null) {
+      _contents[key ?? ''] = value;
+    }
   }
 
   @override
@@ -115,7 +129,9 @@ class JsonSerializationWriter implements SerializationWriter {
 
   @override
   void writeIntValue(String? key, int? value) {
-    writeUnquotedValue(key, value);
+    if (value != null) {
+      _contents[key ?? ''] = value;
+    }
   }
 
   @override
@@ -179,17 +195,6 @@ class JsonSerializationWriter implements SerializationWriter {
       return;
     }
     _contents[key ?? ''] = value;
-  }
-
-  void writeUnquotedValue(String? key, Object? value) {
-    if (key?.isEmpty ?? true) {
-      return;
-    }
-    // if the value is null or empty, we don't write anything
-    if (value == null) {
-      return;
-    }
-    _contents[key!] = value;
   }
 
   @override

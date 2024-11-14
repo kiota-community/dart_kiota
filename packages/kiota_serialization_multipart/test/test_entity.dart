@@ -28,7 +28,8 @@ class TestEntity implements Parsable, AdditionalDataHolder {
       'id': (node) => id = node.getStringValue(),
       'officeLocation': (node) => officeLocation = node.getStringValue(),
       'birthDay': (node) => birthDay = node.getDateOnlyValue(),
-      'deviceNames': (node) => deviceNames = node.getCollectionOfPrimitiveValues<String>(),
+      'deviceNames': (node) =>
+          deviceNames = node.getCollectionOfPrimitiveValues<String>(),
       'workDuration': (node) => workDuration = node.getDurationValue(),
       'startWorkTime': (node) => startWorkTime = node.getTimeOnlyValue(),
       'endWorkTime': (node) => endWorkTime = node.getTimeOnlyValue(),

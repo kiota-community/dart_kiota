@@ -1,6 +1,7 @@
 part of '../kiota_serialization_multipart.dart';
 
-class MultipartSerializationWriterFactory implements SerializationWriterFactory {
+class MultipartSerializationWriterFactory
+    implements SerializationWriterFactory {
   @override
   SerializationWriter getSerializationWriter(String contentType) {
     if (contentType.toLowerCase() != validContentType) {

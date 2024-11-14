@@ -67,7 +67,7 @@ void main() {
       final serializationWriter = MultipartSerializationWriter()
         ..writeObjectValue(null, multipartBody);
       final stringContent =
-        String.fromCharCodes(serializationWriter.getSerializedContent());
+          String.fromCharCodes(serializationWriter.getSerializedContent());
 
       final expected = '''
 --${multipartBody.boundary}\r
