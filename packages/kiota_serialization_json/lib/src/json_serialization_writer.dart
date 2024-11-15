@@ -86,7 +86,7 @@ class JsonSerializationWriter implements SerializationWriter {
     } else {
       final originalContents = {..._contents};
       _contents.clear();
-      final List<Map<String, dynamic>> objects = [];
+      final objects = <Map<String, dynamic>>[];
       for (final value in values) {
         value.serialize(this);
         objects.add({..._contents});

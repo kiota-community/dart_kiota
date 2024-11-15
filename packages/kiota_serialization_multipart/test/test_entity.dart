@@ -50,8 +50,4 @@ class TestEntity implements Parsable, AdditionalDataHolder {
       ..writeCollectionOfPrimitiveValues('deviceNames', deviceNames)
       ..writeAdditionalData(additionalData);
   }
-
-  static TestEntity createFromDiscriminatorValue(ParseNode parseNode) {
-    return TestEntity();
-  }
 }
