@@ -1,4 +1,4 @@
-pub-get: pub-get-abstractions pub-get-http pub-get-serialization-text pub-get-serialization-form pub-get-serialization-json
+pub-get: pub-get-abstractions pub-get-http pub-get-serialization-text pub-get-serialization-form pub-get-serialization-json pub-get-serialization-multipart
 
 pub-get-abstractions:
 	cd packages/kiota_abstractions && dart pub get
@@ -14,6 +14,9 @@ pub-get-serialization-form:
 
 pub-get-serialization-json:
 	cd packages/kiota_serialization_json && dart pub get
+
+pub-get-serialization-multipart:
+	cd packages/kiota_serialization_multipart && dart pub get
 
 format:
 	dart format packages
@@ -32,7 +35,10 @@ generate-serialization-form:
 generate-serialization-json:
 	cd packages/kiota_serialization_json && dart run build_runner build --delete-conflicting-outputs
 
-test: test-abstractions test-http test-serialization-text test-serialization-form test-serialization-json
+generate-serialization-multipart:
+	cd packages/kiota_serialization_multipart && dart run build_runner build --delete-conflicting-outputs
+
+test: test-abstractions test-http test-serialization-text test-serialization-form test-serialization-json test-serialization-multipart
 
 test-abstractions: pub-get-abstractions generate-abstractions
 	cd packages/kiota_abstractions && dart test
@@ -48,3 +54,6 @@ test-serialization-form: pub-get-serialization-form generate-serialization-form
 
 test-serialization-json: pub-get-serialization-json generate-serialization-json
 	cd packages/kiota_serialization_json && dart test
+
+test-serialization-multipart: pub-get-serialization-multipart generate-serialization-multipart
+	cd packages/kiota_serialization_multipart && dart test
