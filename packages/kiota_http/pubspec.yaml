@@ -20,4 +20,3 @@ dev_dependencies:
   test: ^1.25.8
   mockito: ^5.4.4
   build_runner: any
-  build_version: ^2.1.1
