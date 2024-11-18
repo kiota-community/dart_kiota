@@ -1,0 +1,11 @@
+name: microsoft_kiota_http_example
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  microsoft_kiota_http:
+    path: ../
+  microsoft_kiota_abstractions:
+    path: ../../microsoft_kiota_abstractions
