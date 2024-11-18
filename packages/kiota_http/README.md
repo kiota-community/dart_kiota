@@ -19,12 +19,3 @@ Install the package in the generated project:
 ```bash
 dart pub add kiota_http
 ```
-
-## Development
-
-To build the package, you first need to run `build_runner`.
-It generates the necessary files for the package to work and for running the tests:
-
-```bash
-dart run build_runner build -d
-```

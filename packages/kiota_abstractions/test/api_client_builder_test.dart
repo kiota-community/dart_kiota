@@ -1,11 +1,14 @@
 import 'package:kiota_abstractions/kiota_abstractions.dart';
 import 'package:mockito/annotations.dart';
 import 'package:test/test.dart';
+
 import 'api_client_builder_test.mocks.dart';
 
-@GenerateMocks(
-  [SerializationWriter, SerializationWriterFactory, ParseNodeFactory],
-)
+@GenerateMocks([
+  SerializationWriter,
+  SerializationWriterFactory,
+  ParseNodeFactory,
+])
 void main() {
   const streamContentType = 'application/octet-stream';
 

@@ -54,20 +54,21 @@ jobs:
         working-directory: packages/${{ matrix.package }}
 
       - name: Verify formatting
-        continue-on-error: true
         run: dart format --output=none --set-exit-if-changed .
         working-directory: packages/${{ matrix.package }}
 
       - name: Prepare package
+        if: always()
         run: dart run tooling prepare ${{ matrix.package }}
         working-directory: tooling
 
       - name: Analyze project source
-        continue-on-error: true
+        if: always()
         run: dart analyze --fatal-infos
         working-directory: packages/${{ matrix.package }}
 
       - name: Run pana
+        if: always()
         uses: axel-op/dart-package-analyzer@v3
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
