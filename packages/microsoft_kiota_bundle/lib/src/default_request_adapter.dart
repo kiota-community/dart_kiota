@@ -27,10 +27,18 @@ class DefaultRequestAdapter extends HttpClientRequestAdapter {
   }
 
   static void _setupDefaults() {
-    ApiClientBuilder.registerDefaultSerializer(JsonSerializationWriterFactory.new);
-    ApiClientBuilder.registerDefaultSerializer(TextSerializationWriterFactory.new);
-    ApiClientBuilder.registerDefaultSerializer(FormSerializationWriterFactory.new);
-    ApiClientBuilder.registerDefaultSerializer(MultipartSerializationWriterFactory.new);
+    ApiClientBuilder.registerDefaultSerializer(
+      JsonSerializationWriterFactory.new,
+    );
+    ApiClientBuilder.registerDefaultSerializer(
+      TextSerializationWriterFactory.new,
+    );
+    ApiClientBuilder.registerDefaultSerializer(
+      FormSerializationWriterFactory.new,
+    );
+    ApiClientBuilder.registerDefaultSerializer(
+      MultipartSerializationWriterFactory.new,
+    );
     ApiClientBuilder.registerDefaultDeserializer(JsonParseNodeFactory.new);
     ApiClientBuilder.registerDefaultDeserializer(TextParseNodeFactory.new);
     ApiClientBuilder.registerDefaultDeserializer(FormParseNodeFactory.new);
