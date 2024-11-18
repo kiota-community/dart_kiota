@@ -8,4 +8,7 @@ dependencies:
   kiota_http:
     path: ../
   kiota_abstractions:
-    path: ../../kiota_abstractions
+    git:
+      url: https://github.com/kiota-community/dart_kiota.git
+      ref: main
+      path: packages/kiota_abstractions

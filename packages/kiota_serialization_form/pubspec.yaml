@@ -10,7 +10,10 @@ environment:
 
 dependencies:
   kiota_abstractions:
-    path: ../kiota_abstractions
+    git:
+      url: https://github.com/kiota-community/dart_kiota.git
+      ref: main
+      path: packages/kiota_abstractions
   uuid: ^4.5.1
 
 dev_dependencies:
