@@ -13,7 +13,7 @@ dependencies:
   kiota_abstractions:
     git:
       url: https://github.com/kiota-community/dart_kiota.git
-      ref: main
+      ref: git-dependencies
       path: packages/kiota_abstractions
   typed_data: ^1.3.2
   uuid: ^4.4.2
@@ -23,7 +23,7 @@ dev_dependencies:
   kiota_serialization_json:
     git:
       url: https://github.com/kiota-community/dart_kiota.git
-      ref: main
+      ref: git-dependencies
       path: packages/kiota_serialization_json
   mockito: ^5.4.4
   strict: ^2.0.0

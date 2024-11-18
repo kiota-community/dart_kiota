@@ -12,7 +12,7 @@ dependencies:
   kiota_abstractions:
     git:
       url: https://github.com/kiota-community/dart_kiota.git
-      ref: main
+      ref: git-dependencies
       path: packages/kiota_abstractions
   http: ^1.2.2
   http_parser: ^4.0.2
