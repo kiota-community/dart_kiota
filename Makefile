@@ -21,7 +21,7 @@ pub-get-serialization-multipart:
 format:
 	dart format packages
 
-generate: generate-abstractions generate-http generate-serialization-form generate-serialization-json
+generate: generate-abstractions generate-http generate-serialization-form generate-serialization-json generate-serialization-multipart
 
 generate-abstractions:
 	cd packages/kiota_abstractions && dart run build_runner build --delete-conflicting-outputs
