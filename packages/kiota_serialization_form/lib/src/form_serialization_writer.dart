@@ -146,7 +146,7 @@ class FormSerializationWriter implements SerializationWriter {
   void writeObjectValue<T extends Parsable>(
     String? key,
     T? value, [
-    Iterable<Parsable>? additionalValuesToMerge,
+    Iterable<Parsable?>? additionalValuesToMerge,
   ]) {
     if (writingObject) {
       throw UnsupportedError(
@@ -168,12 +168,14 @@ class FormSerializationWriter implements SerializationWriter {
 
       if (additionalValuesToMerge != null) {
         for (final additionalValue in additionalValuesToMerge) {
-          onBeforeObjectSerialization?.call(additionalValue);
-          onStartObjectSerialization?.call(additionalValue, this);
+          if (additionalValue != null) {
+            onBeforeObjectSerialization?.call(additionalValue);
+            onStartObjectSerialization?.call(additionalValue, this);
 
-          additionalValue.serialize(this);
+            additionalValue.serialize(this);
 
-          onAfterObjectSerialization?.call(additionalValue);
+            onAfterObjectSerialization?.call(additionalValue);
+          }
         }
       }
 

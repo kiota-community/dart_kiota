@@ -219,7 +219,7 @@ class FormParseNode implements ParseNode {
     }
 
     Map<String, Object>? additionalData;
-    if (item case final AdditionDataHolder dataHolder) {
+    if (item case final AdditionalDataHolder dataHolder) {
       dataHolder.additionalData = additionalData ??= {};
     }
 

@@ -71,7 +71,7 @@ abstract class SerializationWriter {
   void writeObjectValue<T extends Parsable>(
     String? key,
     T? value, [
-    Iterable<Parsable>? additionalValuesToMerge,
+    Iterable<Parsable?>? additionalValuesToMerge,
   ]);
 
   /// Writes the specified enum value to the buffer with an optional given

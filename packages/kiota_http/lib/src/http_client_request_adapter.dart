@@ -81,7 +81,7 @@ class HttpClientRequestAdapter implements RequestAdapter {
   }
 
   void _setBaseUrl(RequestInformation requestInfo) {
-    requestInfo.pathParameters['baseUrl'] = baseUrl;
+    requestInfo.pathParameters['baseurl'] = baseUrl;
   }
 
   ResponseHandler? _getResponseHandler(RequestInformation requestInfo) {
