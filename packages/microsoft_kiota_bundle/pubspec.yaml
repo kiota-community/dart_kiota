@@ -1,0 +1,29 @@
+name: microsoft_kiota_bundle
+version: 0.0.1-pre.1
+homepage: https://github.com/kiota-community/dart_kiota/tree/main/packages/microsoft_kiota_bundle
+repository: https://github.com/kiota-community/dart_kiota
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  microsoft_kiota_abstractions:
+    path: ../microsoft_kiota_abstractions
+  microsoft_kiota_http:
+    path: ../microsoft_kiota_http
+  microsoft_kiota_serialization_text:
+    path: ../microsoft_kiota_serialization_text
+  microsoft_kiota_serialization_form:
+    path: ../microsoft_kiota_serialization_form
+  microsoft_kiota_serialization_json:
+    path: ../microsoft_kiota_serialization_json
+  microsoft_kiota_serialization_multipart:
+    path: ../microsoft_kiota_serialization_multipart
+
+dev_dependencies:
+  strict: ^2.1.0
+  test: ^1.25.8
+  mockito: ^5.4.4
+  build_runner: any
+  http: ^1.2.2
