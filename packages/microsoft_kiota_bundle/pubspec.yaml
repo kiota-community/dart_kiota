@@ -1,8 +1,8 @@
 name: microsoft_kiota_bundle
+description: "Provides a bundle of all the default Kiota implementations for easy consumption."
 version: 0.0.1-pre.1
-homepage: https://github.com/kiota-community/dart_kiota/tree/main/packages/microsoft_kiota_bundle
-repository: https://github.com/kiota-community/dart_kiota
-publish_to: 'none'
+homepage: https://github.com/microsoft/kiota-dart/tree/main/packages/microsoft_kiota_bundle
+repository: https://github.com/microsoft/dart_kiota
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
