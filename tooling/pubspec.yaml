@@ -1,6 +1,7 @@
 name: tooling
-description: A sample command-line application.
+description: "Tooling for the Dart Kiota packages"
 version: 1.0.0
+publish_to: "none"
 
 environment:
   sdk: ^3.4.3
