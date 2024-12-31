@@ -1,0 +1,108 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish-gh-releases:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Changelog is generated from GH releases
+      - name: Generate Changelog
+        uses: rhysd/changelog-from-release/action@v3
+        with:
+          file: CHANGELOG.md
+          commit: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload changelog
+        uses: actions/upload-artifact@v4
+        with:
+          name: changelog
+          path: CHANGELOG.md
+
+  define-matrix:
+    runs-on: ubuntu-latest
+
+    name: 'Discover packages'
+
+    outputs:
+      packages: ${{ steps.packages.outputs.packages }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Discover packages
+        id: packages
+        run: |
+          packages=$(ls -d packages/* | xargs -n 1 basename | jq -R -s -c 'split("\n")[:-1]')
+          echo "packages=${packages}" >> $GITHUB_OUTPUT
+
+  publish-dart:
+    name: 'Publish packages'
+
+    permissions:
+      id-token: write # Required for authentication using OIDC
+
+    needs:
+      - publish-gh-releases
+      - define-matrix
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        package: ${{ fromJson(needs.define-matrix.outputs.packages) }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Download Changelog
+        uses: actions/download-artifact@v4
+        with:
+          name: changelog
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.PUB_CACHE }}
+          key: ${{ runner.os }}-pub
+
+      - name: Install dependencies
+        run: dart pub get
+        working-directory: packages/${{ matrix.package }}
+
+      - name: Prepare package
+        run: dart run tooling prepare ${{ matrix.package }}
+        working-directory: tooling
+
+      - name: Prepare Release Files
+        working-directory: packages/${{ matrix.package }}
+        run: |
+          cp ../../CHANGELOG.md CHANGELOG.md
+          sed -i 's/^version:.*$/version: ${GITHUB_REF_NAME}/' pubspec.yaml
+
+      - name: Release dry run
+        working-directory: dart
+        run: dart pub publish --dry-run
+
+      - name: Release to pub.dev
+        working-directory: dart
+        run: dart pub publish --force
