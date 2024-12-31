@@ -9,30 +9,6 @@ permissions:
   contents: write
 
 jobs:
-  publish-gh-releases:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      # Changelog is generated from GH releases
-      - name: Generate Changelog
-        uses: rhysd/changelog-from-release/action@v3
-        with:
-          file: CHANGELOG.md
-          commit: false
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload changelog
-        uses: actions/upload-artifact@v4
-        with:
-          name: changelog
-          path: CHANGELOG.md
-
   define-matrix:
     runs-on: ubuntu-latest
 
@@ -96,7 +72,7 @@ jobs:
       - name: Prepare Release Files
         working-directory: packages/${{ matrix.package }}
         run: |
-          cp ../../CHANGELOG.md CHANGELOG.md
+          # Replace the version in the pubspec.yaml file
           sed -i 's/^version:.*$/version: ${GITHUB_REF_NAME}/' pubspec.yaml
 
       - name: Release dry run
