@@ -56,10 +56,6 @@ class ApiKeyAuthenticationProvider implements AuthenticationProvider {
         request.uri = newUri;
       case ApiKeyLocation.header:
         request.headers.put(_parameterName, _apiKey);
-      default:
-        throw UnimplementedError(
-          'The API key location $_keyLocation is not implemented.',
-        );
     }
 
     return Future<void>.value();

@@ -1,9 +1,8 @@
 name: microsoft_kiota_abstractions
 description: "Provides interfaces and base classes for Dart Kiota clients."
-version: 0.0.1-pre.1
-homepage: https://github.com/kiota-community/dart_kiota/tree/main/packages/microsoft_kiota_abstractions
-repository: https://github.com/kiota-community/dart_kiota
-publish_to: 'none'
+version: 0.0.1
+homepage: https://github.com/microsoft/kiota-dart/tree/main/packages/microsoft_kiota_abstractions
+repository: https://github.com/microsoft/kiota-dart
 
 topics:
   - kiota
@@ -12,7 +11,9 @@ topics:
   - client
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: ^3.6.0
+
+resolution: workspace
 
 dependencies:
   meta: ^1.16.0
@@ -21,6 +22,6 @@ dependencies:
 
 dev_dependencies:
   strict: ^2.1.0
-  test: ^1.25.8
-  mockito: ^5.4.4
+  test: ^1.25.14
+  mockito: ^5.4.5
   build_runner: any

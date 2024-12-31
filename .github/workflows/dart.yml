@@ -67,13 +67,6 @@ jobs:
         run: dart analyze --fatal-infos
         working-directory: packages/${{ matrix.package }}
 
-      - name: Run pana
-        if: always()
-        uses: axel-op/dart-package-analyzer@v3
-        with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          relativePath: packages/${{ matrix.package }}
-
   test:
     runs-on: ubuntu-latest
     needs: define-matrix

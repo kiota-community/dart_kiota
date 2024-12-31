@@ -1,20 +1,19 @@
 name: microsoft_kiota_serialization_json
-description: Provides parsing and serialization support for the `application/json` content type.
-version: 0.0.1-pre.1
-repository: https://github.com/ricardoboss/dart_kiota
-homepage: https://github.com/ricardoboss/dart_kiota/tree/main/packages/microsoft_kiota_serialization_json
-publish_to: 'none'
+description: "Provides parsing and serialization support for the `application/json` content type."
+version: 0.0.1
+homepage: https://github.com/microsoft/kiota-dart/tree/main/packages/microsoft_kiota_serialization_json
+repository: https://github.com/microsoft/kiota-dart
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: ^3.6.0
 
-# Add regular dependencies here.
+resolution: workspace
+
 dependencies:
-  microsoft_kiota_abstractions:
-    path: ../microsoft_kiota_abstractions
-  uuid: ^4.4.2
+  microsoft_kiota_abstractions: ^0.0.1
+  uuid: ^4.5.1
 
 dev_dependencies:
-  build_runner: ^2.4.9
-  strict: ^2.0.0
-  test: ^1.25.2
+  build_runner: any
+  strict: ^2.1.0
+  test: ^1.25.14
