@@ -1,35 +1,50 @@
-# `dart_kiota`
+# Kiota Libraries for Dart
 
-This is the Dart implementation of the Kiota library.
+The Kiota libraries define the basic constructs for Kiota projects needed once an SDK has been generated from an OpenAPI definition and provide default implementations.
 
-## Development
+A [Kiota](https://github.com/microsoft/kiota) generated project will need a reference to the libraries to build and execute by providing default implementations for serialization, authentication and http transport.
 
-### TODO
+Read more about Kiota [here](https://github.com/microsoft/kiota/blob/main/README.md).
 
-From the comment at: https://github.com/microsoft/kiota/issues/2199#issuecomment-1772865549
+## Libraries
 
-- [x] Request information class
-- [x] Serialization writer interface
-- [x] Parse node interface
-- [x] Request adapter interface
+| Library                                                                                   | pub.dev Release                                                                                                                                                                 |
+|-------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Abstractions](./packages/microsoft_kiota_abstractions/README.md)                         | [![Pub Version](https://img.shields.io/pub/v/microsoft_kiota_abstractions?logo=dart&label=Latest)](https://pub.dev/packages/microsoft_kiota_abstractions)                       |
+| [Http - HttpClientLibrary](./packages/microsoft_kiota_http/README.md)                     | [![Pub Version](https://img.shields.io/pub/v/microsoft_kiota_http?logo=dart&label=Latest)](https://pub.dev/packages/microsoft_kiota_http)                                       |
+| [Serialization - JSON](./packages/microsoft_kiota_serialization_json/README.md)           | [![Pub Version](https://img.shields.io/pub/v/microsoft_kiota_serialization_json?logo=dart&label=Latest)](https://pub.dev/packages/microsoft_kiota_serialization_json)           |
+| [Serialization - FORM](./packages/microsoft_kiota_serialization_form/README.md)           | [![Pub Version](https://img.shields.io/pub/v/microsoft_kiota_serialization_form?logo=dart&label=Latest)](https://pub.dev/packages/microsoft_kiota_serialization_form)           |
+| [Serialization - TEXT](./packages/microsoft_kiota_serialization_text/README.md)           | [![Pub Version](https://img.shields.io/pub/v/microsoft_kiota_serialization_text?logo=dart&label=Latest)](https://pub.dev/packages/microsoft_kiota_serialization_text)           |
+| [Serialization - MULTIPART](./packages/microsoft_kiota_serialization_multipart/README.md) | [![Pub Version](https://img.shields.io/pub/v/microsoft_kiota_serialization_multipart?logo=dart&label=Latest)](https://pub.dev/packages/microsoft_kiota_serialization_multipart) |
+| [Bundle](./packages/microsoft_kiota_bundle/README.md)                                     | [![Pub Version](https://img.shields.io/pub/v/microsoft_kiota_bundle?logo=dart&label=Latest)](https://pub.dev/packages/microsoft_kiota_bundle)                                   |
 
-#### Abstractions
+## Release notes
 
-- [x] Backing store abstractions https://github.com/kiota-community/dart_kiota/pull/10
-- [x] Authentication abstractions https://github.com/kiota-community/dart_kiota/pull/12
+The Kiota Libraries releases notes are available from the [CHANGELOG](CHANGELOG.md)
 
-#### Implementations
+## Debugging
 
-See https://github.com/kiota-community/dart_kiota/issues/18
+Open this repository in any editor that supports [Dart](https://dart.dev/).
+You can use the [Makefile](./Makefile) to run tests for all packages.
 
-#### Other
+## Contributing
 
-- [ ] Test Coverage >80%
+This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
+the rights to use your contribution. For details, visit [https://cla.opensource.microsoft.com](https://cla.opensource.microsoft.com).
 
-### License
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide
+a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
+provided by the bot. You will only need to do this once across all repos using our CLA.
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
+For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
+contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
----
+## Trademarks
 
-This project is not affiliated with nor endorsed by Microsoft Corporation.
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow
+[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/legal/intellectualproperty/trademarks/usage/general).
+Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
+Any use of third-party trademarks or logos are subject to those third-party's policies.
