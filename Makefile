@@ -1,28 +1,6 @@
-pub-get: pub-get-abstractions pub-get-bundle pub-get-http pub-get-serialization-text pub-get-serialization-form pub-get-serialization-json pub-get-serialization-multipart
-
-pub-get-abstractions:
-	cd packages/microsoft_kiota_abstractions && dart pub get
-
-pub-get-bundle:
-	cd packages/microsoft_kiota_bundle && dart pub get
-
-pub-get-http:
-	cd packages/microsoft_kiota_http && dart pub get
-
-pub-get-serialization-text:
-	cd packages/microsoft_kiota_serialization_text && dart pub get
-
-pub-get-serialization-form:
-	cd packages/microsoft_kiota_serialization_form && dart pub get
-
-pub-get-serialization-json:
-	cd packages/microsoft_kiota_serialization_json && dart pub get
-
-pub-get-serialization-multipart:
-	cd packages/microsoft_kiota_serialization_multipart && dart pub get
-
 format:
 	dart format packages
+	dart format tooling
 
 generate: generate-abstractions generate-bundle generate-http generate-serialization-form generate-serialization-json generate-serialization-multipart
 

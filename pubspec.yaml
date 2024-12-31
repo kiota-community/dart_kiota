@@ -1,0 +1,15 @@
+name: _
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+
+workspace:
+  - packages/microsoft_kiota_abstractions
+  - packages/microsoft_kiota_bundle
+  - packages/microsoft_kiota_http
+  - packages/microsoft_kiota_serialization_form
+  - packages/microsoft_kiota_serialization_json
+  - packages/microsoft_kiota_serialization_multipart
+  - packages/microsoft_kiota_serialization_text
+  - tooling

@@ -6,7 +6,9 @@ homepage: https://github.com/ricardoboss/dart_kiota/tree/main/packages/microsoft
 publish_to: 'none'
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: ^3.6.0
+
+resolution: workspace
 
 # Add regular dependencies here.
 dependencies:
