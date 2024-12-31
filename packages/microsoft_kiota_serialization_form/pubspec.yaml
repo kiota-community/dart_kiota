@@ -2,7 +2,7 @@ name: microsoft_kiota_serialization_form
 description: "Provides parsing and serialization support for the `application/x-www-form-urlencoded` content type."
 version: 0.0.1
 homepage: https://github.com/microsoft/kiota-dart/tree/main/packages/microsoft_kiota_serialization_form
-repository: https://github.com/microsoft/dart_kiota
+repository: https://github.com/microsoft/kiota-dart
 
 environment:
   sdk: ^3.6.0
