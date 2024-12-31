@@ -1,6 +1,6 @@
 name: microsoft_kiota_bundle
 description: "Provides a bundle of all the default Kiota implementations for easy consumption."
-version: 0.0.1-pre.1
+version: 0.0.1
 homepage: https://github.com/microsoft/kiota-dart/tree/main/packages/microsoft_kiota_bundle
 repository: https://github.com/microsoft/dart_kiota
 
@@ -10,12 +10,12 @@ environment:
 resolution: workspace
 
 dependencies:
-  microsoft_kiota_abstractions: '>=0.0.1 <1.0.0'
-  microsoft_kiota_http: '>=0.0.1 <1.0.0'
-  microsoft_kiota_serialization_text: '>=0.0.1 <1.0.0'
-  microsoft_kiota_serialization_form: '>=0.0.1 <1.0.0'
-  microsoft_kiota_serialization_json: '>=0.0.1 <1.0.0'
-  microsoft_kiota_serialization_multipart: '>=0.0.1 <1.0.0'
+  microsoft_kiota_abstractions: ^0.0.1
+  microsoft_kiota_http: ^0.0.1
+  microsoft_kiota_serialization_text: ^0.0.1
+  microsoft_kiota_serialization_form: ^0.0.1
+  microsoft_kiota_serialization_json: ^0.0.1
+  microsoft_kiota_serialization_multipart: ^0.0.1
 
 dev_dependencies:
   strict: ^2.1.0

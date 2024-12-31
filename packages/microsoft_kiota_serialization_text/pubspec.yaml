@@ -1,6 +1,6 @@
 name: microsoft_kiota_serialization_text
 description: "Provides parsing and serialization support for the `text/plain` content type."
-version: 0.0.1-pre.1
+version: 0.0.1
 homepage: https://github.com/microsoft/kiota-dart/tree/main/packages/microsoft_kiota_serialization_text
 repository: https://github.com/microsoft/dart_kiota
 
@@ -10,7 +10,7 @@ environment:
 resolution: workspace
 
 dependencies:
-  microsoft_kiota_abstractions: '>=0.0.1 <1.0.0'
+  microsoft_kiota_abstractions: ^0.0.1
   uuid: ^4.5.1
 
 dev_dependencies:
