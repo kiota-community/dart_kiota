@@ -13,13 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Release
+
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GH_TOKEN }}
-      # We faced problem like: https://github.com/cli/cli/issues/6599
-      - name: Sleep for 60 seconds
-        run: sleep 60
+
       # Changelog is generated from GH releases
       - name: Generate Changelog
         uses: rhysd/changelog-from-release/action@v3
@@ -27,7 +26,9 @@ jobs:
           file: CHANGELOG.md
           commit: false
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/upload-artifact@v4
+
+      - name: Upload changelog
+        uses: actions/upload-artifact@v4
         with:
           name: changelog
           path: CHANGELOG.md
@@ -92,12 +93,11 @@ jobs:
         run: dart run tooling prepare ${{ matrix.package }}
         working-directory: tooling
 
-      # TODO: this step should also replace/check the version constraints of inter-package dependencies
       - name: Prepare Release Files
         working-directory: packages/${{ matrix.package }}
         run: |
-          echo "Release version: ${GITHUB_REF_NAME}" >> CHANGELOG.md
-          cat <<< $(yq e -M ".version = \"${GITHUB_REF_NAME}\"" pubspec.yaml) > pubspec.yaml
+          cp ../../CHANGELOG.md CHANGELOG.md
+          sed -i 's/^version:.*$/version: ${GITHUB_REF_NAME}/' pubspec.yaml
 
       - name: Release dry run
         working-directory: dart
