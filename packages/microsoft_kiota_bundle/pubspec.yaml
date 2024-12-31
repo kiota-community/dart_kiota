@@ -10,22 +10,16 @@ environment:
 resolution: workspace
 
 dependencies:
-  microsoft_kiota_abstractions:
-    path: ../microsoft_kiota_abstractions
-  microsoft_kiota_http:
-    path: ../microsoft_kiota_http
-  microsoft_kiota_serialization_text:
-    path: ../microsoft_kiota_serialization_text
-  microsoft_kiota_serialization_form:
-    path: ../microsoft_kiota_serialization_form
-  microsoft_kiota_serialization_json:
-    path: ../microsoft_kiota_serialization_json
-  microsoft_kiota_serialization_multipart:
-    path: ../microsoft_kiota_serialization_multipart
+  microsoft_kiota_abstractions: '>=0.0.1 <1.0.0'
+  microsoft_kiota_http: '>=0.0.1 <1.0.0'
+  microsoft_kiota_serialization_text: '>=0.0.1 <1.0.0'
+  microsoft_kiota_serialization_form: '>=0.0.1 <1.0.0'
+  microsoft_kiota_serialization_json: '>=0.0.1 <1.0.0'
+  microsoft_kiota_serialization_multipart: '>=0.0.1 <1.0.0'
 
 dev_dependencies:
   strict: ^2.1.0
-  test: ^1.25.8
+  test: ^1.25.12
   mockito: ^5.4.4
   build_runner: any
   http: ^1.2.2
